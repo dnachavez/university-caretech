@@ -26,18 +26,19 @@ enum UserStatus {
 }
 
 model User {
-  id                String     @id @default(cuid())
+  id                String             @id @default(cuid())
   firstName         String
   lastName          String
-  username          String     @unique
-  email             String     @unique
+  username          String             @unique
+  email             String             @unique
   password          String
   role              UserRole
-  status            UserStatus @default(UNVERIFIED)
-  emailVerified     Boolean    @default(false)
+  status            UserStatus         @default(UNVERIFIED)
+  emailVerified     Boolean            @default(false)
   verificationToken String?
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
+  healthForm        StudentHealthForm?
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
 }
 
 model VerificationToken {
@@ -46,4 +47,50 @@ model VerificationToken {
   email     String
   expires   DateTime
   createdAt DateTime @default(now())
+}
+
+model StudentHealthForm {
+  id                   String   @id @default(cuid())
+  userId               String   @unique
+  user                 User     @relation(fields: [userId], references: [id])
+  lastName             String
+  firstName            String
+  middleInitial        String?
+  birthdate            DateTime
+  gender               String
+  birthPlace           String
+  addressLine1         String
+  addressLine2         String?
+  city                 String
+  state                String
+  postalCode           String
+  guardianName         String
+  guardianContact      String
+  emergencyContact     String
+  relationship         String
+  emergencyNumber      String
+  pastIllnesses        String?
+  hospitalization      String?
+  bloodType            String
+  allergies            Boolean  @default(false)
+  immunized            Boolean  @default(false)
+  communicableDisease  Boolean  @default(false)
+  asthmatic            Boolean  @default(false)
+  chronicIllness       Boolean  @default(false)
+  hiking               Boolean  @default(false)
+  dancing              Boolean  @default(false)
+  swimming             Boolean  @default(false)
+  basketball           Boolean  @default(false)
+  ballgames            Boolean  @default(false)
+  jogging              Boolean  @default(false)
+  football             Boolean  @default(false)
+  badminton            Boolean  @default(false)
+  calisthenics         Boolean  @default(false)
+  wallclimbing         Boolean  @default(false)
+  notFitActivities     String?
+  medicationPermission Boolean  @default(false)
+  signaturePath        String
+  dateSigned           DateTime @default(now())
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
 }

@@ -137,6 +137,51 @@ exports.Prisma.VerificationTokenScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.StudentHealthFormScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  lastName: 'lastName',
+  firstName: 'firstName',
+  middleInitial: 'middleInitial',
+  birthdate: 'birthdate',
+  gender: 'gender',
+  birthPlace: 'birthPlace',
+  addressLine1: 'addressLine1',
+  addressLine2: 'addressLine2',
+  city: 'city',
+  state: 'state',
+  postalCode: 'postalCode',
+  guardianName: 'guardianName',
+  guardianContact: 'guardianContact',
+  emergencyContact: 'emergencyContact',
+  relationship: 'relationship',
+  emergencyNumber: 'emergencyNumber',
+  pastIllnesses: 'pastIllnesses',
+  hospitalization: 'hospitalization',
+  bloodType: 'bloodType',
+  allergies: 'allergies',
+  immunized: 'immunized',
+  communicableDisease: 'communicableDisease',
+  asthmatic: 'asthmatic',
+  chronicIllness: 'chronicIllness',
+  hiking: 'hiking',
+  dancing: 'dancing',
+  swimming: 'swimming',
+  basketball: 'basketball',
+  ballgames: 'ballgames',
+  jogging: 'jogging',
+  football: 'football',
+  badminton: 'badminton',
+  calisthenics: 'calisthenics',
+  wallclimbing: 'wallclimbing',
+  notFitActivities: 'notFitActivities',
+  medicationPermission: 'medicationPermission',
+  signaturePath: 'signaturePath',
+  dateSigned: 'dateSigned',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -162,7 +207,8 @@ exports.UserStatus = exports.$Enums.UserStatus = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  VerificationToken: 'VerificationToken'
+  VerificationToken: 'VerificationToken',
+  StudentHealthForm: 'StudentHealthForm'
 };
 
 /**
