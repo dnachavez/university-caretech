@@ -5,14 +5,27 @@ import { SignInForm } from "@/features/auth/components/sign-in-form"
 import { SignUpForm } from "@/features/auth/components/sign-up-form"
 import { AuthLayout } from "@/features/auth/components/auth-layout"
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { useSearchParams } from "next/navigation"
 import { toast } from "sonner"
+import { useAuthStore } from "@/store/auth-store"
+import { AuthService } from "@/services/auth-service"
 
 export default function AuthPage() {
   const [activeTab, setActiveTab] = useState("signin")
   const searchParams = useSearchParams()
+  const router = useRouter()
+  const { user, isAuthenticated } = useAuthStore()
 
   useEffect(() => {
+    // If user is authenticated, redirect to appropriate dashboard
+    if (isAuthenticated && user) {
+      const dashboardPath = AuthService.getDashboardPathByRole(user.role)
+      router.push(dashboardPath)
+      return
+    }
+
+    // Handle verification params if not authenticated
     const verification = searchParams.get('verification')
     const role = searchParams.get('role')
 
@@ -30,7 +43,7 @@ export default function AuthPage() {
       )
       setActiveTab("signin")
     }
-  }, [searchParams])
+  }, [searchParams, isAuthenticated, user, router])
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab)
