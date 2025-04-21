@@ -3,6 +3,7 @@
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useAuthStore } from "@/store/auth-store"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 export default function StudentDashboard() {
   const { user, isAuthenticated } = useAuthStore()
@@ -26,13 +27,17 @@ export default function StudentDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f7f9fb] p-6">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-2xl font-bold text-[#166cbb] mb-6">Student Dashboard</h1>
-        <p className="text-[#5b6779]">
-          Welcome, {user.firstName}! This is the student dashboard placeholder.
-        </p>
-      </div>
+    <div className="max-w-7xl mx-auto">
+      <Card className="bg-white shadow-sm">
+        <CardHeader>
+          <CardTitle>Welcome, {user.firstName}!</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-muted-foreground">
+            This is the student dashboard. Content will be added soon.
+          </p>
+        </CardContent>
+      </Card>
     </div>
   )
 } 
