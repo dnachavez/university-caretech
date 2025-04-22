@@ -245,7 +245,7 @@ export default function StudentRecordsDetailPage({ params }: { params: { id: str
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-2">
               <div>
-                <span className="text-sm text-gray-500">Student Number:</span>
+                <span className="text-sm text-gray-500">Username:</span>
                 <p className="font-medium">{healthForm.user.username}</p>
               </div>
               <div>

@@ -8,7 +8,7 @@ import {
   Home, FileText, FolderOpen, 
   FileUp, TestTube, Syringe, LogOut, 
   ChevronLeft, ClipboardList, FileQuestion,
-  Users
+  Users, Calendar, Building, Stethoscope
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "./ui/button"
@@ -173,6 +173,9 @@ export function Sidebar() {
 
   // Check if user is faculty or staff
   const isFacultyOrStaff = user?.role === 'FACULTY' || user?.role === 'STAFF'
+  
+  // Check if user is admin
+  const isAdmin = user?.role === 'ADMIN'
 
   const handleSignOut = () => {
     logout()
@@ -196,6 +199,50 @@ export function Sidebar() {
           isCollapsed={isCollapsed}
         />
         
+        {/* Admin Users menu */}
+        {isAdmin && baseRoute === '/admin' && (
+          <NavItem 
+            href={`${baseRoute}/users`}
+            icon={<Users className="h-5 w-5 text-purple-600" />} 
+            label="Users" 
+            isActive={pathname.includes(`${baseRoute}/users`)} 
+            isCollapsed={isCollapsed}
+          />
+        )}
+        
+        {/* Admin Appointments menu */}
+        {isAdmin && baseRoute === '/admin' && (
+          <NavItem 
+            href={`${baseRoute}/appointments`}
+            icon={<Calendar className="h-5 w-5 text-blue-600" />} 
+            label="Appointments" 
+            isActive={pathname.includes(`${baseRoute}/appointments`)} 
+            isCollapsed={isCollapsed}
+          />
+        )}
+        
+        {/* Admin Departments menu */}
+        {isAdmin && baseRoute === '/admin' && (
+          <NavItem 
+            href={`${baseRoute}/departments`}
+            icon={<Building className="h-5 w-5 text-green-600" />} 
+            label="Departments" 
+            isActive={pathname.includes(`${baseRoute}/departments`)} 
+            isCollapsed={isCollapsed}
+          />
+        )}
+        
+        {/* Admin Medical Records menu */}
+        {isAdmin && baseRoute === '/admin' && (
+          <NavItem 
+            href={`${baseRoute}/medical-records`}
+            icon={<Stethoscope className="h-5 w-5 text-red-600" />} 
+            label="Medical Records" 
+            isActive={pathname.includes(`${baseRoute}/medical-records`)} 
+            isCollapsed={isCollapsed}
+          />
+        )}
+        
         {/* Student Records menu for faculty/staff only */}
         {isFacultyOrStaff && baseRoute === '/fs' && (
           <NavItem 
@@ -207,63 +254,80 @@ export function Sidebar() {
           />
         )}
         
-        <NavGroup 
-          icon={<FileText className="h-5 w-5 text-blue-600" />} 
-          label="My Forms" 
-          isCollapsed={isCollapsed}
-          defaultOpen={pathname.includes(`${baseRoute}/forms`)}
-        >
-          <SubNavItem 
-            href={`${baseRoute}/forms/new`}
-            icon={<FileUp className="h-4 w-4 text-blue-600" />}
-            label="New Form" 
-            isActive={pathname === `${baseRoute}/forms/new`} 
+        {/* Forms menu for students and faculty/staff */}
+        {(baseRoute === '/student' || baseRoute === '/fs') && (
+          <NavGroup 
+            icon={<FileText className="h-5 w-5 text-blue-600" />} 
+            label="My Forms" 
             isCollapsed={isCollapsed}
-          />
-          <SubNavItem 
-            href={`${baseRoute}/forms/upload`}
-            icon={<FileUp className="h-4 w-4 text-blue-600" />}
-            label="Scan and Upload Form" 
-            isActive={pathname === `${baseRoute}/forms/upload`} 
-            isCollapsed={isCollapsed}
-          />
-        </NavGroup>
+            defaultOpen={pathname.includes(`${baseRoute}/forms`)}
+          >
+            <SubNavItem 
+              href={`${baseRoute}/forms/new`}
+              icon={<FileUp className="h-4 w-4 text-blue-600" />}
+              label="New Form" 
+              isActive={pathname === `${baseRoute}/forms/new`} 
+              isCollapsed={isCollapsed}
+            />
+            <SubNavItem 
+              href={`${baseRoute}/forms/upload`}
+              icon={<FileUp className="h-4 w-4 text-blue-600" />}
+              label="Scan and Upload Form" 
+              isActive={pathname === `${baseRoute}/forms/upload`} 
+              isCollapsed={isCollapsed}
+            />
+          </NavGroup>
+        )}
         
-        <NavGroup 
-          icon={<FolderOpen className="h-5 w-5 text-blue-600" />} 
-          label="Medical Records" 
-          isCollapsed={isCollapsed}
-          defaultOpen={pathname.includes(`${baseRoute}/medical`)}
-        >
-          <SubNavItem 
-            href={`${baseRoute}/medical/history`}
-            icon={<ClipboardList className="h-4 w-4 text-blue-600" />}
-            label="Medical History" 
-            isActive={pathname === `${baseRoute}/medical/history`} 
+        {/* Medical Records menu for students and faculty/staff */}
+        {(baseRoute === '/student' || baseRoute === '/fs') && (
+          <NavGroup 
+            icon={<FolderOpen className="h-5 w-5 text-blue-600" />} 
+            label="Medical Records" 
+            isCollapsed={isCollapsed}
+            defaultOpen={pathname.includes(`${baseRoute}/medical`)}
+          >
+            <SubNavItem 
+              href={`${baseRoute}/medical/history`}
+              icon={<ClipboardList className="h-4 w-4 text-blue-600" />}
+              label="Medical History" 
+              isActive={pathname === `${baseRoute}/medical/history`} 
+              isCollapsed={isCollapsed}
+            />
+            <SubNavItem 
+              href={`${baseRoute}/medical/lab-results`}
+              icon={<TestTube className="h-4 w-4 text-blue-600" />}
+              label="Lab Results" 
+              isActive={pathname === `${baseRoute}/medical/lab-results`} 
+              isCollapsed={isCollapsed}
+            />
+            <SubNavItem 
+              href={`${baseRoute}/medical/immunization`}
+              icon={<Syringe className="h-4 w-4 text-blue-600" />}
+              label="Immunization" 
+              isActive={pathname === `${baseRoute}/medical/immunization`} 
+              isCollapsed={isCollapsed}
+            />
+            <SubNavItem 
+              href={`${baseRoute}/medical/others`}
+              icon={<FileQuestion className="h-4 w-4 text-blue-600" />}
+              label="Others" 
+              isActive={pathname === `${baseRoute}/medical/others`} 
+              isCollapsed={isCollapsed}
+            />
+          </NavGroup>
+        )}
+        
+        {/* Admin Clearance Requests menu */}
+        {isAdmin && baseRoute === '/admin' && (
+          <NavItem 
+            href={`${baseRoute}/clearance`}
+            icon={<FileText className="h-5 w-5 text-amber-600" />} 
+            label="Clearance Requests" 
+            isActive={pathname.includes(`${baseRoute}/clearance`)} 
             isCollapsed={isCollapsed}
           />
-          <SubNavItem 
-            href={`${baseRoute}/medical/lab-results`}
-            icon={<TestTube className="h-4 w-4 text-blue-600" />}
-            label="Lab Results" 
-            isActive={pathname === `${baseRoute}/medical/lab-results`} 
-            isCollapsed={isCollapsed}
-          />
-          <SubNavItem 
-            href={`${baseRoute}/medical/immunization`}
-            icon={<Syringe className="h-4 w-4 text-blue-600" />}
-            label="Immunization" 
-            isActive={pathname === `${baseRoute}/medical/immunization`} 
-            isCollapsed={isCollapsed}
-          />
-          <SubNavItem 
-            href={`${baseRoute}/medical/others`}
-            icon={<FileQuestion className="h-4 w-4 text-blue-600" />}
-            label="Others" 
-            isActive={pathname === `${baseRoute}/medical/others`} 
-            isCollapsed={isCollapsed}
-          />
-        </NavGroup>
+        )}
       </div>
       
       <div className="p-2">

@@ -171,7 +171,7 @@ export default function StudentHealthFormPage({ params }: { params: { id: string
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <span className="text-sm text-gray-500">Student Number:</span>
+                <span className="text-sm text-gray-500">Username:</span>
                 <p className="font-medium">{student.studentNumber}</p>
               </div>
               <div>
