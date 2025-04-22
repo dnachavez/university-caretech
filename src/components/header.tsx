@@ -86,6 +86,25 @@ export function Header() {
     return (nameParts[0].charAt(0) + nameParts[nameParts.length - 1].charAt(0)).toUpperCase()
   }
 
+  // Get profile path based on user role
+  const getProfilePath = () => {
+    if (!user || !user.role) return "/student/profile";
+    
+    // Convert role to uppercase for consistent comparison
+    const role = user.role.toUpperCase();
+    
+    switch (role) {
+      case "ADMIN":
+        return "/admin/profile";
+      case "FACULTY":
+      case "STAFF":
+        return "/fs/profile";
+      case "STUDENT":
+      default:
+        return "/student/profile";
+    }
+  };
+
   return (
     <header className="bg-white border-b border-gray-200 h-16 flex items-center px-6 sticky top-0 z-10">
       <div className="flex items-center flex-1">
@@ -195,7 +214,7 @@ export function Header() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-[200px]">
-            <Link href="/student/profile">
+            <Link href={getProfilePath()}>
               <DropdownMenuItem>
                 <Edit className="mr-2 h-4 w-4" />
                 <span className="text-slate-700">Edit Profile</span>
