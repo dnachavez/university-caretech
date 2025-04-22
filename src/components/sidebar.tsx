@@ -7,7 +7,7 @@ import {
   ChevronDown, ChevronRight, 
   Home, FileText, FolderOpen, 
   FileUp, TestTube, Syringe, LogOut, 
-  ChevronLeft, ClipboardList
+  ChevronLeft, ClipboardList, FileQuestion
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "./ui/button"
@@ -221,6 +221,13 @@ export function Sidebar() {
             icon={<Syringe className="h-4 w-4 text-blue-600" />}
             label="Immunization" 
             isActive={pathname === "/student/medical/immunization"} 
+            isCollapsed={isCollapsed}
+          />
+          <SubNavItem 
+            href="/student/medical/others" 
+            icon={<FileQuestion className="h-4 w-4 text-blue-600" />}
+            label="Others" 
+            isActive={pathname === "/student/medical/others"} 
             isCollapsed={isCollapsed}
           />
         </NavGroup>

@@ -1,4 +1,5 @@
 import { CapturedImage } from "@/features/health/types/form-types"
+import { MedicalRecord } from "@/features/medical/types/record-types"
 
 export function generateUniqueId(): string {
   return Date.now().toString() + Math.random().toString(36).substring(2, 9)
@@ -123,4 +124,23 @@ export async function filesToCapturedImages(files: FileList): Promise<CapturedIm
   }
   
   return images
+}
+
+/**
+ * Opens a file in a new tab for viewing
+ */
+export function viewFile(record: MedicalRecord): void {
+  window.open(record.filePath, '_blank');
+}
+
+/**
+ * Downloads a file to the user's device
+ */
+export function downloadFile(record: MedicalRecord, prefix: string = 'Record'): void {
+  const link = document.createElement('a');
+  link.href = record.filePath;
+  link.download = `${prefix}_${record.id}.pdf`;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 } 
