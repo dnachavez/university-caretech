@@ -25,7 +25,8 @@ export async function PATCH(
     const updatedUser = await prisma.user.update({
       where: { id: userId },
       data: {
-        status: "PENDING", // Set status back to PENDING
+        // Set appropriate status based on role
+        status: (user.role === 'FACULTY' || user.role === 'STAFF') ? "PENDING_APPROVAL" : "PENDING",
       },
       select: {
         id: true,

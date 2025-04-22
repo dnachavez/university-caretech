@@ -150,7 +150,7 @@ export default function UsersPage() {
         // Filter pending users that are faculty or staff
         setPendingUsers(data.users.filter((user: User) => 
           (user.role === 'FACULTY' || user.role === 'STAFF') && 
-          user.status === 'PENDING'))
+          user.status === 'PENDING_APPROVAL'))
       }
     } catch (error) {
       console.error("Error fetching users:", error)
@@ -179,6 +179,8 @@ export default function UsersPage() {
         return <Badge className="bg-green-100 text-green-800 hover:bg-green-200">Active</Badge>
       case 'PENDING':
         return <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200">Pending</Badge>
+      case 'PENDING_APPROVAL':
+        return <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200">Pending Approval</Badge>
       case 'SUSPENDED':
         return <Badge className="bg-red-100 text-red-800 hover:bg-red-200">Suspended</Badge>
       case 'REJECTED':
@@ -602,7 +604,7 @@ export default function UsersPage() {
               
               <TabsContent value="pending">
                 <UserTable 
-                  users={filteredUsers.filter(user => user.status === 'PENDING')}
+                  users={filteredUsers.filter(user => user.status === 'PENDING_APPROVAL')}
                   getStatusBadge={getStatusBadge}
                   getRoleBadge={getRoleBadge}
                   onViewDetails={handleViewDetails}
@@ -1007,7 +1009,7 @@ function UserTable({
                         </DropdownMenuItem>
                         
                         {/* Only show approve option if user is PENDING */}
-                        {user.status === 'PENDING' && (
+                        {user.status === 'PENDING_APPROVAL' && (
                           <DropdownMenuItem 
                             onClick={() => onApprove(user.id)}
                             className="text-green-600"
@@ -1029,7 +1031,7 @@ function UserTable({
                         )}
                         
                         {/* Only show reject option if user is PENDING or ACTIVE */}
-                        {(user.status === 'PENDING' || user.status === 'ACTIVE') && (
+                        {(user.status === 'PENDING_APPROVAL' || user.status === 'ACTIVE') && (
                           <DropdownMenuItem 
                             onClick={() => onReject(user.id)}
                             className="text-red-600"

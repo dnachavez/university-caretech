@@ -1,28 +1,13 @@
 "use client"
 
-import { useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { useAuthStore } from "@/store/auth-store"
 import { Card, CardContent } from "@/components/ui/card"
 import { Calendar, FileText, ChevronRight } from "lucide-react"
 import Link from "next/link"
+import { useProtectedFsRoute } from "@/hooks/useProtectedFsRoute"
 
 export default function FacultyStaffDashboard() {
-  const { user, isAuthenticated } = useAuthStore()
-  const router = useRouter()
-  
-  // Protect this route
-  useEffect(() => {
-    if (!isAuthenticated || !user) {
-      router.push('/auth')
-      return
-    }
-    
-    // Verify this is a faculty or staff
-    if (user.role !== 'FACULTY' && user.role !== 'STAFF') {
-      router.push(user.role === 'STUDENT' ? '/student/dashboard' : '/admin/dashboard')
-    }
-  }, [isAuthenticated, user, router])
+  const { user, isAuthenticated } = useProtectedFsRoute()
   
   if (!isAuthenticated || !user) {
     return null // Don't render anything while checking auth
