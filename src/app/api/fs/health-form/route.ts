@@ -1,6 +1,54 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
+export async function GET(req: NextRequest) {
+  try {
+    const url = new URL(req.url)
+    const userId = url.searchParams.get('userId')
+    
+    if (!userId) {
+      return NextResponse.json({ error: 'User ID is required' }, { status: 400 })
+    }
+    
+    // Check if user exists
+    const user = await prisma.user.findUnique({
+      where: { id: userId }
+    })
+    
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 })
+    }
+    
+    // Check if user is faculty or staff
+    if (user.role !== 'FACULTY' && user.role !== 'STAFF') {
+      return NextResponse.json({ error: 'User is not a faculty or staff member' }, { status: 403 })
+    }
+    
+    // Check if health form exists for this user
+    const healthForm = await prisma.userHealthForm.findUnique({
+      where: { userId }
+    })
+    
+    if (!healthForm) {
+      return NextResponse.json({ 
+        success: true, 
+        exists: false,
+        message: 'No health form found for this user' 
+      })
+    }
+    
+    return NextResponse.json({
+      success: true,
+      exists: true,
+      healthForm
+    })
+    
+  } catch (error) {
+    console.error('Error fetching health form:', error)
+    return NextResponse.json({ error: 'Failed to retrieve health form' }, { status: 500 })
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
@@ -57,6 +105,11 @@ export async function POST(req: NextRequest) {
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 })
+    }
+    
+    // Check if user is faculty or staff
+    if (user.role !== 'FACULTY' && user.role !== 'STAFF') {
+      return NextResponse.json({ error: 'User is not a faculty or staff member' }, { status: 403 })
     }
 
     // Check if health form already exists for this user
@@ -163,37 +216,5 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error("Health form submission error:", error)
     return NextResponse.json({ error: "Failed to save health form" }, { status: 500 })
-  }
-}
-
-export async function GET(req: NextRequest) {
-  try {
-    const url = new URL(req.url)
-    const userId = url.searchParams.get('userId')
-
-    if (!userId) {
-      return NextResponse.json({ error: "User ID is required" }, { status: 400 })
-    }
-
-    // Find the health form for the user
-    const healthForm = await prisma.userHealthForm.findUnique({
-      where: { userId }
-    })
-
-    if (!healthForm) {
-      return NextResponse.json({ 
-        success: true, 
-        exists: false 
-      })
-    }
-
-    return NextResponse.json({
-      success: true,
-      exists: true,
-      healthForm
-    })
-  } catch (error) {
-    console.error("Health form retrieval error:", error)
-    return NextResponse.json({ error: "Failed to retrieve health form" }, { status: 500 })
   }
 } 

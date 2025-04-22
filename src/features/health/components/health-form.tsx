@@ -66,7 +66,12 @@ interface FormData {
   medicationPermission: boolean
 }
 
-export function HealthForm() {
+interface HealthFormProps {
+  baseUrl?: string;
+  userType?: string;
+}
+
+export function HealthForm({ baseUrl = "/student", userType = "student" }: HealthFormProps) {
   const { user, isAuthenticated } = useAuthStore()
   const userId = user?.id
   const [currentStep, setCurrentStep] = useState(0)
@@ -151,7 +156,9 @@ export function HealthForm() {
   const fetchHealthFormData = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch(`/api/student/health-form?userId=${userId}`)
+      // Use the appropriate API endpoint based on userType
+      const endpoint = userType === 'student' ? '/api/student/health-form' : '/api/fs/health-form';
+      const response = await fetch(`${endpoint}?userId=${userId}`)
       const data = await response.json()
 
       if (data.success && data.exists) {
@@ -345,7 +352,9 @@ export function HealthForm() {
     setIsUploadingSignature(true)
     
     try {
-      const response = await fetch('/api/student/signature-upload', {
+      // Use the appropriate API endpoint based on userType
+      const endpoint = userType === 'student' ? '/api/student/signature-upload' : '/api/fs/signature-upload';
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -409,8 +418,9 @@ export function HealthForm() {
         return
       }
       
-      // Send form data to API
-      const response = await fetch('/api/student/health-form', {
+      // Send form data to API - use the appropriate endpoint based on userType
+      const endpoint = userType === 'student' ? '/api/student/health-form' : '/api/fs/health-form';
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -475,21 +485,24 @@ export function HealthForm() {
     }
   }
   
+  // Update the title based on userType
+  const formTitle = userType === 'student' ? 'Student Health Form' : 'Faculty/Staff Health Form';
+  
   return (
     <div className="max-w-7xl mx-auto">
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-gray-700">Student Health Form</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-gray-700">{formTitle}</h1>
           <p className="text-gray-500">
             Please complete all sections of this form to provide important health information
           </p>
         </div>
         <nav className="flex items-center text-sm text-gray-500">
-          <Link href="/student/dashboard" className="hover:text-blue-600">
+          <Link href={`${baseUrl}/dashboard`} className="hover:text-blue-600">
             Dashboard
           </Link>
           <ChevronRight className="h-4 w-4 mx-1" />
-          <Link href="/student/forms" className="hover:text-blue-600">
+          <Link href={`${baseUrl}/forms`} className="hover:text-blue-600">
             My Forms
           </Link>
           <ChevronRight className="h-4 w-4 mx-1" />

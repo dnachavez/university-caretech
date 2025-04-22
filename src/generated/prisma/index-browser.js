@@ -137,7 +137,7 @@ exports.Prisma.VerificationTokenScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.StudentHealthFormScalarFieldEnum = {
+exports.Prisma.UserHealthFormScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   lastName: 'lastName',
@@ -156,9 +156,12 @@ exports.Prisma.StudentHealthFormScalarFieldEnum = {
   emergencyContact: 'emergencyContact',
   relationship: 'relationship',
   emergencyNumber: 'emergencyNumber',
+  bloodType: 'bloodType',
+  signaturePath: 'signaturePath',
+  dateSigned: 'dateSigned',
   pastIllnesses: 'pastIllnesses',
   hospitalization: 'hospitalization',
-  bloodType: 'bloodType',
+  medications: 'medications',
   allergies: 'allergies',
   immunized: 'immunized',
   communicableDisease: 'communicableDisease',
@@ -175,11 +178,7 @@ exports.Prisma.StudentHealthFormScalarFieldEnum = {
   calisthenics: 'calisthenics',
   wallclimbing: 'wallclimbing',
   notFitActivities: 'notFitActivities',
-  medicationPermission: 'medicationPermission',
-  signaturePath: 'signaturePath',
-  dateSigned: 'dateSigned',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
+  medicationPermission: 'medicationPermission'
 };
 
 exports.Prisma.UploadedFormScalarFieldEnum = {
@@ -260,7 +259,7 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   User: 'User',
   VerificationToken: 'VerificationToken',
-  StudentHealthForm: 'StudentHealthForm',
+  UserHealthForm: 'UserHealthForm',
   UploadedForm: 'UploadedForm',
   ConsultationDate: 'ConsultationDate',
   TimeSlot: 'TimeSlot',

@@ -22,7 +22,43 @@ async function main() {
     }
   })
 
-  console.log('Created users:', { admin: adminUser.id })
+  // Create faculty user
+  const facultyUser = await prisma.user.upsert({
+    where: { email: 'faculty@university.edu' },
+    update: {},
+    create: {
+      firstName: 'Juan',
+      lastName: 'Dela Cruz',
+      username: 'jdelacruz',
+      email: 'faculty@university.edu',
+      password: await hash('password123', 10),
+      role: 'FACULTY',
+      status: 'ACTIVE',
+      emailVerified: true
+    }
+  })
+
+  // Create staff user
+  const staffUser = await prisma.user.upsert({
+    where: { email: 'staff@university.edu' },
+    update: {},
+    create: {
+      firstName: 'Maria',
+      lastName: 'Santos',
+      username: 'msantos',
+      email: 'staff@university.edu',
+      password: await hash('password123', 10),
+      role: 'STAFF',
+      status: 'ACTIVE',
+      emailVerified: true
+    }
+  })
+
+  console.log('Created users:', { 
+    admin: adminUser.id,
+    faculty: facultyUser.id,
+    staff: staffUser.id
+  })
 
   // Create consultation dates with time slots
   // Today

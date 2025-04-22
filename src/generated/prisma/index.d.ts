@@ -24,10 +24,10 @@ export type User = $Result.DefaultSelection<Prisma.$UserPayload>
  */
 export type VerificationToken = $Result.DefaultSelection<Prisma.$VerificationTokenPayload>
 /**
- * Model StudentHealthForm
+ * Model UserHealthForm
  * 
  */
-export type StudentHealthForm = $Result.DefaultSelection<Prisma.$StudentHealthFormPayload>
+export type UserHealthForm = $Result.DefaultSelection<Prisma.$UserHealthFormPayload>
 /**
  * Model UploadedForm
  * 
@@ -205,14 +205,14 @@ export class PrismaClient<
   get verificationToken(): Prisma.VerificationTokenDelegate<ExtArgs, ClientOptions>;
 
   /**
-   * `prisma.studentHealthForm`: Exposes CRUD operations for the **StudentHealthForm** model.
+   * `prisma.userHealthForm`: Exposes CRUD operations for the **UserHealthForm** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more StudentHealthForms
-    * const studentHealthForms = await prisma.studentHealthForm.findMany()
+    * // Fetch zero or more UserHealthForms
+    * const userHealthForms = await prisma.userHealthForm.findMany()
     * ```
     */
-  get studentHealthForm(): Prisma.StudentHealthFormDelegate<ExtArgs, ClientOptions>;
+  get userHealthForm(): Prisma.UserHealthFormDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.uploadedForm`: Exposes CRUD operations for the **UploadedForm** model.
@@ -715,7 +715,7 @@ export namespace Prisma {
   export const ModelName: {
     User: 'User',
     VerificationToken: 'VerificationToken',
-    StudentHealthForm: 'StudentHealthForm',
+    UserHealthForm: 'UserHealthForm',
     UploadedForm: 'UploadedForm',
     ConsultationDate: 'ConsultationDate',
     TimeSlot: 'TimeSlot',
@@ -740,7 +740,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "verificationToken" | "studentHealthForm" | "uploadedForm" | "consultationDate" | "timeSlot" | "appointment" | "department" | "clearanceRequest"
+      modelProps: "user" | "verificationToken" | "userHealthForm" | "uploadedForm" | "consultationDate" | "timeSlot" | "appointment" | "department" | "clearanceRequest"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -892,77 +892,77 @@ export namespace Prisma {
           }
         }
       }
-      StudentHealthForm: {
-        payload: Prisma.$StudentHealthFormPayload<ExtArgs>
-        fields: Prisma.StudentHealthFormFieldRefs
+      UserHealthForm: {
+        payload: Prisma.$UserHealthFormPayload<ExtArgs>
+        fields: Prisma.UserHealthFormFieldRefs
         operations: {
           findUnique: {
-            args: Prisma.StudentHealthFormFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StudentHealthFormPayload> | null
+            args: Prisma.UserHealthFormFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserHealthFormPayload> | null
           }
           findUniqueOrThrow: {
-            args: Prisma.StudentHealthFormFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StudentHealthFormPayload>
+            args: Prisma.UserHealthFormFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserHealthFormPayload>
           }
           findFirst: {
-            args: Prisma.StudentHealthFormFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StudentHealthFormPayload> | null
+            args: Prisma.UserHealthFormFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserHealthFormPayload> | null
           }
           findFirstOrThrow: {
-            args: Prisma.StudentHealthFormFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StudentHealthFormPayload>
+            args: Prisma.UserHealthFormFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserHealthFormPayload>
           }
           findMany: {
-            args: Prisma.StudentHealthFormFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StudentHealthFormPayload>[]
+            args: Prisma.UserHealthFormFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserHealthFormPayload>[]
           }
           create: {
-            args: Prisma.StudentHealthFormCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StudentHealthFormPayload>
+            args: Prisma.UserHealthFormCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserHealthFormPayload>
           }
           createMany: {
-            args: Prisma.StudentHealthFormCreateManyArgs<ExtArgs>
+            args: Prisma.UserHealthFormCreateManyArgs<ExtArgs>
             result: BatchPayload
           }
           createManyAndReturn: {
-            args: Prisma.StudentHealthFormCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StudentHealthFormPayload>[]
+            args: Prisma.UserHealthFormCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserHealthFormPayload>[]
           }
           delete: {
-            args: Prisma.StudentHealthFormDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StudentHealthFormPayload>
+            args: Prisma.UserHealthFormDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserHealthFormPayload>
           }
           update: {
-            args: Prisma.StudentHealthFormUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StudentHealthFormPayload>
+            args: Prisma.UserHealthFormUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserHealthFormPayload>
           }
           deleteMany: {
-            args: Prisma.StudentHealthFormDeleteManyArgs<ExtArgs>
+            args: Prisma.UserHealthFormDeleteManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateMany: {
-            args: Prisma.StudentHealthFormUpdateManyArgs<ExtArgs>
+            args: Prisma.UserHealthFormUpdateManyArgs<ExtArgs>
             result: BatchPayload
           }
           updateManyAndReturn: {
-            args: Prisma.StudentHealthFormUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StudentHealthFormPayload>[]
+            args: Prisma.UserHealthFormUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserHealthFormPayload>[]
           }
           upsert: {
-            args: Prisma.StudentHealthFormUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$StudentHealthFormPayload>
+            args: Prisma.UserHealthFormUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserHealthFormPayload>
           }
           aggregate: {
-            args: Prisma.StudentHealthFormAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregateStudentHealthForm>
+            args: Prisma.UserHealthFormAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserHealthForm>
           }
           groupBy: {
-            args: Prisma.StudentHealthFormGroupByArgs<ExtArgs>
-            result: $Utils.Optional<StudentHealthFormGroupByOutputType>[]
+            args: Prisma.UserHealthFormGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserHealthFormGroupByOutputType>[]
           }
           count: {
-            args: Prisma.StudentHealthFormCountArgs<ExtArgs>
-            result: $Utils.Optional<StudentHealthFormCountAggregateOutputType> | number
+            args: Prisma.UserHealthFormCountArgs<ExtArgs>
+            result: $Utils.Optional<UserHealthFormCountAggregateOutputType> | number
           }
         }
       }
@@ -1496,7 +1496,7 @@ export namespace Prisma {
   export type GlobalOmitConfig = {
     user?: UserOmit
     verificationToken?: VerificationTokenOmit
-    studentHealthForm?: StudentHealthFormOmit
+    userHealthForm?: UserHealthFormOmit
     uploadedForm?: UploadedFormOmit
     consultationDate?: ConsultationDateOmit
     timeSlot?: TimeSlotOmit
@@ -1993,7 +1993,7 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      healthForm: Prisma.$StudentHealthFormPayload<ExtArgs> | null
+      healthForm: Prisma.$UserHealthFormPayload<ExtArgs> | null
       uploadedForms: Prisma.$UploadedFormPayload<ExtArgs>[]
       appointments: Prisma.$AppointmentPayload<ExtArgs>[]
       clearanceRequests: Prisma.$ClearanceRequestPayload<ExtArgs>[]
@@ -2405,7 +2405,7 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    healthForm<T extends User$healthFormArgs<ExtArgs> = {}>(args?: Subset<T, User$healthFormArgs<ExtArgs>>): Prisma__StudentHealthFormClient<$Result.GetResult<Prisma.$StudentHealthFormPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    healthForm<T extends User$healthFormArgs<ExtArgs> = {}>(args?: Subset<T, User$healthFormArgs<ExtArgs>>): Prisma__UserHealthFormClient<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     uploadedForms<T extends User$uploadedFormsArgs<ExtArgs> = {}>(args?: Subset<T, User$uploadedFormsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UploadedFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     appointments<T extends User$appointmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     clearanceRequests<T extends User$clearanceRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$clearanceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -2840,18 +2840,18 @@ export namespace Prisma {
    */
   export type User$healthFormArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StudentHealthForm
+     * Select specific fields to fetch from the UserHealthForm
      */
-    select?: StudentHealthFormSelect<ExtArgs> | null
+    select?: UserHealthFormSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StudentHealthForm
+     * Omit specific fields from the UserHealthForm
      */
-    omit?: StudentHealthFormOmit<ExtArgs> | null
+    omit?: UserHealthFormOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StudentHealthFormInclude<ExtArgs> | null
-    where?: StudentHealthFormWhereInput
+    include?: UserHealthFormInclude<ExtArgs> | null
+    where?: UserHealthFormWhereInput
   }
 
   /**
@@ -3939,16 +3939,16 @@ export namespace Prisma {
 
 
   /**
-   * Model StudentHealthForm
+   * Model UserHealthForm
    */
 
-  export type AggregateStudentHealthForm = {
-    _count: StudentHealthFormCountAggregateOutputType | null
-    _min: StudentHealthFormMinAggregateOutputType | null
-    _max: StudentHealthFormMaxAggregateOutputType | null
+  export type AggregateUserHealthForm = {
+    _count: UserHealthFormCountAggregateOutputType | null
+    _min: UserHealthFormMinAggregateOutputType | null
+    _max: UserHealthFormMaxAggregateOutputType | null
   }
 
-  export type StudentHealthFormMinAggregateOutputType = {
+  export type UserHealthFormMinAggregateOutputType = {
     id: string | null
     userId: string | null
     lastName: string | null
@@ -3967,9 +3967,12 @@ export namespace Prisma {
     emergencyContact: string | null
     relationship: string | null
     emergencyNumber: string | null
+    bloodType: string | null
+    signaturePath: string | null
+    dateSigned: Date | null
     pastIllnesses: string | null
     hospitalization: string | null
-    bloodType: string | null
+    medications: string | null
     allergies: boolean | null
     immunized: boolean | null
     communicableDisease: boolean | null
@@ -3987,13 +3990,9 @@ export namespace Prisma {
     wallclimbing: boolean | null
     notFitActivities: string | null
     medicationPermission: boolean | null
-    signaturePath: string | null
-    dateSigned: Date | null
-    createdAt: Date | null
-    updatedAt: Date | null
   }
 
-  export type StudentHealthFormMaxAggregateOutputType = {
+  export type UserHealthFormMaxAggregateOutputType = {
     id: string | null
     userId: string | null
     lastName: string | null
@@ -4012,9 +4011,12 @@ export namespace Prisma {
     emergencyContact: string | null
     relationship: string | null
     emergencyNumber: string | null
+    bloodType: string | null
+    signaturePath: string | null
+    dateSigned: Date | null
     pastIllnesses: string | null
     hospitalization: string | null
-    bloodType: string | null
+    medications: string | null
     allergies: boolean | null
     immunized: boolean | null
     communicableDisease: boolean | null
@@ -4032,13 +4034,9 @@ export namespace Prisma {
     wallclimbing: boolean | null
     notFitActivities: string | null
     medicationPermission: boolean | null
-    signaturePath: string | null
-    dateSigned: Date | null
-    createdAt: Date | null
-    updatedAt: Date | null
   }
 
-  export type StudentHealthFormCountAggregateOutputType = {
+  export type UserHealthFormCountAggregateOutputType = {
     id: number
     userId: number
     lastName: number
@@ -4057,9 +4055,12 @@ export namespace Prisma {
     emergencyContact: number
     relationship: number
     emergencyNumber: number
+    bloodType: number
+    signaturePath: number
+    dateSigned: number
     pastIllnesses: number
     hospitalization: number
-    bloodType: number
+    medications: number
     allergies: number
     immunized: number
     communicableDisease: number
@@ -4077,15 +4078,11 @@ export namespace Prisma {
     wallclimbing: number
     notFitActivities: number
     medicationPermission: number
-    signaturePath: number
-    dateSigned: number
-    createdAt: number
-    updatedAt: number
     _all: number
   }
 
 
-  export type StudentHealthFormMinAggregateInputType = {
+  export type UserHealthFormMinAggregateInputType = {
     id?: true
     userId?: true
     lastName?: true
@@ -4104,9 +4101,12 @@ export namespace Prisma {
     emergencyContact?: true
     relationship?: true
     emergencyNumber?: true
+    bloodType?: true
+    signaturePath?: true
+    dateSigned?: true
     pastIllnesses?: true
     hospitalization?: true
-    bloodType?: true
+    medications?: true
     allergies?: true
     immunized?: true
     communicableDisease?: true
@@ -4124,13 +4124,9 @@ export namespace Prisma {
     wallclimbing?: true
     notFitActivities?: true
     medicationPermission?: true
-    signaturePath?: true
-    dateSigned?: true
-    createdAt?: true
-    updatedAt?: true
   }
 
-  export type StudentHealthFormMaxAggregateInputType = {
+  export type UserHealthFormMaxAggregateInputType = {
     id?: true
     userId?: true
     lastName?: true
@@ -4149,9 +4145,12 @@ export namespace Prisma {
     emergencyContact?: true
     relationship?: true
     emergencyNumber?: true
+    bloodType?: true
+    signaturePath?: true
+    dateSigned?: true
     pastIllnesses?: true
     hospitalization?: true
-    bloodType?: true
+    medications?: true
     allergies?: true
     immunized?: true
     communicableDisease?: true
@@ -4169,13 +4168,9 @@ export namespace Prisma {
     wallclimbing?: true
     notFitActivities?: true
     medicationPermission?: true
-    signaturePath?: true
-    dateSigned?: true
-    createdAt?: true
-    updatedAt?: true
   }
 
-  export type StudentHealthFormCountAggregateInputType = {
+  export type UserHealthFormCountAggregateInputType = {
     id?: true
     userId?: true
     lastName?: true
@@ -4194,9 +4189,12 @@ export namespace Prisma {
     emergencyContact?: true
     relationship?: true
     emergencyNumber?: true
+    bloodType?: true
+    signaturePath?: true
+    dateSigned?: true
     pastIllnesses?: true
     hospitalization?: true
-    bloodType?: true
+    medications?: true
     allergies?: true
     immunized?: true
     communicableDisease?: true
@@ -4214,86 +4212,82 @@ export namespace Prisma {
     wallclimbing?: true
     notFitActivities?: true
     medicationPermission?: true
-    signaturePath?: true
-    dateSigned?: true
-    createdAt?: true
-    updatedAt?: true
     _all?: true
   }
 
-  export type StudentHealthFormAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which StudentHealthForm to aggregate.
+     * Filter which UserHealthForm to aggregate.
      */
-    where?: StudentHealthFormWhereInput
+    where?: UserHealthFormWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of StudentHealthForms to fetch.
+     * Determine the order of UserHealthForms to fetch.
      */
-    orderBy?: StudentHealthFormOrderByWithRelationInput | StudentHealthFormOrderByWithRelationInput[]
+    orderBy?: UserHealthFormOrderByWithRelationInput | UserHealthFormOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
      * Sets the start position
      */
-    cursor?: StudentHealthFormWhereUniqueInput
+    cursor?: UserHealthFormWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` StudentHealthForms from the position of the cursor.
+     * Take `±n` UserHealthForms from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` StudentHealthForms.
+     * Skip the first `n` UserHealthForms.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Count returned StudentHealthForms
+     * Count returned UserHealthForms
     **/
-    _count?: true | StudentHealthFormCountAggregateInputType
+    _count?: true | UserHealthFormCountAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the minimum value
     **/
-    _min?: StudentHealthFormMinAggregateInputType
+    _min?: UserHealthFormMinAggregateInputType
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
      * Select which fields to find the maximum value
     **/
-    _max?: StudentHealthFormMaxAggregateInputType
+    _max?: UserHealthFormMaxAggregateInputType
   }
 
-  export type GetStudentHealthFormAggregateType<T extends StudentHealthFormAggregateArgs> = {
-        [P in keyof T & keyof AggregateStudentHealthForm]: P extends '_count' | 'count'
+  export type GetUserHealthFormAggregateType<T extends UserHealthFormAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserHealthForm]: P extends '_count' | 'count'
       ? T[P] extends true
         ? number
-        : GetScalarType<T[P], AggregateStudentHealthForm[P]>
-      : GetScalarType<T[P], AggregateStudentHealthForm[P]>
+        : GetScalarType<T[P], AggregateUserHealthForm[P]>
+      : GetScalarType<T[P], AggregateUserHealthForm[P]>
   }
 
 
 
 
-  export type StudentHealthFormGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: StudentHealthFormWhereInput
-    orderBy?: StudentHealthFormOrderByWithAggregationInput | StudentHealthFormOrderByWithAggregationInput[]
-    by: StudentHealthFormScalarFieldEnum[] | StudentHealthFormScalarFieldEnum
-    having?: StudentHealthFormScalarWhereWithAggregatesInput
+  export type UserHealthFormGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserHealthFormWhereInput
+    orderBy?: UserHealthFormOrderByWithAggregationInput | UserHealthFormOrderByWithAggregationInput[]
+    by: UserHealthFormScalarFieldEnum[] | UserHealthFormScalarFieldEnum
+    having?: UserHealthFormScalarWhereWithAggregatesInput
     take?: number
     skip?: number
-    _count?: StudentHealthFormCountAggregateInputType | true
-    _min?: StudentHealthFormMinAggregateInputType
-    _max?: StudentHealthFormMaxAggregateInputType
+    _count?: UserHealthFormCountAggregateInputType | true
+    _min?: UserHealthFormMinAggregateInputType
+    _max?: UserHealthFormMaxAggregateInputType
   }
 
-  export type StudentHealthFormGroupByOutputType = {
+  export type UserHealthFormGroupByOutputType = {
     id: string
     userId: string
     lastName: string
@@ -4307,14 +4301,17 @@ export namespace Prisma {
     city: string
     state: string
     postalCode: string
-    guardianName: string
-    guardianContact: string
+    guardianName: string | null
+    guardianContact: string | null
     emergencyContact: string
     relationship: string
     emergencyNumber: string
+    bloodType: string | null
+    signaturePath: string
+    dateSigned: Date
     pastIllnesses: string | null
     hospitalization: string | null
-    bloodType: string
+    medications: string | null
     allergies: boolean
     immunized: boolean
     communicableDisease: boolean
@@ -4332,30 +4329,26 @@ export namespace Prisma {
     wallclimbing: boolean
     notFitActivities: string | null
     medicationPermission: boolean
-    signaturePath: string
-    dateSigned: Date
-    createdAt: Date
-    updatedAt: Date
-    _count: StudentHealthFormCountAggregateOutputType | null
-    _min: StudentHealthFormMinAggregateOutputType | null
-    _max: StudentHealthFormMaxAggregateOutputType | null
+    _count: UserHealthFormCountAggregateOutputType | null
+    _min: UserHealthFormMinAggregateOutputType | null
+    _max: UserHealthFormMaxAggregateOutputType | null
   }
 
-  type GetStudentHealthFormGroupByPayload<T extends StudentHealthFormGroupByArgs> = Prisma.PrismaPromise<
+  type GetUserHealthFormGroupByPayload<T extends UserHealthFormGroupByArgs> = Prisma.PrismaPromise<
     Array<
-      PickEnumerable<StudentHealthFormGroupByOutputType, T['by']> &
+      PickEnumerable<UserHealthFormGroupByOutputType, T['by']> &
         {
-          [P in ((keyof T) & (keyof StudentHealthFormGroupByOutputType))]: P extends '_count'
+          [P in ((keyof T) & (keyof UserHealthFormGroupByOutputType))]: P extends '_count'
             ? T[P] extends boolean
               ? number
-              : GetScalarType<T[P], StudentHealthFormGroupByOutputType[P]>
-            : GetScalarType<T[P], StudentHealthFormGroupByOutputType[P]>
+              : GetScalarType<T[P], UserHealthFormGroupByOutputType[P]>
+            : GetScalarType<T[P], UserHealthFormGroupByOutputType[P]>
         }
       >
     >
 
 
-  export type StudentHealthFormSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserHealthFormSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     lastName?: boolean
@@ -4374,9 +4367,12 @@ export namespace Prisma {
     emergencyContact?: boolean
     relationship?: boolean
     emergencyNumber?: boolean
+    bloodType?: boolean
+    signaturePath?: boolean
+    dateSigned?: boolean
     pastIllnesses?: boolean
     hospitalization?: boolean
-    bloodType?: boolean
+    medications?: boolean
     allergies?: boolean
     immunized?: boolean
     communicableDisease?: boolean
@@ -4394,14 +4390,10 @@ export namespace Prisma {
     wallclimbing?: boolean
     notFitActivities?: boolean
     medicationPermission?: boolean
-    signaturePath?: boolean
-    dateSigned?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["studentHealthForm"]>
+  }, ExtArgs["result"]["userHealthForm"]>
 
-  export type StudentHealthFormSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserHealthFormSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     lastName?: boolean
@@ -4420,9 +4412,12 @@ export namespace Prisma {
     emergencyContact?: boolean
     relationship?: boolean
     emergencyNumber?: boolean
+    bloodType?: boolean
+    signaturePath?: boolean
+    dateSigned?: boolean
     pastIllnesses?: boolean
     hospitalization?: boolean
-    bloodType?: boolean
+    medications?: boolean
     allergies?: boolean
     immunized?: boolean
     communicableDisease?: boolean
@@ -4440,14 +4435,10 @@ export namespace Prisma {
     wallclimbing?: boolean
     notFitActivities?: boolean
     medicationPermission?: boolean
-    signaturePath?: boolean
-    dateSigned?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["studentHealthForm"]>
+  }, ExtArgs["result"]["userHealthForm"]>
 
-  export type StudentHealthFormSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+  export type UserHealthFormSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     userId?: boolean
     lastName?: boolean
@@ -4466,9 +4457,12 @@ export namespace Prisma {
     emergencyContact?: boolean
     relationship?: boolean
     emergencyNumber?: boolean
+    bloodType?: boolean
+    signaturePath?: boolean
+    dateSigned?: boolean
     pastIllnesses?: boolean
     hospitalization?: boolean
-    bloodType?: boolean
+    medications?: boolean
     allergies?: boolean
     immunized?: boolean
     communicableDisease?: boolean
@@ -4486,14 +4480,10 @@ export namespace Prisma {
     wallclimbing?: boolean
     notFitActivities?: boolean
     medicationPermission?: boolean
-    signaturePath?: boolean
-    dateSigned?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["studentHealthForm"]>
+  }, ExtArgs["result"]["userHealthForm"]>
 
-  export type StudentHealthFormSelectScalar = {
+  export type UserHealthFormSelectScalar = {
     id?: boolean
     userId?: boolean
     lastName?: boolean
@@ -4512,9 +4502,12 @@ export namespace Prisma {
     emergencyContact?: boolean
     relationship?: boolean
     emergencyNumber?: boolean
+    bloodType?: boolean
+    signaturePath?: boolean
+    dateSigned?: boolean
     pastIllnesses?: boolean
     hospitalization?: boolean
-    bloodType?: boolean
+    medications?: boolean
     allergies?: boolean
     immunized?: boolean
     communicableDisease?: boolean
@@ -4532,25 +4525,21 @@ export namespace Prisma {
     wallclimbing?: boolean
     notFitActivities?: boolean
     medicationPermission?: boolean
-    signaturePath?: boolean
-    dateSigned?: boolean
-    createdAt?: boolean
-    updatedAt?: boolean
   }
 
-  export type StudentHealthFormOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "lastName" | "firstName" | "middleInitial" | "birthdate" | "gender" | "birthPlace" | "addressLine1" | "addressLine2" | "city" | "state" | "postalCode" | "guardianName" | "guardianContact" | "emergencyContact" | "relationship" | "emergencyNumber" | "pastIllnesses" | "hospitalization" | "bloodType" | "allergies" | "immunized" | "communicableDisease" | "asthmatic" | "chronicIllness" | "hiking" | "dancing" | "swimming" | "basketball" | "ballgames" | "jogging" | "football" | "badminton" | "calisthenics" | "wallclimbing" | "notFitActivities" | "medicationPermission" | "signaturePath" | "dateSigned" | "createdAt" | "updatedAt", ExtArgs["result"]["studentHealthForm"]>
-  export type StudentHealthFormInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "lastName" | "firstName" | "middleInitial" | "birthdate" | "gender" | "birthPlace" | "addressLine1" | "addressLine2" | "city" | "state" | "postalCode" | "guardianName" | "guardianContact" | "emergencyContact" | "relationship" | "emergencyNumber" | "bloodType" | "signaturePath" | "dateSigned" | "pastIllnesses" | "hospitalization" | "medications" | "allergies" | "immunized" | "communicableDisease" | "asthmatic" | "chronicIllness" | "hiking" | "dancing" | "swimming" | "basketball" | "ballgames" | "jogging" | "football" | "badminton" | "calisthenics" | "wallclimbing" | "notFitActivities" | "medicationPermission", ExtArgs["result"]["userHealthForm"]>
+  export type UserHealthFormInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type StudentHealthFormIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
-  export type StudentHealthFormIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
-  export type $StudentHealthFormPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "StudentHealthForm"
+  export type $UserHealthFormPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserHealthForm"
     objects: {
       user: Prisma.$UserPayload<ExtArgs>
     }
@@ -4568,14 +4557,17 @@ export namespace Prisma {
       city: string
       state: string
       postalCode: string
-      guardianName: string
-      guardianContact: string
+      guardianName: string | null
+      guardianContact: string | null
       emergencyContact: string
       relationship: string
       emergencyNumber: string
+      bloodType: string | null
+      signaturePath: string
+      dateSigned: Date
       pastIllnesses: string | null
       hospitalization: string | null
-      bloodType: string
+      medications: string | null
       allergies: boolean
       immunized: boolean
       communicableDisease: boolean
@@ -4593,140 +4585,136 @@ export namespace Prisma {
       wallclimbing: boolean
       notFitActivities: string | null
       medicationPermission: boolean
-      signaturePath: string
-      dateSigned: Date
-      createdAt: Date
-      updatedAt: Date
-    }, ExtArgs["result"]["studentHealthForm"]>
+    }, ExtArgs["result"]["userHealthForm"]>
     composites: {}
   }
 
-  type StudentHealthFormGetPayload<S extends boolean | null | undefined | StudentHealthFormDefaultArgs> = $Result.GetResult<Prisma.$StudentHealthFormPayload, S>
+  type UserHealthFormGetPayload<S extends boolean | null | undefined | UserHealthFormDefaultArgs> = $Result.GetResult<Prisma.$UserHealthFormPayload, S>
 
-  type StudentHealthFormCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<StudentHealthFormFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: StudentHealthFormCountAggregateInputType | true
+  type UserHealthFormCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserHealthFormFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserHealthFormCountAggregateInputType | true
     }
 
-  export interface StudentHealthFormDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['StudentHealthForm'], meta: { name: 'StudentHealthForm' } }
+  export interface UserHealthFormDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserHealthForm'], meta: { name: 'UserHealthForm' } }
     /**
-     * Find zero or one StudentHealthForm that matches the filter.
-     * @param {StudentHealthFormFindUniqueArgs} args - Arguments to find a StudentHealthForm
+     * Find zero or one UserHealthForm that matches the filter.
+     * @param {UserHealthFormFindUniqueArgs} args - Arguments to find a UserHealthForm
      * @example
-     * // Get one StudentHealthForm
-     * const studentHealthForm = await prisma.studentHealthForm.findUnique({
+     * // Get one UserHealthForm
+     * const userHealthForm = await prisma.userHealthForm.findUnique({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUnique<T extends StudentHealthFormFindUniqueArgs>(args: SelectSubset<T, StudentHealthFormFindUniqueArgs<ExtArgs>>): Prisma__StudentHealthFormClient<$Result.GetResult<Prisma.$StudentHealthFormPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findUnique<T extends UserHealthFormFindUniqueArgs>(args: SelectSubset<T, UserHealthFormFindUniqueArgs<ExtArgs>>): Prisma__UserHealthFormClient<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find one StudentHealthForm that matches the filter or throw an error with `error.code='P2025'`
+     * Find one UserHealthForm that matches the filter or throw an error with `error.code='P2025'`
      * if no matches were found.
-     * @param {StudentHealthFormFindUniqueOrThrowArgs} args - Arguments to find a StudentHealthForm
+     * @param {UserHealthFormFindUniqueOrThrowArgs} args - Arguments to find a UserHealthForm
      * @example
-     * // Get one StudentHealthForm
-     * const studentHealthForm = await prisma.studentHealthForm.findUniqueOrThrow({
+     * // Get one UserHealthForm
+     * const userHealthForm = await prisma.userHealthForm.findUniqueOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findUniqueOrThrow<T extends StudentHealthFormFindUniqueOrThrowArgs>(args: SelectSubset<T, StudentHealthFormFindUniqueOrThrowArgs<ExtArgs>>): Prisma__StudentHealthFormClient<$Result.GetResult<Prisma.$StudentHealthFormPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findUniqueOrThrow<T extends UserHealthFormFindUniqueOrThrowArgs>(args: SelectSubset<T, UserHealthFormFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserHealthFormClient<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first StudentHealthForm that matches the filter.
+     * Find the first UserHealthForm that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StudentHealthFormFindFirstArgs} args - Arguments to find a StudentHealthForm
+     * @param {UserHealthFormFindFirstArgs} args - Arguments to find a UserHealthForm
      * @example
-     * // Get one StudentHealthForm
-     * const studentHealthForm = await prisma.studentHealthForm.findFirst({
+     * // Get one UserHealthForm
+     * const userHealthForm = await prisma.userHealthForm.findFirst({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirst<T extends StudentHealthFormFindFirstArgs>(args?: SelectSubset<T, StudentHealthFormFindFirstArgs<ExtArgs>>): Prisma__StudentHealthFormClient<$Result.GetResult<Prisma.$StudentHealthFormPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    findFirst<T extends UserHealthFormFindFirstArgs>(args?: SelectSubset<T, UserHealthFormFindFirstArgs<ExtArgs>>): Prisma__UserHealthFormClient<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find the first StudentHealthForm that matches the filter or
+     * Find the first UserHealthForm that matches the filter or
      * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StudentHealthFormFindFirstOrThrowArgs} args - Arguments to find a StudentHealthForm
+     * @param {UserHealthFormFindFirstOrThrowArgs} args - Arguments to find a UserHealthForm
      * @example
-     * // Get one StudentHealthForm
-     * const studentHealthForm = await prisma.studentHealthForm.findFirstOrThrow({
+     * // Get one UserHealthForm
+     * const userHealthForm = await prisma.userHealthForm.findFirstOrThrow({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      */
-    findFirstOrThrow<T extends StudentHealthFormFindFirstOrThrowArgs>(args?: SelectSubset<T, StudentHealthFormFindFirstOrThrowArgs<ExtArgs>>): Prisma__StudentHealthFormClient<$Result.GetResult<Prisma.$StudentHealthFormPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    findFirstOrThrow<T extends UserHealthFormFindFirstOrThrowArgs>(args?: SelectSubset<T, UserHealthFormFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserHealthFormClient<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Find zero or more StudentHealthForms that matches the filter.
+     * Find zero or more UserHealthForms that matches the filter.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StudentHealthFormFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @param {UserHealthFormFindManyArgs} args - Arguments to filter and select certain fields only.
      * @example
-     * // Get all StudentHealthForms
-     * const studentHealthForms = await prisma.studentHealthForm.findMany()
+     * // Get all UserHealthForms
+     * const userHealthForms = await prisma.userHealthForm.findMany()
      * 
-     * // Get first 10 StudentHealthForms
-     * const studentHealthForms = await prisma.studentHealthForm.findMany({ take: 10 })
+     * // Get first 10 UserHealthForms
+     * const userHealthForms = await prisma.userHealthForm.findMany({ take: 10 })
      * 
      * // Only select the `id`
-     * const studentHealthFormWithIdOnly = await prisma.studentHealthForm.findMany({ select: { id: true } })
+     * const userHealthFormWithIdOnly = await prisma.userHealthForm.findMany({ select: { id: true } })
      * 
      */
-    findMany<T extends StudentHealthFormFindManyArgs>(args?: SelectSubset<T, StudentHealthFormFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentHealthFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+    findMany<T extends UserHealthFormFindManyArgs>(args?: SelectSubset<T, UserHealthFormFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
     /**
-     * Create a StudentHealthForm.
-     * @param {StudentHealthFormCreateArgs} args - Arguments to create a StudentHealthForm.
+     * Create a UserHealthForm.
+     * @param {UserHealthFormCreateArgs} args - Arguments to create a UserHealthForm.
      * @example
-     * // Create one StudentHealthForm
-     * const StudentHealthForm = await prisma.studentHealthForm.create({
+     * // Create one UserHealthForm
+     * const UserHealthForm = await prisma.userHealthForm.create({
      *   data: {
-     *     // ... data to create a StudentHealthForm
+     *     // ... data to create a UserHealthForm
      *   }
      * })
      * 
      */
-    create<T extends StudentHealthFormCreateArgs>(args: SelectSubset<T, StudentHealthFormCreateArgs<ExtArgs>>): Prisma__StudentHealthFormClient<$Result.GetResult<Prisma.$StudentHealthFormPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    create<T extends UserHealthFormCreateArgs>(args: SelectSubset<T, UserHealthFormCreateArgs<ExtArgs>>): Prisma__UserHealthFormClient<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Create many StudentHealthForms.
-     * @param {StudentHealthFormCreateManyArgs} args - Arguments to create many StudentHealthForms.
+     * Create many UserHealthForms.
+     * @param {UserHealthFormCreateManyArgs} args - Arguments to create many UserHealthForms.
      * @example
-     * // Create many StudentHealthForms
-     * const studentHealthForm = await prisma.studentHealthForm.createMany({
+     * // Create many UserHealthForms
+     * const userHealthForm = await prisma.userHealthForm.createMany({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      *     
      */
-    createMany<T extends StudentHealthFormCreateManyArgs>(args?: SelectSubset<T, StudentHealthFormCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    createMany<T extends UserHealthFormCreateManyArgs>(args?: SelectSubset<T, UserHealthFormCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Create many StudentHealthForms and returns the data saved in the database.
-     * @param {StudentHealthFormCreateManyAndReturnArgs} args - Arguments to create many StudentHealthForms.
+     * Create many UserHealthForms and returns the data saved in the database.
+     * @param {UserHealthFormCreateManyAndReturnArgs} args - Arguments to create many UserHealthForms.
      * @example
-     * // Create many StudentHealthForms
-     * const studentHealthForm = await prisma.studentHealthForm.createManyAndReturn({
+     * // Create many UserHealthForms
+     * const userHealthForm = await prisma.userHealthForm.createManyAndReturn({
      *   data: [
      *     // ... provide data here
      *   ]
      * })
      * 
-     * // Create many StudentHealthForms and only return the `id`
-     * const studentHealthFormWithIdOnly = await prisma.studentHealthForm.createManyAndReturn({
+     * // Create many UserHealthForms and only return the `id`
+     * const userHealthFormWithIdOnly = await prisma.userHealthForm.createManyAndReturn({
      *   select: { id: true },
      *   data: [
      *     // ... provide data here
@@ -4736,28 +4724,28 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    createManyAndReturn<T extends StudentHealthFormCreateManyAndReturnArgs>(args?: SelectSubset<T, StudentHealthFormCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentHealthFormPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+    createManyAndReturn<T extends UserHealthFormCreateManyAndReturnArgs>(args?: SelectSubset<T, UserHealthFormCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Delete a StudentHealthForm.
-     * @param {StudentHealthFormDeleteArgs} args - Arguments to delete one StudentHealthForm.
+     * Delete a UserHealthForm.
+     * @param {UserHealthFormDeleteArgs} args - Arguments to delete one UserHealthForm.
      * @example
-     * // Delete one StudentHealthForm
-     * const StudentHealthForm = await prisma.studentHealthForm.delete({
+     * // Delete one UserHealthForm
+     * const UserHealthForm = await prisma.userHealthForm.delete({
      *   where: {
-     *     // ... filter to delete one StudentHealthForm
+     *     // ... filter to delete one UserHealthForm
      *   }
      * })
      * 
      */
-    delete<T extends StudentHealthFormDeleteArgs>(args: SelectSubset<T, StudentHealthFormDeleteArgs<ExtArgs>>): Prisma__StudentHealthFormClient<$Result.GetResult<Prisma.$StudentHealthFormPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    delete<T extends UserHealthFormDeleteArgs>(args: SelectSubset<T, UserHealthFormDeleteArgs<ExtArgs>>): Prisma__UserHealthFormClient<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Update one StudentHealthForm.
-     * @param {StudentHealthFormUpdateArgs} args - Arguments to update one StudentHealthForm.
+     * Update one UserHealthForm.
+     * @param {UserHealthFormUpdateArgs} args - Arguments to update one UserHealthForm.
      * @example
-     * // Update one StudentHealthForm
-     * const studentHealthForm = await prisma.studentHealthForm.update({
+     * // Update one UserHealthForm
+     * const userHealthForm = await prisma.userHealthForm.update({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -4767,30 +4755,30 @@ export namespace Prisma {
      * })
      * 
      */
-    update<T extends StudentHealthFormUpdateArgs>(args: SelectSubset<T, StudentHealthFormUpdateArgs<ExtArgs>>): Prisma__StudentHealthFormClient<$Result.GetResult<Prisma.$StudentHealthFormPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    update<T extends UserHealthFormUpdateArgs>(args: SelectSubset<T, UserHealthFormUpdateArgs<ExtArgs>>): Prisma__UserHealthFormClient<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
     /**
-     * Delete zero or more StudentHealthForms.
-     * @param {StudentHealthFormDeleteManyArgs} args - Arguments to filter StudentHealthForms to delete.
+     * Delete zero or more UserHealthForms.
+     * @param {UserHealthFormDeleteManyArgs} args - Arguments to filter UserHealthForms to delete.
      * @example
-     * // Delete a few StudentHealthForms
-     * const { count } = await prisma.studentHealthForm.deleteMany({
+     * // Delete a few UserHealthForms
+     * const { count } = await prisma.userHealthForm.deleteMany({
      *   where: {
      *     // ... provide filter here
      *   }
      * })
      * 
      */
-    deleteMany<T extends StudentHealthFormDeleteManyArgs>(args?: SelectSubset<T, StudentHealthFormDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    deleteMany<T extends UserHealthFormDeleteManyArgs>(args?: SelectSubset<T, UserHealthFormDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more StudentHealthForms.
+     * Update zero or more UserHealthForms.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StudentHealthFormUpdateManyArgs} args - Arguments to update one or more rows.
+     * @param {UserHealthFormUpdateManyArgs} args - Arguments to update one or more rows.
      * @example
-     * // Update many StudentHealthForms
-     * const studentHealthForm = await prisma.studentHealthForm.updateMany({
+     * // Update many UserHealthForms
+     * const userHealthForm = await prisma.userHealthForm.updateMany({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -4800,14 +4788,14 @@ export namespace Prisma {
      * })
      * 
      */
-    updateMany<T extends StudentHealthFormUpdateManyArgs>(args: SelectSubset<T, StudentHealthFormUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+    updateMany<T extends UserHealthFormUpdateManyArgs>(args: SelectSubset<T, UserHealthFormUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
 
     /**
-     * Update zero or more StudentHealthForms and returns the data updated in the database.
-     * @param {StudentHealthFormUpdateManyAndReturnArgs} args - Arguments to update many StudentHealthForms.
+     * Update zero or more UserHealthForms and returns the data updated in the database.
+     * @param {UserHealthFormUpdateManyAndReturnArgs} args - Arguments to update many UserHealthForms.
      * @example
-     * // Update many StudentHealthForms
-     * const studentHealthForm = await prisma.studentHealthForm.updateManyAndReturn({
+     * // Update many UserHealthForms
+     * const userHealthForm = await prisma.userHealthForm.updateManyAndReturn({
      *   where: {
      *     // ... provide filter here
      *   },
@@ -4816,8 +4804,8 @@ export namespace Prisma {
      *   ]
      * })
      * 
-     * // Update zero or more StudentHealthForms and only return the `id`
-     * const studentHealthFormWithIdOnly = await prisma.studentHealthForm.updateManyAndReturn({
+     * // Update zero or more UserHealthForms and only return the `id`
+     * const userHealthFormWithIdOnly = await prisma.userHealthForm.updateManyAndReturn({
      *   select: { id: true },
      *   where: {
      *     // ... provide filter here
@@ -4830,56 +4818,56 @@ export namespace Prisma {
      * Read more here: https://pris.ly/d/null-undefined
      * 
      */
-    updateManyAndReturn<T extends StudentHealthFormUpdateManyAndReturnArgs>(args: SelectSubset<T, StudentHealthFormUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$StudentHealthFormPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+    updateManyAndReturn<T extends UserHealthFormUpdateManyAndReturnArgs>(args: SelectSubset<T, UserHealthFormUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
 
     /**
-     * Create or update one StudentHealthForm.
-     * @param {StudentHealthFormUpsertArgs} args - Arguments to update or create a StudentHealthForm.
+     * Create or update one UserHealthForm.
+     * @param {UserHealthFormUpsertArgs} args - Arguments to update or create a UserHealthForm.
      * @example
-     * // Update or create a StudentHealthForm
-     * const studentHealthForm = await prisma.studentHealthForm.upsert({
+     * // Update or create a UserHealthForm
+     * const userHealthForm = await prisma.userHealthForm.upsert({
      *   create: {
-     *     // ... data to create a StudentHealthForm
+     *     // ... data to create a UserHealthForm
      *   },
      *   update: {
      *     // ... in case it already exists, update
      *   },
      *   where: {
-     *     // ... the filter for the StudentHealthForm we want to update
+     *     // ... the filter for the UserHealthForm we want to update
      *   }
      * })
      */
-    upsert<T extends StudentHealthFormUpsertArgs>(args: SelectSubset<T, StudentHealthFormUpsertArgs<ExtArgs>>): Prisma__StudentHealthFormClient<$Result.GetResult<Prisma.$StudentHealthFormPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+    upsert<T extends UserHealthFormUpsertArgs>(args: SelectSubset<T, UserHealthFormUpsertArgs<ExtArgs>>): Prisma__UserHealthFormClient<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
     /**
-     * Count the number of StudentHealthForms.
+     * Count the number of UserHealthForms.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StudentHealthFormCountArgs} args - Arguments to filter StudentHealthForms to count.
+     * @param {UserHealthFormCountArgs} args - Arguments to filter UserHealthForms to count.
      * @example
-     * // Count the number of StudentHealthForms
-     * const count = await prisma.studentHealthForm.count({
+     * // Count the number of UserHealthForms
+     * const count = await prisma.userHealthForm.count({
      *   where: {
-     *     // ... the filter for the StudentHealthForms we want to count
+     *     // ... the filter for the UserHealthForms we want to count
      *   }
      * })
     **/
-    count<T extends StudentHealthFormCountArgs>(
-      args?: Subset<T, StudentHealthFormCountArgs>,
+    count<T extends UserHealthFormCountArgs>(
+      args?: Subset<T, UserHealthFormCountArgs>,
     ): Prisma.PrismaPromise<
       T extends $Utils.Record<'select', any>
         ? T['select'] extends true
           ? number
-          : GetScalarType<T['select'], StudentHealthFormCountAggregateOutputType>
+          : GetScalarType<T['select'], UserHealthFormCountAggregateOutputType>
         : number
     >
 
     /**
-     * Allows you to perform aggregations operations on a StudentHealthForm.
+     * Allows you to perform aggregations operations on a UserHealthForm.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StudentHealthFormAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @param {UserHealthFormAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
      * @example
      * // Ordered by age ascending
      * // Where email contains prisma.io
@@ -4899,13 +4887,13 @@ export namespace Prisma {
      *   take: 10,
      * })
     **/
-    aggregate<T extends StudentHealthFormAggregateArgs>(args: Subset<T, StudentHealthFormAggregateArgs>): Prisma.PrismaPromise<GetStudentHealthFormAggregateType<T>>
+    aggregate<T extends UserHealthFormAggregateArgs>(args: Subset<T, UserHealthFormAggregateArgs>): Prisma.PrismaPromise<GetUserHealthFormAggregateType<T>>
 
     /**
-     * Group by StudentHealthForm.
+     * Group by UserHealthForm.
      * Note, that providing `undefined` is treated as the value not being there.
      * Read more here: https://pris.ly/d/null-undefined
-     * @param {StudentHealthFormGroupByArgs} args - Group by arguments.
+     * @param {UserHealthFormGroupByArgs} args - Group by arguments.
      * @example
      * // Group by city, order by createdAt, get count
      * const result = await prisma.user.groupBy({
@@ -4920,14 +4908,14 @@ export namespace Prisma {
      * 
     **/
     groupBy<
-      T extends StudentHealthFormGroupByArgs,
+      T extends UserHealthFormGroupByArgs,
       HasSelectOrTake extends Or<
         Extends<'skip', Keys<T>>,
         Extends<'take', Keys<T>>
       >,
       OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: StudentHealthFormGroupByArgs['orderBy'] }
-        : { orderBy?: StudentHealthFormGroupByArgs['orderBy'] },
+        ? { orderBy: UserHealthFormGroupByArgs['orderBy'] }
+        : { orderBy?: UserHealthFormGroupByArgs['orderBy'] },
       OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
       ByFields extends MaybeTupleToUnion<T['by']>,
       ByValid extends Has<ByFields, OrderFields>,
@@ -4976,20 +4964,20 @@ export namespace Prisma {
             ? never
             : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
         }[OrderFields]
-    >(args: SubsetIntersection<T, StudentHealthFormGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetStudentHealthFormGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+    >(args: SubsetIntersection<T, UserHealthFormGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserHealthFormGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
   /**
-   * Fields of the StudentHealthForm model
+   * Fields of the UserHealthForm model
    */
-  readonly fields: StudentHealthFormFieldRefs;
+  readonly fields: UserHealthFormFieldRefs;
   }
 
   /**
-   * The delegate class that acts as a "Promise-like" for StudentHealthForm.
+   * The delegate class that acts as a "Promise-like" for UserHealthForm.
    * Why is this prefixed with `Prisma__`?
    * Because we want to prevent naming conflicts as mentioned in
    * https://github.com/prisma/prisma-client-js/issues/707
    */
-  export interface Prisma__StudentHealthFormClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+  export interface Prisma__UserHealthFormClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
@@ -5018,460 +5006,459 @@ export namespace Prisma {
 
 
   /**
-   * Fields of the StudentHealthForm model
+   * Fields of the UserHealthForm model
    */
-  interface StudentHealthFormFieldRefs {
-    readonly id: FieldRef<"StudentHealthForm", 'String'>
-    readonly userId: FieldRef<"StudentHealthForm", 'String'>
-    readonly lastName: FieldRef<"StudentHealthForm", 'String'>
-    readonly firstName: FieldRef<"StudentHealthForm", 'String'>
-    readonly middleInitial: FieldRef<"StudentHealthForm", 'String'>
-    readonly birthdate: FieldRef<"StudentHealthForm", 'DateTime'>
-    readonly gender: FieldRef<"StudentHealthForm", 'String'>
-    readonly birthPlace: FieldRef<"StudentHealthForm", 'String'>
-    readonly addressLine1: FieldRef<"StudentHealthForm", 'String'>
-    readonly addressLine2: FieldRef<"StudentHealthForm", 'String'>
-    readonly city: FieldRef<"StudentHealthForm", 'String'>
-    readonly state: FieldRef<"StudentHealthForm", 'String'>
-    readonly postalCode: FieldRef<"StudentHealthForm", 'String'>
-    readonly guardianName: FieldRef<"StudentHealthForm", 'String'>
-    readonly guardianContact: FieldRef<"StudentHealthForm", 'String'>
-    readonly emergencyContact: FieldRef<"StudentHealthForm", 'String'>
-    readonly relationship: FieldRef<"StudentHealthForm", 'String'>
-    readonly emergencyNumber: FieldRef<"StudentHealthForm", 'String'>
-    readonly pastIllnesses: FieldRef<"StudentHealthForm", 'String'>
-    readonly hospitalization: FieldRef<"StudentHealthForm", 'String'>
-    readonly bloodType: FieldRef<"StudentHealthForm", 'String'>
-    readonly allergies: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly immunized: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly communicableDisease: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly asthmatic: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly chronicIllness: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly hiking: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly dancing: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly swimming: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly basketball: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly ballgames: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly jogging: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly football: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly badminton: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly calisthenics: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly wallclimbing: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly notFitActivities: FieldRef<"StudentHealthForm", 'String'>
-    readonly medicationPermission: FieldRef<"StudentHealthForm", 'Boolean'>
-    readonly signaturePath: FieldRef<"StudentHealthForm", 'String'>
-    readonly dateSigned: FieldRef<"StudentHealthForm", 'DateTime'>
-    readonly createdAt: FieldRef<"StudentHealthForm", 'DateTime'>
-    readonly updatedAt: FieldRef<"StudentHealthForm", 'DateTime'>
+  interface UserHealthFormFieldRefs {
+    readonly id: FieldRef<"UserHealthForm", 'String'>
+    readonly userId: FieldRef<"UserHealthForm", 'String'>
+    readonly lastName: FieldRef<"UserHealthForm", 'String'>
+    readonly firstName: FieldRef<"UserHealthForm", 'String'>
+    readonly middleInitial: FieldRef<"UserHealthForm", 'String'>
+    readonly birthdate: FieldRef<"UserHealthForm", 'DateTime'>
+    readonly gender: FieldRef<"UserHealthForm", 'String'>
+    readonly birthPlace: FieldRef<"UserHealthForm", 'String'>
+    readonly addressLine1: FieldRef<"UserHealthForm", 'String'>
+    readonly addressLine2: FieldRef<"UserHealthForm", 'String'>
+    readonly city: FieldRef<"UserHealthForm", 'String'>
+    readonly state: FieldRef<"UserHealthForm", 'String'>
+    readonly postalCode: FieldRef<"UserHealthForm", 'String'>
+    readonly guardianName: FieldRef<"UserHealthForm", 'String'>
+    readonly guardianContact: FieldRef<"UserHealthForm", 'String'>
+    readonly emergencyContact: FieldRef<"UserHealthForm", 'String'>
+    readonly relationship: FieldRef<"UserHealthForm", 'String'>
+    readonly emergencyNumber: FieldRef<"UserHealthForm", 'String'>
+    readonly bloodType: FieldRef<"UserHealthForm", 'String'>
+    readonly signaturePath: FieldRef<"UserHealthForm", 'String'>
+    readonly dateSigned: FieldRef<"UserHealthForm", 'DateTime'>
+    readonly pastIllnesses: FieldRef<"UserHealthForm", 'String'>
+    readonly hospitalization: FieldRef<"UserHealthForm", 'String'>
+    readonly medications: FieldRef<"UserHealthForm", 'String'>
+    readonly allergies: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly immunized: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly communicableDisease: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly asthmatic: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly chronicIllness: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly hiking: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly dancing: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly swimming: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly basketball: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly ballgames: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly jogging: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly football: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly badminton: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly calisthenics: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly wallclimbing: FieldRef<"UserHealthForm", 'Boolean'>
+    readonly notFitActivities: FieldRef<"UserHealthForm", 'String'>
+    readonly medicationPermission: FieldRef<"UserHealthForm", 'Boolean'>
   }
     
 
   // Custom InputTypes
   /**
-   * StudentHealthForm findUnique
+   * UserHealthForm findUnique
    */
-  export type StudentHealthFormFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StudentHealthForm
+     * Select specific fields to fetch from the UserHealthForm
      */
-    select?: StudentHealthFormSelect<ExtArgs> | null
+    select?: UserHealthFormSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StudentHealthForm
+     * Omit specific fields from the UserHealthForm
      */
-    omit?: StudentHealthFormOmit<ExtArgs> | null
+    omit?: UserHealthFormOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StudentHealthFormInclude<ExtArgs> | null
+    include?: UserHealthFormInclude<ExtArgs> | null
     /**
-     * Filter, which StudentHealthForm to fetch.
+     * Filter, which UserHealthForm to fetch.
      */
-    where: StudentHealthFormWhereUniqueInput
+    where: UserHealthFormWhereUniqueInput
   }
 
   /**
-   * StudentHealthForm findUniqueOrThrow
+   * UserHealthForm findUniqueOrThrow
    */
-  export type StudentHealthFormFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StudentHealthForm
+     * Select specific fields to fetch from the UserHealthForm
      */
-    select?: StudentHealthFormSelect<ExtArgs> | null
+    select?: UserHealthFormSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StudentHealthForm
+     * Omit specific fields from the UserHealthForm
      */
-    omit?: StudentHealthFormOmit<ExtArgs> | null
+    omit?: UserHealthFormOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StudentHealthFormInclude<ExtArgs> | null
+    include?: UserHealthFormInclude<ExtArgs> | null
     /**
-     * Filter, which StudentHealthForm to fetch.
+     * Filter, which UserHealthForm to fetch.
      */
-    where: StudentHealthFormWhereUniqueInput
+    where: UserHealthFormWhereUniqueInput
   }
 
   /**
-   * StudentHealthForm findFirst
+   * UserHealthForm findFirst
    */
-  export type StudentHealthFormFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StudentHealthForm
+     * Select specific fields to fetch from the UserHealthForm
      */
-    select?: StudentHealthFormSelect<ExtArgs> | null
+    select?: UserHealthFormSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StudentHealthForm
+     * Omit specific fields from the UserHealthForm
      */
-    omit?: StudentHealthFormOmit<ExtArgs> | null
+    omit?: UserHealthFormOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StudentHealthFormInclude<ExtArgs> | null
+    include?: UserHealthFormInclude<ExtArgs> | null
     /**
-     * Filter, which StudentHealthForm to fetch.
+     * Filter, which UserHealthForm to fetch.
      */
-    where?: StudentHealthFormWhereInput
+    where?: UserHealthFormWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of StudentHealthForms to fetch.
+     * Determine the order of UserHealthForms to fetch.
      */
-    orderBy?: StudentHealthFormOrderByWithRelationInput | StudentHealthFormOrderByWithRelationInput[]
+    orderBy?: UserHealthFormOrderByWithRelationInput | UserHealthFormOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for StudentHealthForms.
+     * Sets the position for searching for UserHealthForms.
      */
-    cursor?: StudentHealthFormWhereUniqueInput
+    cursor?: UserHealthFormWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` StudentHealthForms from the position of the cursor.
+     * Take `±n` UserHealthForms from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` StudentHealthForms.
+     * Skip the first `n` UserHealthForms.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of StudentHealthForms.
+     * Filter by unique combinations of UserHealthForms.
      */
-    distinct?: StudentHealthFormScalarFieldEnum | StudentHealthFormScalarFieldEnum[]
+    distinct?: UserHealthFormScalarFieldEnum | UserHealthFormScalarFieldEnum[]
   }
 
   /**
-   * StudentHealthForm findFirstOrThrow
+   * UserHealthForm findFirstOrThrow
    */
-  export type StudentHealthFormFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StudentHealthForm
+     * Select specific fields to fetch from the UserHealthForm
      */
-    select?: StudentHealthFormSelect<ExtArgs> | null
+    select?: UserHealthFormSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StudentHealthForm
+     * Omit specific fields from the UserHealthForm
      */
-    omit?: StudentHealthFormOmit<ExtArgs> | null
+    omit?: UserHealthFormOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StudentHealthFormInclude<ExtArgs> | null
+    include?: UserHealthFormInclude<ExtArgs> | null
     /**
-     * Filter, which StudentHealthForm to fetch.
+     * Filter, which UserHealthForm to fetch.
      */
-    where?: StudentHealthFormWhereInput
+    where?: UserHealthFormWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of StudentHealthForms to fetch.
+     * Determine the order of UserHealthForms to fetch.
      */
-    orderBy?: StudentHealthFormOrderByWithRelationInput | StudentHealthFormOrderByWithRelationInput[]
+    orderBy?: UserHealthFormOrderByWithRelationInput | UserHealthFormOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for searching for StudentHealthForms.
+     * Sets the position for searching for UserHealthForms.
      */
-    cursor?: StudentHealthFormWhereUniqueInput
+    cursor?: UserHealthFormWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` StudentHealthForms from the position of the cursor.
+     * Take `±n` UserHealthForms from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` StudentHealthForms.
+     * Skip the first `n` UserHealthForms.
      */
     skip?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
      * 
-     * Filter by unique combinations of StudentHealthForms.
+     * Filter by unique combinations of UserHealthForms.
      */
-    distinct?: StudentHealthFormScalarFieldEnum | StudentHealthFormScalarFieldEnum[]
+    distinct?: UserHealthFormScalarFieldEnum | UserHealthFormScalarFieldEnum[]
   }
 
   /**
-   * StudentHealthForm findMany
+   * UserHealthForm findMany
    */
-  export type StudentHealthFormFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StudentHealthForm
+     * Select specific fields to fetch from the UserHealthForm
      */
-    select?: StudentHealthFormSelect<ExtArgs> | null
+    select?: UserHealthFormSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StudentHealthForm
+     * Omit specific fields from the UserHealthForm
      */
-    omit?: StudentHealthFormOmit<ExtArgs> | null
+    omit?: UserHealthFormOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StudentHealthFormInclude<ExtArgs> | null
+    include?: UserHealthFormInclude<ExtArgs> | null
     /**
-     * Filter, which StudentHealthForms to fetch.
+     * Filter, which UserHealthForms to fetch.
      */
-    where?: StudentHealthFormWhereInput
+    where?: UserHealthFormWhereInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
      * 
-     * Determine the order of StudentHealthForms to fetch.
+     * Determine the order of UserHealthForms to fetch.
      */
-    orderBy?: StudentHealthFormOrderByWithRelationInput | StudentHealthFormOrderByWithRelationInput[]
+    orderBy?: UserHealthFormOrderByWithRelationInput | UserHealthFormOrderByWithRelationInput[]
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
      * 
-     * Sets the position for listing StudentHealthForms.
+     * Sets the position for listing UserHealthForms.
      */
-    cursor?: StudentHealthFormWhereUniqueInput
+    cursor?: UserHealthFormWhereUniqueInput
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Take `±n` StudentHealthForms from the position of the cursor.
+     * Take `±n` UserHealthForms from the position of the cursor.
      */
     take?: number
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
      * 
-     * Skip the first `n` StudentHealthForms.
+     * Skip the first `n` UserHealthForms.
      */
     skip?: number
-    distinct?: StudentHealthFormScalarFieldEnum | StudentHealthFormScalarFieldEnum[]
+    distinct?: UserHealthFormScalarFieldEnum | UserHealthFormScalarFieldEnum[]
   }
 
   /**
-   * StudentHealthForm create
+   * UserHealthForm create
    */
-  export type StudentHealthFormCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StudentHealthForm
+     * Select specific fields to fetch from the UserHealthForm
      */
-    select?: StudentHealthFormSelect<ExtArgs> | null
+    select?: UserHealthFormSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StudentHealthForm
+     * Omit specific fields from the UserHealthForm
      */
-    omit?: StudentHealthFormOmit<ExtArgs> | null
+    omit?: UserHealthFormOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StudentHealthFormInclude<ExtArgs> | null
+    include?: UserHealthFormInclude<ExtArgs> | null
     /**
-     * The data needed to create a StudentHealthForm.
+     * The data needed to create a UserHealthForm.
      */
-    data: XOR<StudentHealthFormCreateInput, StudentHealthFormUncheckedCreateInput>
+    data: XOR<UserHealthFormCreateInput, UserHealthFormUncheckedCreateInput>
   }
 
   /**
-   * StudentHealthForm createMany
+   * UserHealthForm createMany
    */
-  export type StudentHealthFormCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to create many StudentHealthForms.
+     * The data used to create many UserHealthForms.
      */
-    data: StudentHealthFormCreateManyInput | StudentHealthFormCreateManyInput[]
+    data: UserHealthFormCreateManyInput | UserHealthFormCreateManyInput[]
   }
 
   /**
-   * StudentHealthForm createManyAndReturn
+   * UserHealthForm createManyAndReturn
    */
-  export type StudentHealthFormCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StudentHealthForm
+     * Select specific fields to fetch from the UserHealthForm
      */
-    select?: StudentHealthFormSelectCreateManyAndReturn<ExtArgs> | null
+    select?: UserHealthFormSelectCreateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the StudentHealthForm
+     * Omit specific fields from the UserHealthForm
      */
-    omit?: StudentHealthFormOmit<ExtArgs> | null
+    omit?: UserHealthFormOmit<ExtArgs> | null
     /**
-     * The data used to create many StudentHealthForms.
+     * The data used to create many UserHealthForms.
      */
-    data: StudentHealthFormCreateManyInput | StudentHealthFormCreateManyInput[]
+    data: UserHealthFormCreateManyInput | UserHealthFormCreateManyInput[]
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StudentHealthFormIncludeCreateManyAndReturn<ExtArgs> | null
+    include?: UserHealthFormIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * StudentHealthForm update
+   * UserHealthForm update
    */
-  export type StudentHealthFormUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StudentHealthForm
+     * Select specific fields to fetch from the UserHealthForm
      */
-    select?: StudentHealthFormSelect<ExtArgs> | null
+    select?: UserHealthFormSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StudentHealthForm
+     * Omit specific fields from the UserHealthForm
      */
-    omit?: StudentHealthFormOmit<ExtArgs> | null
+    omit?: UserHealthFormOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StudentHealthFormInclude<ExtArgs> | null
+    include?: UserHealthFormInclude<ExtArgs> | null
     /**
-     * The data needed to update a StudentHealthForm.
+     * The data needed to update a UserHealthForm.
      */
-    data: XOR<StudentHealthFormUpdateInput, StudentHealthFormUncheckedUpdateInput>
+    data: XOR<UserHealthFormUpdateInput, UserHealthFormUncheckedUpdateInput>
     /**
-     * Choose, which StudentHealthForm to update.
+     * Choose, which UserHealthForm to update.
      */
-    where: StudentHealthFormWhereUniqueInput
+    where: UserHealthFormWhereUniqueInput
   }
 
   /**
-   * StudentHealthForm updateMany
+   * UserHealthForm updateMany
    */
-  export type StudentHealthFormUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * The data used to update StudentHealthForms.
+     * The data used to update UserHealthForms.
      */
-    data: XOR<StudentHealthFormUpdateManyMutationInput, StudentHealthFormUncheckedUpdateManyInput>
+    data: XOR<UserHealthFormUpdateManyMutationInput, UserHealthFormUncheckedUpdateManyInput>
     /**
-     * Filter which StudentHealthForms to update
+     * Filter which UserHealthForms to update
      */
-    where?: StudentHealthFormWhereInput
+    where?: UserHealthFormWhereInput
     /**
-     * Limit how many StudentHealthForms to update.
+     * Limit how many UserHealthForms to update.
      */
     limit?: number
   }
 
   /**
-   * StudentHealthForm updateManyAndReturn
+   * UserHealthForm updateManyAndReturn
    */
-  export type StudentHealthFormUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StudentHealthForm
+     * Select specific fields to fetch from the UserHealthForm
      */
-    select?: StudentHealthFormSelectUpdateManyAndReturn<ExtArgs> | null
+    select?: UserHealthFormSelectUpdateManyAndReturn<ExtArgs> | null
     /**
-     * Omit specific fields from the StudentHealthForm
+     * Omit specific fields from the UserHealthForm
      */
-    omit?: StudentHealthFormOmit<ExtArgs> | null
+    omit?: UserHealthFormOmit<ExtArgs> | null
     /**
-     * The data used to update StudentHealthForms.
+     * The data used to update UserHealthForms.
      */
-    data: XOR<StudentHealthFormUpdateManyMutationInput, StudentHealthFormUncheckedUpdateManyInput>
+    data: XOR<UserHealthFormUpdateManyMutationInput, UserHealthFormUncheckedUpdateManyInput>
     /**
-     * Filter which StudentHealthForms to update
+     * Filter which UserHealthForms to update
      */
-    where?: StudentHealthFormWhereInput
+    where?: UserHealthFormWhereInput
     /**
-     * Limit how many StudentHealthForms to update.
+     * Limit how many UserHealthForms to update.
      */
     limit?: number
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StudentHealthFormIncludeUpdateManyAndReturn<ExtArgs> | null
+    include?: UserHealthFormIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
-   * StudentHealthForm upsert
+   * UserHealthForm upsert
    */
-  export type StudentHealthFormUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StudentHealthForm
+     * Select specific fields to fetch from the UserHealthForm
      */
-    select?: StudentHealthFormSelect<ExtArgs> | null
+    select?: UserHealthFormSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StudentHealthForm
+     * Omit specific fields from the UserHealthForm
      */
-    omit?: StudentHealthFormOmit<ExtArgs> | null
+    omit?: UserHealthFormOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StudentHealthFormInclude<ExtArgs> | null
+    include?: UserHealthFormInclude<ExtArgs> | null
     /**
-     * The filter to search for the StudentHealthForm to update in case it exists.
+     * The filter to search for the UserHealthForm to update in case it exists.
      */
-    where: StudentHealthFormWhereUniqueInput
+    where: UserHealthFormWhereUniqueInput
     /**
-     * In case the StudentHealthForm found by the `where` argument doesn't exist, create a new StudentHealthForm with this data.
+     * In case the UserHealthForm found by the `where` argument doesn't exist, create a new UserHealthForm with this data.
      */
-    create: XOR<StudentHealthFormCreateInput, StudentHealthFormUncheckedCreateInput>
+    create: XOR<UserHealthFormCreateInput, UserHealthFormUncheckedCreateInput>
     /**
-     * In case the StudentHealthForm was found with the provided `where` argument, update it with this data.
+     * In case the UserHealthForm was found with the provided `where` argument, update it with this data.
      */
-    update: XOR<StudentHealthFormUpdateInput, StudentHealthFormUncheckedUpdateInput>
+    update: XOR<UserHealthFormUpdateInput, UserHealthFormUncheckedUpdateInput>
   }
 
   /**
-   * StudentHealthForm delete
+   * UserHealthForm delete
    */
-  export type StudentHealthFormDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StudentHealthForm
+     * Select specific fields to fetch from the UserHealthForm
      */
-    select?: StudentHealthFormSelect<ExtArgs> | null
+    select?: UserHealthFormSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StudentHealthForm
+     * Omit specific fields from the UserHealthForm
      */
-    omit?: StudentHealthFormOmit<ExtArgs> | null
+    omit?: UserHealthFormOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StudentHealthFormInclude<ExtArgs> | null
+    include?: UserHealthFormInclude<ExtArgs> | null
     /**
-     * Filter which StudentHealthForm to delete.
+     * Filter which UserHealthForm to delete.
      */
-    where: StudentHealthFormWhereUniqueInput
+    where: UserHealthFormWhereUniqueInput
   }
 
   /**
-   * StudentHealthForm deleteMany
+   * UserHealthForm deleteMany
    */
-  export type StudentHealthFormDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Filter which StudentHealthForms to delete
+     * Filter which UserHealthForms to delete
      */
-    where?: StudentHealthFormWhereInput
+    where?: UserHealthFormWhereInput
     /**
-     * Limit how many StudentHealthForms to delete.
+     * Limit how many UserHealthForms to delete.
      */
     limit?: number
   }
 
   /**
-   * StudentHealthForm without action
+   * UserHealthForm without action
    */
-  export type StudentHealthFormDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserHealthFormDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
-     * Select specific fields to fetch from the StudentHealthForm
+     * Select specific fields to fetch from the UserHealthForm
      */
-    select?: StudentHealthFormSelect<ExtArgs> | null
+    select?: UserHealthFormSelect<ExtArgs> | null
     /**
-     * Omit specific fields from the StudentHealthForm
+     * Omit specific fields from the UserHealthForm
      */
-    omit?: StudentHealthFormOmit<ExtArgs> | null
+    omit?: UserHealthFormOmit<ExtArgs> | null
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: StudentHealthFormInclude<ExtArgs> | null
+    include?: UserHealthFormInclude<ExtArgs> | null
   }
 
 
@@ -12122,7 +12109,7 @@ export namespace Prisma {
   export type VerificationTokenScalarFieldEnum = (typeof VerificationTokenScalarFieldEnum)[keyof typeof VerificationTokenScalarFieldEnum]
 
 
-  export const StudentHealthFormScalarFieldEnum: {
+  export const UserHealthFormScalarFieldEnum: {
     id: 'id',
     userId: 'userId',
     lastName: 'lastName',
@@ -12141,9 +12128,12 @@ export namespace Prisma {
     emergencyContact: 'emergencyContact',
     relationship: 'relationship',
     emergencyNumber: 'emergencyNumber',
+    bloodType: 'bloodType',
+    signaturePath: 'signaturePath',
+    dateSigned: 'dateSigned',
     pastIllnesses: 'pastIllnesses',
     hospitalization: 'hospitalization',
-    bloodType: 'bloodType',
+    medications: 'medications',
     allergies: 'allergies',
     immunized: 'immunized',
     communicableDisease: 'communicableDisease',
@@ -12160,14 +12150,10 @@ export namespace Prisma {
     calisthenics: 'calisthenics',
     wallclimbing: 'wallclimbing',
     notFitActivities: 'notFitActivities',
-    medicationPermission: 'medicationPermission',
-    signaturePath: 'signaturePath',
-    dateSigned: 'dateSigned',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
+    medicationPermission: 'medicationPermission'
   };
 
-  export type StudentHealthFormScalarFieldEnum = (typeof StudentHealthFormScalarFieldEnum)[keyof typeof StudentHealthFormScalarFieldEnum]
+  export type UserHealthFormScalarFieldEnum = (typeof UserHealthFormScalarFieldEnum)[keyof typeof UserHealthFormScalarFieldEnum]
 
 
   export const UploadedFormScalarFieldEnum: {
@@ -12320,7 +12306,7 @@ export namespace Prisma {
     verificationToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    healthForm?: XOR<StudentHealthFormNullableScalarRelationFilter, StudentHealthFormWhereInput> | null
+    healthForm?: XOR<UserHealthFormNullableScalarRelationFilter, UserHealthFormWhereInput> | null
     uploadedForms?: UploadedFormListRelationFilter
     appointments?: AppointmentListRelationFilter
     clearanceRequests?: ClearanceRequestListRelationFilter
@@ -12339,7 +12325,7 @@ export namespace Prisma {
     verificationToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    healthForm?: StudentHealthFormOrderByWithRelationInput
+    healthForm?: UserHealthFormOrderByWithRelationInput
     uploadedForms?: UploadedFormOrderByRelationAggregateInput
     appointments?: AppointmentOrderByRelationAggregateInput
     clearanceRequests?: ClearanceRequestOrderByRelationAggregateInput
@@ -12361,7 +12347,7 @@ export namespace Prisma {
     verificationToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    healthForm?: XOR<StudentHealthFormNullableScalarRelationFilter, StudentHealthFormWhereInput> | null
+    healthForm?: XOR<UserHealthFormNullableScalarRelationFilter, UserHealthFormWhereInput> | null
     uploadedForms?: UploadedFormListRelationFilter
     appointments?: AppointmentListRelationFilter
     clearanceRequests?: ClearanceRequestListRelationFilter
@@ -12455,56 +12441,55 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"VerificationToken"> | Date | string
   }
 
-  export type StudentHealthFormWhereInput = {
-    AND?: StudentHealthFormWhereInput | StudentHealthFormWhereInput[]
-    OR?: StudentHealthFormWhereInput[]
-    NOT?: StudentHealthFormWhereInput | StudentHealthFormWhereInput[]
-    id?: StringFilter<"StudentHealthForm"> | string
-    userId?: StringFilter<"StudentHealthForm"> | string
-    lastName?: StringFilter<"StudentHealthForm"> | string
-    firstName?: StringFilter<"StudentHealthForm"> | string
-    middleInitial?: StringNullableFilter<"StudentHealthForm"> | string | null
-    birthdate?: DateTimeFilter<"StudentHealthForm"> | Date | string
-    gender?: StringFilter<"StudentHealthForm"> | string
-    birthPlace?: StringFilter<"StudentHealthForm"> | string
-    addressLine1?: StringFilter<"StudentHealthForm"> | string
-    addressLine2?: StringNullableFilter<"StudentHealthForm"> | string | null
-    city?: StringFilter<"StudentHealthForm"> | string
-    state?: StringFilter<"StudentHealthForm"> | string
-    postalCode?: StringFilter<"StudentHealthForm"> | string
-    guardianName?: StringFilter<"StudentHealthForm"> | string
-    guardianContact?: StringFilter<"StudentHealthForm"> | string
-    emergencyContact?: StringFilter<"StudentHealthForm"> | string
-    relationship?: StringFilter<"StudentHealthForm"> | string
-    emergencyNumber?: StringFilter<"StudentHealthForm"> | string
-    pastIllnesses?: StringNullableFilter<"StudentHealthForm"> | string | null
-    hospitalization?: StringNullableFilter<"StudentHealthForm"> | string | null
-    bloodType?: StringFilter<"StudentHealthForm"> | string
-    allergies?: BoolFilter<"StudentHealthForm"> | boolean
-    immunized?: BoolFilter<"StudentHealthForm"> | boolean
-    communicableDisease?: BoolFilter<"StudentHealthForm"> | boolean
-    asthmatic?: BoolFilter<"StudentHealthForm"> | boolean
-    chronicIllness?: BoolFilter<"StudentHealthForm"> | boolean
-    hiking?: BoolFilter<"StudentHealthForm"> | boolean
-    dancing?: BoolFilter<"StudentHealthForm"> | boolean
-    swimming?: BoolFilter<"StudentHealthForm"> | boolean
-    basketball?: BoolFilter<"StudentHealthForm"> | boolean
-    ballgames?: BoolFilter<"StudentHealthForm"> | boolean
-    jogging?: BoolFilter<"StudentHealthForm"> | boolean
-    football?: BoolFilter<"StudentHealthForm"> | boolean
-    badminton?: BoolFilter<"StudentHealthForm"> | boolean
-    calisthenics?: BoolFilter<"StudentHealthForm"> | boolean
-    wallclimbing?: BoolFilter<"StudentHealthForm"> | boolean
-    notFitActivities?: StringNullableFilter<"StudentHealthForm"> | string | null
-    medicationPermission?: BoolFilter<"StudentHealthForm"> | boolean
-    signaturePath?: StringFilter<"StudentHealthForm"> | string
-    dateSigned?: DateTimeFilter<"StudentHealthForm"> | Date | string
-    createdAt?: DateTimeFilter<"StudentHealthForm"> | Date | string
-    updatedAt?: DateTimeFilter<"StudentHealthForm"> | Date | string
+  export type UserHealthFormWhereInput = {
+    AND?: UserHealthFormWhereInput | UserHealthFormWhereInput[]
+    OR?: UserHealthFormWhereInput[]
+    NOT?: UserHealthFormWhereInput | UserHealthFormWhereInput[]
+    id?: StringFilter<"UserHealthForm"> | string
+    userId?: StringFilter<"UserHealthForm"> | string
+    lastName?: StringFilter<"UserHealthForm"> | string
+    firstName?: StringFilter<"UserHealthForm"> | string
+    middleInitial?: StringNullableFilter<"UserHealthForm"> | string | null
+    birthdate?: DateTimeFilter<"UserHealthForm"> | Date | string
+    gender?: StringFilter<"UserHealthForm"> | string
+    birthPlace?: StringFilter<"UserHealthForm"> | string
+    addressLine1?: StringFilter<"UserHealthForm"> | string
+    addressLine2?: StringNullableFilter<"UserHealthForm"> | string | null
+    city?: StringFilter<"UserHealthForm"> | string
+    state?: StringFilter<"UserHealthForm"> | string
+    postalCode?: StringFilter<"UserHealthForm"> | string
+    guardianName?: StringNullableFilter<"UserHealthForm"> | string | null
+    guardianContact?: StringNullableFilter<"UserHealthForm"> | string | null
+    emergencyContact?: StringFilter<"UserHealthForm"> | string
+    relationship?: StringFilter<"UserHealthForm"> | string
+    emergencyNumber?: StringFilter<"UserHealthForm"> | string
+    bloodType?: StringNullableFilter<"UserHealthForm"> | string | null
+    signaturePath?: StringFilter<"UserHealthForm"> | string
+    dateSigned?: DateTimeFilter<"UserHealthForm"> | Date | string
+    pastIllnesses?: StringNullableFilter<"UserHealthForm"> | string | null
+    hospitalization?: StringNullableFilter<"UserHealthForm"> | string | null
+    medications?: StringNullableFilter<"UserHealthForm"> | string | null
+    allergies?: BoolFilter<"UserHealthForm"> | boolean
+    immunized?: BoolFilter<"UserHealthForm"> | boolean
+    communicableDisease?: BoolFilter<"UserHealthForm"> | boolean
+    asthmatic?: BoolFilter<"UserHealthForm"> | boolean
+    chronicIllness?: BoolFilter<"UserHealthForm"> | boolean
+    hiking?: BoolFilter<"UserHealthForm"> | boolean
+    dancing?: BoolFilter<"UserHealthForm"> | boolean
+    swimming?: BoolFilter<"UserHealthForm"> | boolean
+    basketball?: BoolFilter<"UserHealthForm"> | boolean
+    ballgames?: BoolFilter<"UserHealthForm"> | boolean
+    jogging?: BoolFilter<"UserHealthForm"> | boolean
+    football?: BoolFilter<"UserHealthForm"> | boolean
+    badminton?: BoolFilter<"UserHealthForm"> | boolean
+    calisthenics?: BoolFilter<"UserHealthForm"> | boolean
+    wallclimbing?: BoolFilter<"UserHealthForm"> | boolean
+    notFitActivities?: StringNullableFilter<"UserHealthForm"> | string | null
+    medicationPermission?: BoolFilter<"UserHealthForm"> | boolean
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
-  export type StudentHealthFormOrderByWithRelationInput = {
+  export type UserHealthFormOrderByWithRelationInput = {
     id?: SortOrder
     userId?: SortOrder
     lastName?: SortOrder
@@ -12518,14 +12503,17 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     postalCode?: SortOrder
-    guardianName?: SortOrder
-    guardianContact?: SortOrder
+    guardianName?: SortOrderInput | SortOrder
+    guardianContact?: SortOrderInput | SortOrder
     emergencyContact?: SortOrder
     relationship?: SortOrder
     emergencyNumber?: SortOrder
+    bloodType?: SortOrderInput | SortOrder
+    signaturePath?: SortOrder
+    dateSigned?: SortOrder
     pastIllnesses?: SortOrderInput | SortOrder
     hospitalization?: SortOrderInput | SortOrder
-    bloodType?: SortOrder
+    medications?: SortOrderInput | SortOrder
     allergies?: SortOrder
     immunized?: SortOrder
     communicableDisease?: SortOrder
@@ -12543,63 +12531,58 @@ export namespace Prisma {
     wallclimbing?: SortOrder
     notFitActivities?: SortOrderInput | SortOrder
     medicationPermission?: SortOrder
-    signaturePath?: SortOrder
-    dateSigned?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
     user?: UserOrderByWithRelationInput
   }
 
-  export type StudentHealthFormWhereUniqueInput = Prisma.AtLeast<{
+  export type UserHealthFormWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     userId?: string
-    AND?: StudentHealthFormWhereInput | StudentHealthFormWhereInput[]
-    OR?: StudentHealthFormWhereInput[]
-    NOT?: StudentHealthFormWhereInput | StudentHealthFormWhereInput[]
-    lastName?: StringFilter<"StudentHealthForm"> | string
-    firstName?: StringFilter<"StudentHealthForm"> | string
-    middleInitial?: StringNullableFilter<"StudentHealthForm"> | string | null
-    birthdate?: DateTimeFilter<"StudentHealthForm"> | Date | string
-    gender?: StringFilter<"StudentHealthForm"> | string
-    birthPlace?: StringFilter<"StudentHealthForm"> | string
-    addressLine1?: StringFilter<"StudentHealthForm"> | string
-    addressLine2?: StringNullableFilter<"StudentHealthForm"> | string | null
-    city?: StringFilter<"StudentHealthForm"> | string
-    state?: StringFilter<"StudentHealthForm"> | string
-    postalCode?: StringFilter<"StudentHealthForm"> | string
-    guardianName?: StringFilter<"StudentHealthForm"> | string
-    guardianContact?: StringFilter<"StudentHealthForm"> | string
-    emergencyContact?: StringFilter<"StudentHealthForm"> | string
-    relationship?: StringFilter<"StudentHealthForm"> | string
-    emergencyNumber?: StringFilter<"StudentHealthForm"> | string
-    pastIllnesses?: StringNullableFilter<"StudentHealthForm"> | string | null
-    hospitalization?: StringNullableFilter<"StudentHealthForm"> | string | null
-    bloodType?: StringFilter<"StudentHealthForm"> | string
-    allergies?: BoolFilter<"StudentHealthForm"> | boolean
-    immunized?: BoolFilter<"StudentHealthForm"> | boolean
-    communicableDisease?: BoolFilter<"StudentHealthForm"> | boolean
-    asthmatic?: BoolFilter<"StudentHealthForm"> | boolean
-    chronicIllness?: BoolFilter<"StudentHealthForm"> | boolean
-    hiking?: BoolFilter<"StudentHealthForm"> | boolean
-    dancing?: BoolFilter<"StudentHealthForm"> | boolean
-    swimming?: BoolFilter<"StudentHealthForm"> | boolean
-    basketball?: BoolFilter<"StudentHealthForm"> | boolean
-    ballgames?: BoolFilter<"StudentHealthForm"> | boolean
-    jogging?: BoolFilter<"StudentHealthForm"> | boolean
-    football?: BoolFilter<"StudentHealthForm"> | boolean
-    badminton?: BoolFilter<"StudentHealthForm"> | boolean
-    calisthenics?: BoolFilter<"StudentHealthForm"> | boolean
-    wallclimbing?: BoolFilter<"StudentHealthForm"> | boolean
-    notFitActivities?: StringNullableFilter<"StudentHealthForm"> | string | null
-    medicationPermission?: BoolFilter<"StudentHealthForm"> | boolean
-    signaturePath?: StringFilter<"StudentHealthForm"> | string
-    dateSigned?: DateTimeFilter<"StudentHealthForm"> | Date | string
-    createdAt?: DateTimeFilter<"StudentHealthForm"> | Date | string
-    updatedAt?: DateTimeFilter<"StudentHealthForm"> | Date | string
+    AND?: UserHealthFormWhereInput | UserHealthFormWhereInput[]
+    OR?: UserHealthFormWhereInput[]
+    NOT?: UserHealthFormWhereInput | UserHealthFormWhereInput[]
+    lastName?: StringFilter<"UserHealthForm"> | string
+    firstName?: StringFilter<"UserHealthForm"> | string
+    middleInitial?: StringNullableFilter<"UserHealthForm"> | string | null
+    birthdate?: DateTimeFilter<"UserHealthForm"> | Date | string
+    gender?: StringFilter<"UserHealthForm"> | string
+    birthPlace?: StringFilter<"UserHealthForm"> | string
+    addressLine1?: StringFilter<"UserHealthForm"> | string
+    addressLine2?: StringNullableFilter<"UserHealthForm"> | string | null
+    city?: StringFilter<"UserHealthForm"> | string
+    state?: StringFilter<"UserHealthForm"> | string
+    postalCode?: StringFilter<"UserHealthForm"> | string
+    guardianName?: StringNullableFilter<"UserHealthForm"> | string | null
+    guardianContact?: StringNullableFilter<"UserHealthForm"> | string | null
+    emergencyContact?: StringFilter<"UserHealthForm"> | string
+    relationship?: StringFilter<"UserHealthForm"> | string
+    emergencyNumber?: StringFilter<"UserHealthForm"> | string
+    bloodType?: StringNullableFilter<"UserHealthForm"> | string | null
+    signaturePath?: StringFilter<"UserHealthForm"> | string
+    dateSigned?: DateTimeFilter<"UserHealthForm"> | Date | string
+    pastIllnesses?: StringNullableFilter<"UserHealthForm"> | string | null
+    hospitalization?: StringNullableFilter<"UserHealthForm"> | string | null
+    medications?: StringNullableFilter<"UserHealthForm"> | string | null
+    allergies?: BoolFilter<"UserHealthForm"> | boolean
+    immunized?: BoolFilter<"UserHealthForm"> | boolean
+    communicableDisease?: BoolFilter<"UserHealthForm"> | boolean
+    asthmatic?: BoolFilter<"UserHealthForm"> | boolean
+    chronicIllness?: BoolFilter<"UserHealthForm"> | boolean
+    hiking?: BoolFilter<"UserHealthForm"> | boolean
+    dancing?: BoolFilter<"UserHealthForm"> | boolean
+    swimming?: BoolFilter<"UserHealthForm"> | boolean
+    basketball?: BoolFilter<"UserHealthForm"> | boolean
+    ballgames?: BoolFilter<"UserHealthForm"> | boolean
+    jogging?: BoolFilter<"UserHealthForm"> | boolean
+    football?: BoolFilter<"UserHealthForm"> | boolean
+    badminton?: BoolFilter<"UserHealthForm"> | boolean
+    calisthenics?: BoolFilter<"UserHealthForm"> | boolean
+    wallclimbing?: BoolFilter<"UserHealthForm"> | boolean
+    notFitActivities?: StringNullableFilter<"UserHealthForm"> | string | null
+    medicationPermission?: BoolFilter<"UserHealthForm"> | boolean
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
-  export type StudentHealthFormOrderByWithAggregationInput = {
+  export type UserHealthFormOrderByWithAggregationInput = {
     id?: SortOrder
     userId?: SortOrder
     lastName?: SortOrder
@@ -12613,14 +12596,17 @@ export namespace Prisma {
     city?: SortOrder
     state?: SortOrder
     postalCode?: SortOrder
-    guardianName?: SortOrder
-    guardianContact?: SortOrder
+    guardianName?: SortOrderInput | SortOrder
+    guardianContact?: SortOrderInput | SortOrder
     emergencyContact?: SortOrder
     relationship?: SortOrder
     emergencyNumber?: SortOrder
+    bloodType?: SortOrderInput | SortOrder
+    signaturePath?: SortOrder
+    dateSigned?: SortOrder
     pastIllnesses?: SortOrderInput | SortOrder
     hospitalization?: SortOrderInput | SortOrder
-    bloodType?: SortOrder
+    medications?: SortOrderInput | SortOrder
     allergies?: SortOrder
     immunized?: SortOrder
     communicableDisease?: SortOrder
@@ -12638,61 +12624,56 @@ export namespace Prisma {
     wallclimbing?: SortOrder
     notFitActivities?: SortOrderInput | SortOrder
     medicationPermission?: SortOrder
-    signaturePath?: SortOrder
-    dateSigned?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
-    _count?: StudentHealthFormCountOrderByAggregateInput
-    _max?: StudentHealthFormMaxOrderByAggregateInput
-    _min?: StudentHealthFormMinOrderByAggregateInput
+    _count?: UserHealthFormCountOrderByAggregateInput
+    _max?: UserHealthFormMaxOrderByAggregateInput
+    _min?: UserHealthFormMinOrderByAggregateInput
   }
 
-  export type StudentHealthFormScalarWhereWithAggregatesInput = {
-    AND?: StudentHealthFormScalarWhereWithAggregatesInput | StudentHealthFormScalarWhereWithAggregatesInput[]
-    OR?: StudentHealthFormScalarWhereWithAggregatesInput[]
-    NOT?: StudentHealthFormScalarWhereWithAggregatesInput | StudentHealthFormScalarWhereWithAggregatesInput[]
-    id?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    userId?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    lastName?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    firstName?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    middleInitial?: StringNullableWithAggregatesFilter<"StudentHealthForm"> | string | null
-    birthdate?: DateTimeWithAggregatesFilter<"StudentHealthForm"> | Date | string
-    gender?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    birthPlace?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    addressLine1?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    addressLine2?: StringNullableWithAggregatesFilter<"StudentHealthForm"> | string | null
-    city?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    state?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    postalCode?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    guardianName?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    guardianContact?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    emergencyContact?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    relationship?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    emergencyNumber?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    pastIllnesses?: StringNullableWithAggregatesFilter<"StudentHealthForm"> | string | null
-    hospitalization?: StringNullableWithAggregatesFilter<"StudentHealthForm"> | string | null
-    bloodType?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    allergies?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    immunized?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    communicableDisease?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    asthmatic?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    chronicIllness?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    hiking?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    dancing?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    swimming?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    basketball?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    ballgames?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    jogging?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    football?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    badminton?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    calisthenics?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    wallclimbing?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    notFitActivities?: StringNullableWithAggregatesFilter<"StudentHealthForm"> | string | null
-    medicationPermission?: BoolWithAggregatesFilter<"StudentHealthForm"> | boolean
-    signaturePath?: StringWithAggregatesFilter<"StudentHealthForm"> | string
-    dateSigned?: DateTimeWithAggregatesFilter<"StudentHealthForm"> | Date | string
-    createdAt?: DateTimeWithAggregatesFilter<"StudentHealthForm"> | Date | string
-    updatedAt?: DateTimeWithAggregatesFilter<"StudentHealthForm"> | Date | string
+  export type UserHealthFormScalarWhereWithAggregatesInput = {
+    AND?: UserHealthFormScalarWhereWithAggregatesInput | UserHealthFormScalarWhereWithAggregatesInput[]
+    OR?: UserHealthFormScalarWhereWithAggregatesInput[]
+    NOT?: UserHealthFormScalarWhereWithAggregatesInput | UserHealthFormScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserHealthForm"> | string
+    userId?: StringWithAggregatesFilter<"UserHealthForm"> | string
+    lastName?: StringWithAggregatesFilter<"UserHealthForm"> | string
+    firstName?: StringWithAggregatesFilter<"UserHealthForm"> | string
+    middleInitial?: StringNullableWithAggregatesFilter<"UserHealthForm"> | string | null
+    birthdate?: DateTimeWithAggregatesFilter<"UserHealthForm"> | Date | string
+    gender?: StringWithAggregatesFilter<"UserHealthForm"> | string
+    birthPlace?: StringWithAggregatesFilter<"UserHealthForm"> | string
+    addressLine1?: StringWithAggregatesFilter<"UserHealthForm"> | string
+    addressLine2?: StringNullableWithAggregatesFilter<"UserHealthForm"> | string | null
+    city?: StringWithAggregatesFilter<"UserHealthForm"> | string
+    state?: StringWithAggregatesFilter<"UserHealthForm"> | string
+    postalCode?: StringWithAggregatesFilter<"UserHealthForm"> | string
+    guardianName?: StringNullableWithAggregatesFilter<"UserHealthForm"> | string | null
+    guardianContact?: StringNullableWithAggregatesFilter<"UserHealthForm"> | string | null
+    emergencyContact?: StringWithAggregatesFilter<"UserHealthForm"> | string
+    relationship?: StringWithAggregatesFilter<"UserHealthForm"> | string
+    emergencyNumber?: StringWithAggregatesFilter<"UserHealthForm"> | string
+    bloodType?: StringNullableWithAggregatesFilter<"UserHealthForm"> | string | null
+    signaturePath?: StringWithAggregatesFilter<"UserHealthForm"> | string
+    dateSigned?: DateTimeWithAggregatesFilter<"UserHealthForm"> | Date | string
+    pastIllnesses?: StringNullableWithAggregatesFilter<"UserHealthForm"> | string | null
+    hospitalization?: StringNullableWithAggregatesFilter<"UserHealthForm"> | string | null
+    medications?: StringNullableWithAggregatesFilter<"UserHealthForm"> | string | null
+    allergies?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    immunized?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    communicableDisease?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    asthmatic?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    chronicIllness?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    hiking?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    dancing?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    swimming?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    basketball?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    ballgames?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    jogging?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    football?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    badminton?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    calisthenics?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    wallclimbing?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
+    notFitActivities?: StringNullableWithAggregatesFilter<"UserHealthForm"> | string | null
+    medicationPermission?: BoolWithAggregatesFilter<"UserHealthForm"> | boolean
   }
 
   export type UploadedFormWhereInput = {
@@ -13127,7 +13108,7 @@ export namespace Prisma {
     verificationToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    healthForm?: StudentHealthFormCreateNestedOneWithoutUserInput
+    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
     uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
     appointments?: AppointmentCreateNestedManyWithoutUserInput
     clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
@@ -13146,7 +13127,7 @@ export namespace Prisma {
     verificationToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    healthForm?: StudentHealthFormUncheckedCreateNestedOneWithoutUserInput
+    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
     uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
     clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
@@ -13165,7 +13146,7 @@ export namespace Prisma {
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: StudentHealthFormUpdateOneWithoutUserNestedInput
+    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
     uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
     clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
@@ -13184,7 +13165,7 @@ export namespace Prisma {
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: StudentHealthFormUncheckedUpdateOneWithoutUserNestedInput
+    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
     uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
     clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
@@ -13291,7 +13272,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StudentHealthFormCreateInput = {
+  export type UserHealthFormCreateInput = {
     id?: string
     lastName: string
     firstName: string
@@ -13304,14 +13285,17 @@ export namespace Prisma {
     city: string
     state: string
     postalCode: string
-    guardianName: string
-    guardianContact: string
+    guardianName?: string | null
+    guardianContact?: string | null
     emergencyContact: string
     relationship: string
     emergencyNumber: string
+    bloodType?: string | null
+    signaturePath: string
+    dateSigned?: Date | string
     pastIllnesses?: string | null
     hospitalization?: string | null
-    bloodType: string
+    medications?: string | null
     allergies?: boolean
     immunized?: boolean
     communicableDisease?: boolean
@@ -13329,14 +13313,10 @@ export namespace Prisma {
     wallclimbing?: boolean
     notFitActivities?: string | null
     medicationPermission?: boolean
-    signaturePath: string
-    dateSigned?: Date | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
     user: UserCreateNestedOneWithoutHealthFormInput
   }
 
-  export type StudentHealthFormUncheckedCreateInput = {
+  export type UserHealthFormUncheckedCreateInput = {
     id?: string
     userId: string
     lastName: string
@@ -13350,14 +13330,17 @@ export namespace Prisma {
     city: string
     state: string
     postalCode: string
-    guardianName: string
-    guardianContact: string
+    guardianName?: string | null
+    guardianContact?: string | null
     emergencyContact: string
     relationship: string
     emergencyNumber: string
+    bloodType?: string | null
+    signaturePath: string
+    dateSigned?: Date | string
     pastIllnesses?: string | null
     hospitalization?: string | null
-    bloodType: string
+    medications?: string | null
     allergies?: boolean
     immunized?: boolean
     communicableDisease?: boolean
@@ -13375,13 +13358,9 @@ export namespace Prisma {
     wallclimbing?: boolean
     notFitActivities?: string | null
     medicationPermission?: boolean
-    signaturePath: string
-    dateSigned?: Date | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
-  export type StudentHealthFormUpdateInput = {
+  export type UserHealthFormUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
@@ -13394,14 +13373,17 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
-    guardianName?: StringFieldUpdateOperationsInput | string
-    guardianContact?: StringFieldUpdateOperationsInput | string
+    guardianName?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContact?: StringFieldUpdateOperationsInput | string
     relationship?: StringFieldUpdateOperationsInput | string
     emergencyNumber?: StringFieldUpdateOperationsInput | string
+    bloodType?: NullableStringFieldUpdateOperationsInput | string | null
+    signaturePath?: StringFieldUpdateOperationsInput | string
+    dateSigned?: DateTimeFieldUpdateOperationsInput | Date | string
     pastIllnesses?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalization?: NullableStringFieldUpdateOperationsInput | string | null
-    bloodType?: StringFieldUpdateOperationsInput | string
+    medications?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: BoolFieldUpdateOperationsInput | boolean
     immunized?: BoolFieldUpdateOperationsInput | boolean
     communicableDisease?: BoolFieldUpdateOperationsInput | boolean
@@ -13419,14 +13401,10 @@ export namespace Prisma {
     wallclimbing?: BoolFieldUpdateOperationsInput | boolean
     notFitActivities?: NullableStringFieldUpdateOperationsInput | string | null
     medicationPermission?: BoolFieldUpdateOperationsInput | boolean
-    signaturePath?: StringFieldUpdateOperationsInput | string
-    dateSigned?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutHealthFormNestedInput
   }
 
-  export type StudentHealthFormUncheckedUpdateInput = {
+  export type UserHealthFormUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
@@ -13440,14 +13418,17 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
-    guardianName?: StringFieldUpdateOperationsInput | string
-    guardianContact?: StringFieldUpdateOperationsInput | string
+    guardianName?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContact?: StringFieldUpdateOperationsInput | string
     relationship?: StringFieldUpdateOperationsInput | string
     emergencyNumber?: StringFieldUpdateOperationsInput | string
+    bloodType?: NullableStringFieldUpdateOperationsInput | string | null
+    signaturePath?: StringFieldUpdateOperationsInput | string
+    dateSigned?: DateTimeFieldUpdateOperationsInput | Date | string
     pastIllnesses?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalization?: NullableStringFieldUpdateOperationsInput | string | null
-    bloodType?: StringFieldUpdateOperationsInput | string
+    medications?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: BoolFieldUpdateOperationsInput | boolean
     immunized?: BoolFieldUpdateOperationsInput | boolean
     communicableDisease?: BoolFieldUpdateOperationsInput | boolean
@@ -13465,13 +13446,9 @@ export namespace Prisma {
     wallclimbing?: BoolFieldUpdateOperationsInput | boolean
     notFitActivities?: NullableStringFieldUpdateOperationsInput | string | null
     medicationPermission?: BoolFieldUpdateOperationsInput | boolean
-    signaturePath?: StringFieldUpdateOperationsInput | string
-    dateSigned?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StudentHealthFormCreateManyInput = {
+  export type UserHealthFormCreateManyInput = {
     id?: string
     userId: string
     lastName: string
@@ -13485,14 +13462,17 @@ export namespace Prisma {
     city: string
     state: string
     postalCode: string
-    guardianName: string
-    guardianContact: string
+    guardianName?: string | null
+    guardianContact?: string | null
     emergencyContact: string
     relationship: string
     emergencyNumber: string
+    bloodType?: string | null
+    signaturePath: string
+    dateSigned?: Date | string
     pastIllnesses?: string | null
     hospitalization?: string | null
-    bloodType: string
+    medications?: string | null
     allergies?: boolean
     immunized?: boolean
     communicableDisease?: boolean
@@ -13510,13 +13490,9 @@ export namespace Prisma {
     wallclimbing?: boolean
     notFitActivities?: string | null
     medicationPermission?: boolean
-    signaturePath: string
-    dateSigned?: Date | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
-  export type StudentHealthFormUpdateManyMutationInput = {
+  export type UserHealthFormUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
@@ -13529,14 +13505,17 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
-    guardianName?: StringFieldUpdateOperationsInput | string
-    guardianContact?: StringFieldUpdateOperationsInput | string
+    guardianName?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContact?: StringFieldUpdateOperationsInput | string
     relationship?: StringFieldUpdateOperationsInput | string
     emergencyNumber?: StringFieldUpdateOperationsInput | string
+    bloodType?: NullableStringFieldUpdateOperationsInput | string | null
+    signaturePath?: StringFieldUpdateOperationsInput | string
+    dateSigned?: DateTimeFieldUpdateOperationsInput | Date | string
     pastIllnesses?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalization?: NullableStringFieldUpdateOperationsInput | string | null
-    bloodType?: StringFieldUpdateOperationsInput | string
+    medications?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: BoolFieldUpdateOperationsInput | boolean
     immunized?: BoolFieldUpdateOperationsInput | boolean
     communicableDisease?: BoolFieldUpdateOperationsInput | boolean
@@ -13554,13 +13533,9 @@ export namespace Prisma {
     wallclimbing?: BoolFieldUpdateOperationsInput | boolean
     notFitActivities?: NullableStringFieldUpdateOperationsInput | string | null
     medicationPermission?: BoolFieldUpdateOperationsInput | boolean
-    signaturePath?: StringFieldUpdateOperationsInput | string
-    dateSigned?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StudentHealthFormUncheckedUpdateManyInput = {
+  export type UserHealthFormUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
@@ -13574,14 +13549,17 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
-    guardianName?: StringFieldUpdateOperationsInput | string
-    guardianContact?: StringFieldUpdateOperationsInput | string
+    guardianName?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContact?: StringFieldUpdateOperationsInput | string
     relationship?: StringFieldUpdateOperationsInput | string
     emergencyNumber?: StringFieldUpdateOperationsInput | string
+    bloodType?: NullableStringFieldUpdateOperationsInput | string | null
+    signaturePath?: StringFieldUpdateOperationsInput | string
+    dateSigned?: DateTimeFieldUpdateOperationsInput | Date | string
     pastIllnesses?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalization?: NullableStringFieldUpdateOperationsInput | string | null
-    bloodType?: StringFieldUpdateOperationsInput | string
+    medications?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: BoolFieldUpdateOperationsInput | boolean
     immunized?: BoolFieldUpdateOperationsInput | boolean
     communicableDisease?: BoolFieldUpdateOperationsInput | boolean
@@ -13599,10 +13577,6 @@ export namespace Prisma {
     wallclimbing?: BoolFieldUpdateOperationsInput | boolean
     notFitActivities?: NullableStringFieldUpdateOperationsInput | string | null
     medicationPermission?: BoolFieldUpdateOperationsInput | boolean
-    signaturePath?: StringFieldUpdateOperationsInput | string
-    dateSigned?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UploadedFormCreateInput = {
@@ -14103,9 +14077,9 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type StudentHealthFormNullableScalarRelationFilter = {
-    is?: StudentHealthFormWhereInput | null
-    isNot?: StudentHealthFormWhereInput | null
+  export type UserHealthFormNullableScalarRelationFilter = {
+    is?: UserHealthFormWhereInput | null
+    isNot?: UserHealthFormWhereInput | null
   }
 
   export type UploadedFormListRelationFilter = {
@@ -14273,7 +14247,7 @@ export namespace Prisma {
     isNot?: UserWhereInput
   }
 
-  export type StudentHealthFormCountOrderByAggregateInput = {
+  export type UserHealthFormCountOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     lastName?: SortOrder
@@ -14292,9 +14266,12 @@ export namespace Prisma {
     emergencyContact?: SortOrder
     relationship?: SortOrder
     emergencyNumber?: SortOrder
+    bloodType?: SortOrder
+    signaturePath?: SortOrder
+    dateSigned?: SortOrder
     pastIllnesses?: SortOrder
     hospitalization?: SortOrder
-    bloodType?: SortOrder
+    medications?: SortOrder
     allergies?: SortOrder
     immunized?: SortOrder
     communicableDisease?: SortOrder
@@ -14312,13 +14289,9 @@ export namespace Prisma {
     wallclimbing?: SortOrder
     notFitActivities?: SortOrder
     medicationPermission?: SortOrder
-    signaturePath?: SortOrder
-    dateSigned?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
-  export type StudentHealthFormMaxOrderByAggregateInput = {
+  export type UserHealthFormMaxOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     lastName?: SortOrder
@@ -14337,9 +14310,12 @@ export namespace Prisma {
     emergencyContact?: SortOrder
     relationship?: SortOrder
     emergencyNumber?: SortOrder
+    bloodType?: SortOrder
+    signaturePath?: SortOrder
+    dateSigned?: SortOrder
     pastIllnesses?: SortOrder
     hospitalization?: SortOrder
-    bloodType?: SortOrder
+    medications?: SortOrder
     allergies?: SortOrder
     immunized?: SortOrder
     communicableDisease?: SortOrder
@@ -14357,13 +14333,9 @@ export namespace Prisma {
     wallclimbing?: SortOrder
     notFitActivities?: SortOrder
     medicationPermission?: SortOrder
-    signaturePath?: SortOrder
-    dateSigned?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
-  export type StudentHealthFormMinOrderByAggregateInput = {
+  export type UserHealthFormMinOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
     lastName?: SortOrder
@@ -14382,9 +14354,12 @@ export namespace Prisma {
     emergencyContact?: SortOrder
     relationship?: SortOrder
     emergencyNumber?: SortOrder
+    bloodType?: SortOrder
+    signaturePath?: SortOrder
+    dateSigned?: SortOrder
     pastIllnesses?: SortOrder
     hospitalization?: SortOrder
-    bloodType?: SortOrder
+    medications?: SortOrder
     allergies?: SortOrder
     immunized?: SortOrder
     communicableDisease?: SortOrder
@@ -14402,10 +14377,6 @@ export namespace Prisma {
     wallclimbing?: SortOrder
     notFitActivities?: SortOrder
     medicationPermission?: SortOrder
-    signaturePath?: SortOrder
-    dateSigned?: SortOrder
-    createdAt?: SortOrder
-    updatedAt?: SortOrder
   }
 
   export type UploadedFormCountOrderByAggregateInput = {
@@ -14630,10 +14601,10 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type StudentHealthFormCreateNestedOneWithoutUserInput = {
-    create?: XOR<StudentHealthFormCreateWithoutUserInput, StudentHealthFormUncheckedCreateWithoutUserInput>
-    connectOrCreate?: StudentHealthFormCreateOrConnectWithoutUserInput
-    connect?: StudentHealthFormWhereUniqueInput
+  export type UserHealthFormCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserHealthFormCreateOrConnectWithoutUserInput
+    connect?: UserHealthFormWhereUniqueInput
   }
 
   export type UploadedFormCreateNestedManyWithoutUserInput = {
@@ -14657,10 +14628,10 @@ export namespace Prisma {
     connect?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
   }
 
-  export type StudentHealthFormUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<StudentHealthFormCreateWithoutUserInput, StudentHealthFormUncheckedCreateWithoutUserInput>
-    connectOrCreate?: StudentHealthFormCreateOrConnectWithoutUserInput
-    connect?: StudentHealthFormWhereUniqueInput
+  export type UserHealthFormUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserHealthFormCreateOrConnectWithoutUserInput
+    connect?: UserHealthFormWhereUniqueInput
   }
 
   export type UploadedFormUncheckedCreateNestedManyWithoutUserInput = {
@@ -14700,14 +14671,14 @@ export namespace Prisma {
     set?: Date | string
   }
 
-  export type StudentHealthFormUpdateOneWithoutUserNestedInput = {
-    create?: XOR<StudentHealthFormCreateWithoutUserInput, StudentHealthFormUncheckedCreateWithoutUserInput>
-    connectOrCreate?: StudentHealthFormCreateOrConnectWithoutUserInput
-    upsert?: StudentHealthFormUpsertWithoutUserInput
-    disconnect?: StudentHealthFormWhereInput | boolean
-    delete?: StudentHealthFormWhereInput | boolean
-    connect?: StudentHealthFormWhereUniqueInput
-    update?: XOR<XOR<StudentHealthFormUpdateToOneWithWhereWithoutUserInput, StudentHealthFormUpdateWithoutUserInput>, StudentHealthFormUncheckedUpdateWithoutUserInput>
+  export type UserHealthFormUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserHealthFormCreateOrConnectWithoutUserInput
+    upsert?: UserHealthFormUpsertWithoutUserInput
+    disconnect?: UserHealthFormWhereInput | boolean
+    delete?: UserHealthFormWhereInput | boolean
+    connect?: UserHealthFormWhereUniqueInput
+    update?: XOR<XOR<UserHealthFormUpdateToOneWithWhereWithoutUserInput, UserHealthFormUpdateWithoutUserInput>, UserHealthFormUncheckedUpdateWithoutUserInput>
   }
 
   export type UploadedFormUpdateManyWithoutUserNestedInput = {
@@ -14752,14 +14723,14 @@ export namespace Prisma {
     deleteMany?: ClearanceRequestScalarWhereInput | ClearanceRequestScalarWhereInput[]
   }
 
-  export type StudentHealthFormUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<StudentHealthFormCreateWithoutUserInput, StudentHealthFormUncheckedCreateWithoutUserInput>
-    connectOrCreate?: StudentHealthFormCreateOrConnectWithoutUserInput
-    upsert?: StudentHealthFormUpsertWithoutUserInput
-    disconnect?: StudentHealthFormWhereInput | boolean
-    delete?: StudentHealthFormWhereInput | boolean
-    connect?: StudentHealthFormWhereUniqueInput
-    update?: XOR<XOR<StudentHealthFormUpdateToOneWithWhereWithoutUserInput, StudentHealthFormUpdateWithoutUserInput>, StudentHealthFormUncheckedUpdateWithoutUserInput>
+  export type UserHealthFormUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserHealthFormCreateOrConnectWithoutUserInput
+    upsert?: UserHealthFormUpsertWithoutUserInput
+    disconnect?: UserHealthFormWhereInput | boolean
+    delete?: UserHealthFormWhereInput | boolean
+    connect?: UserHealthFormWhereUniqueInput
+    update?: XOR<XOR<UserHealthFormUpdateToOneWithWhereWithoutUserInput, UserHealthFormUpdateWithoutUserInput>, UserHealthFormUncheckedUpdateWithoutUserInput>
   }
 
   export type UploadedFormUncheckedUpdateManyWithoutUserNestedInput = {
@@ -15140,7 +15111,7 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type StudentHealthFormCreateWithoutUserInput = {
+  export type UserHealthFormCreateWithoutUserInput = {
     id?: string
     lastName: string
     firstName: string
@@ -15153,14 +15124,17 @@ export namespace Prisma {
     city: string
     state: string
     postalCode: string
-    guardianName: string
-    guardianContact: string
+    guardianName?: string | null
+    guardianContact?: string | null
     emergencyContact: string
     relationship: string
     emergencyNumber: string
+    bloodType?: string | null
+    signaturePath: string
+    dateSigned?: Date | string
     pastIllnesses?: string | null
     hospitalization?: string | null
-    bloodType: string
+    medications?: string | null
     allergies?: boolean
     immunized?: boolean
     communicableDisease?: boolean
@@ -15178,13 +15152,9 @@ export namespace Prisma {
     wallclimbing?: boolean
     notFitActivities?: string | null
     medicationPermission?: boolean
-    signaturePath: string
-    dateSigned?: Date | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
-  export type StudentHealthFormUncheckedCreateWithoutUserInput = {
+  export type UserHealthFormUncheckedCreateWithoutUserInput = {
     id?: string
     lastName: string
     firstName: string
@@ -15197,14 +15167,17 @@ export namespace Prisma {
     city: string
     state: string
     postalCode: string
-    guardianName: string
-    guardianContact: string
+    guardianName?: string | null
+    guardianContact?: string | null
     emergencyContact: string
     relationship: string
     emergencyNumber: string
+    bloodType?: string | null
+    signaturePath: string
+    dateSigned?: Date | string
     pastIllnesses?: string | null
     hospitalization?: string | null
-    bloodType: string
+    medications?: string | null
     allergies?: boolean
     immunized?: boolean
     communicableDisease?: boolean
@@ -15222,15 +15195,11 @@ export namespace Prisma {
     wallclimbing?: boolean
     notFitActivities?: string | null
     medicationPermission?: boolean
-    signaturePath: string
-    dateSigned?: Date | string
-    createdAt?: Date | string
-    updatedAt?: Date | string
   }
 
-  export type StudentHealthFormCreateOrConnectWithoutUserInput = {
-    where: StudentHealthFormWhereUniqueInput
-    create: XOR<StudentHealthFormCreateWithoutUserInput, StudentHealthFormUncheckedCreateWithoutUserInput>
+  export type UserHealthFormCreateOrConnectWithoutUserInput = {
+    where: UserHealthFormWhereUniqueInput
+    create: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
   }
 
   export type UploadedFormCreateWithoutUserInput = {
@@ -15330,18 +15299,18 @@ export namespace Prisma {
     data: ClearanceRequestCreateManyUserInput | ClearanceRequestCreateManyUserInput[]
   }
 
-  export type StudentHealthFormUpsertWithoutUserInput = {
-    update: XOR<StudentHealthFormUpdateWithoutUserInput, StudentHealthFormUncheckedUpdateWithoutUserInput>
-    create: XOR<StudentHealthFormCreateWithoutUserInput, StudentHealthFormUncheckedCreateWithoutUserInput>
-    where?: StudentHealthFormWhereInput
+  export type UserHealthFormUpsertWithoutUserInput = {
+    update: XOR<UserHealthFormUpdateWithoutUserInput, UserHealthFormUncheckedUpdateWithoutUserInput>
+    create: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
+    where?: UserHealthFormWhereInput
   }
 
-  export type StudentHealthFormUpdateToOneWithWhereWithoutUserInput = {
-    where?: StudentHealthFormWhereInput
-    data: XOR<StudentHealthFormUpdateWithoutUserInput, StudentHealthFormUncheckedUpdateWithoutUserInput>
+  export type UserHealthFormUpdateToOneWithWhereWithoutUserInput = {
+    where?: UserHealthFormWhereInput
+    data: XOR<UserHealthFormUpdateWithoutUserInput, UserHealthFormUncheckedUpdateWithoutUserInput>
   }
 
-  export type StudentHealthFormUpdateWithoutUserInput = {
+  export type UserHealthFormUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
@@ -15354,14 +15323,17 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
-    guardianName?: StringFieldUpdateOperationsInput | string
-    guardianContact?: StringFieldUpdateOperationsInput | string
+    guardianName?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContact?: StringFieldUpdateOperationsInput | string
     relationship?: StringFieldUpdateOperationsInput | string
     emergencyNumber?: StringFieldUpdateOperationsInput | string
+    bloodType?: NullableStringFieldUpdateOperationsInput | string | null
+    signaturePath?: StringFieldUpdateOperationsInput | string
+    dateSigned?: DateTimeFieldUpdateOperationsInput | Date | string
     pastIllnesses?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalization?: NullableStringFieldUpdateOperationsInput | string | null
-    bloodType?: StringFieldUpdateOperationsInput | string
+    medications?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: BoolFieldUpdateOperationsInput | boolean
     immunized?: BoolFieldUpdateOperationsInput | boolean
     communicableDisease?: BoolFieldUpdateOperationsInput | boolean
@@ -15379,13 +15351,9 @@ export namespace Prisma {
     wallclimbing?: BoolFieldUpdateOperationsInput | boolean
     notFitActivities?: NullableStringFieldUpdateOperationsInput | string | null
     medicationPermission?: BoolFieldUpdateOperationsInput | boolean
-    signaturePath?: StringFieldUpdateOperationsInput | string
-    dateSigned?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type StudentHealthFormUncheckedUpdateWithoutUserInput = {
+  export type UserHealthFormUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
@@ -15398,14 +15366,17 @@ export namespace Prisma {
     city?: StringFieldUpdateOperationsInput | string
     state?: StringFieldUpdateOperationsInput | string
     postalCode?: StringFieldUpdateOperationsInput | string
-    guardianName?: StringFieldUpdateOperationsInput | string
-    guardianContact?: StringFieldUpdateOperationsInput | string
+    guardianName?: NullableStringFieldUpdateOperationsInput | string | null
+    guardianContact?: NullableStringFieldUpdateOperationsInput | string | null
     emergencyContact?: StringFieldUpdateOperationsInput | string
     relationship?: StringFieldUpdateOperationsInput | string
     emergencyNumber?: StringFieldUpdateOperationsInput | string
+    bloodType?: NullableStringFieldUpdateOperationsInput | string | null
+    signaturePath?: StringFieldUpdateOperationsInput | string
+    dateSigned?: DateTimeFieldUpdateOperationsInput | Date | string
     pastIllnesses?: NullableStringFieldUpdateOperationsInput | string | null
     hospitalization?: NullableStringFieldUpdateOperationsInput | string | null
-    bloodType?: StringFieldUpdateOperationsInput | string
+    medications?: NullableStringFieldUpdateOperationsInput | string | null
     allergies?: BoolFieldUpdateOperationsInput | boolean
     immunized?: BoolFieldUpdateOperationsInput | boolean
     communicableDisease?: BoolFieldUpdateOperationsInput | boolean
@@ -15423,10 +15394,6 @@ export namespace Prisma {
     wallclimbing?: BoolFieldUpdateOperationsInput | boolean
     notFitActivities?: NullableStringFieldUpdateOperationsInput | string | null
     medicationPermission?: BoolFieldUpdateOperationsInput | boolean
-    signaturePath?: StringFieldUpdateOperationsInput | string
-    dateSigned?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UploadedFormUpsertWithWhereUniqueWithoutUserInput = {
@@ -15625,7 +15592,7 @@ export namespace Prisma {
     verificationToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    healthForm?: StudentHealthFormCreateNestedOneWithoutUserInput
+    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
     appointments?: AppointmentCreateNestedManyWithoutUserInput
     clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
   }
@@ -15643,7 +15610,7 @@ export namespace Prisma {
     verificationToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    healthForm?: StudentHealthFormUncheckedCreateNestedOneWithoutUserInput
+    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
     clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
   }
@@ -15677,7 +15644,7 @@ export namespace Prisma {
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: StudentHealthFormUpdateOneWithoutUserNestedInput
+    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
     clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
   }
@@ -15695,7 +15662,7 @@ export namespace Prisma {
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: StudentHealthFormUncheckedUpdateOneWithoutUserNestedInput
+    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
     clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -15879,7 +15846,7 @@ export namespace Prisma {
     verificationToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    healthForm?: StudentHealthFormCreateNestedOneWithoutUserInput
+    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
     uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
     clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
   }
@@ -15897,7 +15864,7 @@ export namespace Prisma {
     verificationToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    healthForm?: StudentHealthFormUncheckedCreateNestedOneWithoutUserInput
+    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
     uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
     clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
   }
@@ -15956,7 +15923,7 @@ export namespace Prisma {
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: StudentHealthFormUpdateOneWithoutUserNestedInput
+    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
     uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
     clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
   }
@@ -15974,7 +15941,7 @@ export namespace Prisma {
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: StudentHealthFormUncheckedUpdateOneWithoutUserNestedInput
+    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
     uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
     clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
   }
@@ -16076,7 +16043,7 @@ export namespace Prisma {
     verificationToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    healthForm?: StudentHealthFormCreateNestedOneWithoutUserInput
+    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
     uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
     appointments?: AppointmentCreateNestedManyWithoutUserInput
   }
@@ -16094,7 +16061,7 @@ export namespace Prisma {
     verificationToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    healthForm?: StudentHealthFormUncheckedCreateNestedOneWithoutUserInput
+    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
     uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
   }
@@ -16149,7 +16116,7 @@ export namespace Prisma {
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: StudentHealthFormUpdateOneWithoutUserNestedInput
+    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
     uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
   }
@@ -16167,7 +16134,7 @@ export namespace Prisma {
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: StudentHealthFormUncheckedUpdateOneWithoutUserNestedInput
+    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
     uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
   }

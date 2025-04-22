@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger 
 } from "./ui/dropdown-menu"
 import { Badge } from "./ui/badge"
+import { useRouter } from "next/navigation"
 
 // Mock notifications for demo
 const MOCK_NOTIFICATIONS = [
@@ -46,7 +47,8 @@ const MOCK_NOTIFICATIONS = [
 ]
 
 export function Header() {
-  const { user } = useAuthStore()
+  const { user, logout } = useAuthStore()
+  const router = useRouter()
   const [searchQuery, setSearchQuery] = useState("")
   const [notifications, setNotifications] = useState(MOCK_NOTIFICATIONS)
   
@@ -70,6 +72,11 @@ export function Header() {
     setNotifications(prev => 
       prev.map(notif => ({ ...notif, read: true }))
     )
+  }
+
+  const handleSignOut = () => {
+    logout()
+    router.push('/auth')
   }
   
   const getInitials = (name: string) => {
@@ -195,12 +202,13 @@ export function Header() {
               </DropdownMenuItem>
             </Link>
             <DropdownMenuSeparator />
-            <Link href="/auth">
-              <DropdownMenuItem className="text-red-500 focus:text-red-500">
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>Sign Out</span>
-              </DropdownMenuItem>
-            </Link>
+            <DropdownMenuItem 
+              className="text-red-500 focus:text-red-500"
+              onClick={handleSignOut}
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Sign Out</span>
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>

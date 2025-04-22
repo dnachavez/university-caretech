@@ -7,9 +7,10 @@ interface PageHeaderProps {
   title: string
   description: string
   currentPage: string
+  baseUrl?: string
 }
 
-export function PageHeader({ title, description, currentPage }: PageHeaderProps) {
+export function PageHeader({ title, description, currentPage, baseUrl = "/student" }: PageHeaderProps) {
   return (
     <div className="flex items-start justify-between mb-6">
       <div>
@@ -19,11 +20,11 @@ export function PageHeader({ title, description, currentPage }: PageHeaderProps)
         </p>
       </div>
       <nav className="flex items-center text-sm text-gray-500">
-        <Link href="/student/dashboard" className="hover:text-blue-600">
+        <Link href={`${baseUrl}/dashboard`} className="hover:text-blue-600">
           Dashboard
         </Link>
         <ChevronRight className="h-4 w-4 mx-1" />
-        <Link href="/student/medical" className="hover:text-blue-600">
+        <Link href={`${baseUrl}/medical`} className="hover:text-blue-600">
           Medical
         </Link>
         <ChevronRight className="h-4 w-4 mx-1" />

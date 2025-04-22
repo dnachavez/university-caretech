@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { 
@@ -150,7 +150,25 @@ export function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
-  const { logout } = useAuthStore()
+  const { logout, user } = useAuthStore()
+
+  // Determine the base route based on the pathname or user role
+  const baseRoute = useMemo(() => {
+    if (pathname.startsWith('/fs')) return '/fs';
+    if (pathname.startsWith('/student')) return '/student';
+    if (pathname.startsWith('/admin')) return '/admin';
+    
+    // Fallback to user role if available
+    if (user) {
+      const role = user.role.toLowerCase();
+      if (role === 'student') return '/student';
+      if (role === 'faculty' || role === 'staff') return '/fs';
+      if (role === 'admin') return '/admin';
+    }
+    
+    // Default fallback
+    return '/student';
+  }, [pathname, user]);
 
   const handleSignOut = () => {
     logout()
@@ -167,10 +185,10 @@ export function Sidebar() {
     >
       <div className="flex-1 overflow-y-auto py-4 px-2 space-y-1.5">
         <NavItem 
-          href="/student/dashboard" 
+          href={`${baseRoute}/dashboard`}
           icon={<Home className="h-5 w-5 text-blue-600" />} 
           label="Dashboard" 
-          isActive={pathname === "/student/dashboard"} 
+          isActive={pathname === `${baseRoute}/dashboard`} 
           isCollapsed={isCollapsed}
         />
         
@@ -178,20 +196,20 @@ export function Sidebar() {
           icon={<FileText className="h-5 w-5 text-blue-600" />} 
           label="My Forms" 
           isCollapsed={isCollapsed}
-          defaultOpen={pathname.includes("/student/forms")}
+          defaultOpen={pathname.includes(`${baseRoute}/forms`)}
         >
           <SubNavItem 
-            href="/student/forms/new" 
+            href={`${baseRoute}/forms/new`}
             icon={<FileUp className="h-4 w-4 text-blue-600" />}
             label="New Form" 
-            isActive={pathname === "/student/forms/new"} 
+            isActive={pathname === `${baseRoute}/forms/new`} 
             isCollapsed={isCollapsed}
           />
           <SubNavItem 
-            href="/student/forms/upload" 
+            href={`${baseRoute}/forms/upload`}
             icon={<FileUp className="h-4 w-4 text-blue-600" />}
             label="Scan and Upload Form" 
-            isActive={pathname === "/student/forms/upload"} 
+            isActive={pathname === `${baseRoute}/forms/upload`} 
             isCollapsed={isCollapsed}
           />
         </NavGroup>
@@ -200,34 +218,34 @@ export function Sidebar() {
           icon={<FolderOpen className="h-5 w-5 text-blue-600" />} 
           label="Medical Records" 
           isCollapsed={isCollapsed}
-          defaultOpen={pathname.includes("/student/medical")}
+          defaultOpen={pathname.includes(`${baseRoute}/medical`)}
         >
           <SubNavItem 
-            href="/student/medical/history" 
+            href={`${baseRoute}/medical/history`}
             icon={<ClipboardList className="h-4 w-4 text-blue-600" />}
             label="Medical History" 
-            isActive={pathname === "/student/medical/history"} 
+            isActive={pathname === `${baseRoute}/medical/history`} 
             isCollapsed={isCollapsed}
           />
           <SubNavItem 
-            href="/student/medical/lab-results" 
+            href={`${baseRoute}/medical/lab-results`}
             icon={<TestTube className="h-4 w-4 text-blue-600" />}
             label="Lab Results" 
-            isActive={pathname === "/student/medical/lab-results"} 
+            isActive={pathname === `${baseRoute}/medical/lab-results`} 
             isCollapsed={isCollapsed}
           />
           <SubNavItem 
-            href="/student/medical/immunization" 
+            href={`${baseRoute}/medical/immunization`}
             icon={<Syringe className="h-4 w-4 text-blue-600" />}
             label="Immunization" 
-            isActive={pathname === "/student/medical/immunization"} 
+            isActive={pathname === `${baseRoute}/medical/immunization`} 
             isCollapsed={isCollapsed}
           />
           <SubNavItem 
-            href="/student/medical/others" 
+            href={`${baseRoute}/medical/others`}
             icon={<FileQuestion className="h-4 w-4 text-blue-600" />}
             label="Others" 
-            isActive={pathname === "/student/medical/others"} 
+            isActive={pathname === `${baseRoute}/medical/others`} 
             isCollapsed={isCollapsed}
           />
         </NavGroup>
