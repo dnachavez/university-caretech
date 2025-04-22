@@ -193,6 +193,36 @@ exports.Prisma.UploadedFormScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.ConsultationDateScalarFieldEnum = {
+  id: 'id',
+  date: 'date',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.TimeSlotScalarFieldEnum = {
+  id: 'id',
+  startTime: 'startTime',
+  endTime: 'endTime',
+  isAvailable: 'isAvailable',
+  consultationDateId: 'consultationDateId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.AppointmentScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  timeSlotId: 'timeSlotId',
+  consultationType: 'consultationType',
+  reasonForVisit: 'reasonForVisit',
+  additionalNotes: 'additionalNotes',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -208,7 +238,10 @@ exports.Prisma.ModelName = {
   User: 'User',
   VerificationToken: 'VerificationToken',
   StudentHealthForm: 'StudentHealthForm',
-  UploadedForm: 'UploadedForm'
+  UploadedForm: 'UploadedForm',
+  ConsultationDate: 'ConsultationDate',
+  TimeSlot: 'TimeSlot',
+  Appointment: 'Appointment'
 };
 
 /**
