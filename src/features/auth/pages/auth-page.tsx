@@ -4,14 +4,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { SignInForm } from "@/features/auth/components/sign-in-form"
 import { SignUpForm } from "@/features/auth/components/sign-up-form"
 import { AuthLayout } from "@/features/auth/components/auth-layout"
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter } from "next/navigation"
 import { useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 import { useAuthStore } from "@/store/auth-store"
 import { AuthService } from "@/services/auth-service"
 
-export default function AuthPage() {
+// Component that uses useSearchParams wrapped in Suspense
+function AuthContent() {
   const [activeTab, setActiveTab] = useState("signin")
   const searchParams = useSearchParams()
   const router = useRouter()
@@ -50,22 +51,35 @@ export default function AuthPage() {
   }
 
   return (
+    <Tabs value={activeTab} className="w-full" onValueChange={handleTabChange}>
+      <TabsList className="grid w-full grid-cols-2 mb-6 bg-[#f5fafa]">
+        <TabsTrigger value="signin" className="data-[state=active]:bg-[#ffffff]">Sign In</TabsTrigger>
+        <TabsTrigger value="signup" className="data-[state=active]:bg-[#ffffff]">Sign Up</TabsTrigger>
+      </TabsList>
+      <TabsContent value="signin">
+        <SignInForm onTabChange={handleTabChange} />
+      </TabsContent>
+      <TabsContent value="signup">
+        <SignUpForm onTabChange={handleTabChange} />
+      </TabsContent>
+    </Tabs>
+  )
+}
+
+// Loading fallback component for Suspense
+function AuthLoading() {
+  return <div className="w-full text-center py-4">Loading...</div>
+}
+
+export default function AuthPage() {
+  return (
     <AuthLayout 
       title="Welcome to the Health Portal" 
       description="Access your medical records, submit forms, and schedule appointments with your university health services."
     >
-      <Tabs value={activeTab} className="w-full" onValueChange={handleTabChange}>
-        <TabsList className="grid w-full grid-cols-2 mb-6 bg-[#f5fafa]">
-          <TabsTrigger value="signin" className="data-[state=active]:bg-[#ffffff]">Sign In</TabsTrigger>
-          <TabsTrigger value="signup" className="data-[state=active]:bg-[#ffffff]">Sign Up</TabsTrigger>
-        </TabsList>
-        <TabsContent value="signin">
-          <SignInForm onTabChange={handleTabChange} />
-        </TabsContent>
-        <TabsContent value="signup">
-          <SignUpForm onTabChange={handleTabChange} />
-        </TabsContent>
-      </Tabs>
+      <Suspense fallback={<AuthLoading />}>
+        <AuthContent />
+      </Suspense>
     </AuthLayout>
   )
 } 
