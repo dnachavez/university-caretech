@@ -7,13 +7,13 @@ import { Separator } from "@/components/ui/separator"
 import { AuthLayout } from "@/features/auth/components/auth-layout"
 import Link from "next/link"
 import { Lock, Loader2, AlertCircle } from "lucide-react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { toast } from "sonner"
 import { ResetPasswordData } from "@/types/auth"
 import { useAuthStore } from "@/store/auth-store"
 
-export default function ResetPasswordPage() {
+function ResetPasswordForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isValidating, setIsValidating] = useState(true)
   const [password, setPassword] = useState("")
@@ -246,5 +246,25 @@ export default function ResetPasswordPage() {
         </form>
       </div>
     </AuthLayout>
+  )
+}
+
+export default function ResetPasswordPage() {
+  return (
+    <Suspense fallback={
+      <AuthLayout
+        title="Loading"
+        description="Please wait..."
+      >
+        <div className="flex flex-col items-center justify-center p-8">
+          <Loader2 className="h-12 w-12 animate-spin text-[#166cbb] mb-4" />
+          <p className="text-[#5b6779] text-sm text-center">
+            Loading...
+          </p>
+        </div>
+      </AuthLayout>
+    }>
+      <ResetPasswordForm />
+    </Suspense>
   )
 } 
