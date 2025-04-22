@@ -7,7 +7,8 @@ import {
   ChevronDown, ChevronRight, 
   Home, FileText, FolderOpen, 
   FileUp, TestTube, Syringe, LogOut, 
-  ChevronLeft, ClipboardList, FileQuestion
+  ChevronLeft, ClipboardList, FileQuestion,
+  Users
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Button } from "./ui/button"
@@ -170,6 +171,9 @@ export function Sidebar() {
     return '/student';
   }, [pathname, user]);
 
+  // Check if user is faculty or staff
+  const isFacultyOrStaff = user?.role === 'FACULTY' || user?.role === 'STAFF'
+
   const handleSignOut = () => {
     logout()
     toast.success("You have been signed out successfully")
@@ -191,6 +195,17 @@ export function Sidebar() {
           isActive={pathname === `${baseRoute}/dashboard`} 
           isCollapsed={isCollapsed}
         />
+        
+        {/* Student Records menu for faculty/staff only */}
+        {isFacultyOrStaff && baseRoute === '/fs' && (
+          <NavItem 
+            href={`${baseRoute}/student-records`}
+            icon={<Users className="h-5 w-5 text-blue-600" />} 
+            label="Student Records" 
+            isActive={pathname.includes(`${baseRoute}/medical/student-records`)} 
+            isCollapsed={isCollapsed}
+          />
+        )}
         
         <NavGroup 
           icon={<FileText className="h-5 w-5 text-blue-600" />} 
