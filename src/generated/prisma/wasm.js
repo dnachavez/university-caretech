@@ -159,6 +159,8 @@ exports.Prisma.UserHealthFormScalarFieldEnum = {
   city: 'city',
   state: 'state',
   postalCode: 'postalCode',
+  departmentId: 'departmentId',
+  yearLevel: 'yearLevel',
   guardianName: 'guardianName',
   guardianContact: 'guardianContact',
   emergencyContact: 'emergencyContact',

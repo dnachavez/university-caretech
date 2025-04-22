@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { useAuthStore } from "@/store/auth-store"
 import { 
   ChevronRight, Building, Plus, Pencil, Trash2, 
-  MoreHorizontal, Check, X, RefreshCcw
+  MoreHorizontal, Check, X, RefreshCcw, User
 } from "lucide-react"
 import Link from "next/link"
 import {
@@ -431,6 +431,12 @@ export default function DepartmentsPage() {
                           >
                             <Trash2 className="h-4 w-4 mr-2" />
                             Delete Department
+                          </DropdownMenuItem>
+                          <DropdownMenuItem asChild>
+                            <Link href={`/admin/departments/${department.id}`}>
+                              <User className="h-4 w-4 mr-2" />
+                              View Members
+                            </Link>
                           </DropdownMenuItem>
                         </DropdownMenuContent>
                       </DropdownMenu>

@@ -22,42 +22,8 @@ async function main() {
     }
   })
 
-  // Create faculty user
-  const facultyUser = await prisma.user.upsert({
-    where: { email: 'faculty@university.edu' },
-    update: {},
-    create: {
-      firstName: 'Juan',
-      lastName: 'Dela Cruz',
-      username: 'jdelacruz',
-      email: 'faculty@university.edu',
-      password: await hash('password123', 10),
-      role: 'FACULTY',
-      status: 'ACTIVE',
-      emailVerified: true
-    }
-  })
-
-  // Create staff user
-  const staffUser = await prisma.user.upsert({
-    where: { email: 'staff@university.edu' },
-    update: {},
-    create: {
-      firstName: 'Maria',
-      lastName: 'Santos',
-      username: 'msantos',
-      email: 'staff@university.edu',
-      password: await hash('password123', 10),
-      role: 'STAFF',
-      status: 'ACTIVE',
-      emailVerified: true
-    }
-  })
-
   console.log('Created users:', { 
     admin: adminUser.id,
-    faculty: facultyUser.id,
-    staff: staffUser.id
   })
 
   // Create consultation dates with time slots
@@ -77,9 +43,6 @@ async function main() {
   await createConsultationDate(today)
   await createConsultationDate(tomorrow)
   await createConsultationDate(dayAfterTomorrow)
-
-  // Seed departments
-  await seedDepartments()
 
   console.log('Database seeding completed!')
 }
@@ -142,40 +105,6 @@ async function createConsultationDate(date: Date) {
   })
 
   console.log(`Created consultation date for ${date.toDateString()} with ${consultationDate.timeSlots.length} slots`)
-}
-
-// Seed departments
-async function seedDepartments() {
-  console.log('Seeding departments...');
-  
-  const departments = [
-    { name: "Registrar" },
-    { name: "Admission" },
-    { name: "Accounting" },
-    { name: "Library" },
-    { name: "College of Arts and Sciences" },
-    { name: "College of Education" },
-    { name: "College of Engineering" },
-    { name: "College of Business" },
-  ];
-
-  for (const department of departments) {
-    // Check if department already exists
-    const existingDepartment = await prisma.department.findFirst({
-      where: {
-        name: department.name,
-      },
-    });
-
-    if (!existingDepartment) {
-      await prisma.department.create({
-        data: department,
-      });
-      console.log(`Created department: ${department.name}`);
-    } else {
-      console.log(`Department already exists: ${department.name}`);
-    }
-  }
 }
 
 main()

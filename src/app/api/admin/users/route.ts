@@ -8,7 +8,9 @@ export async function GET(req: NextRequest) {
       include: {
         healthForm: {
           select: {
-            id: true
+            id: true,
+            departmentId: true,
+            yearLevel: true
           }
         }
       },

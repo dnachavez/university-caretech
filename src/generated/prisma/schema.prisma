@@ -44,8 +44,8 @@ model PasswordResetToken {
 }
 
 model UserHealthForm {
-  id                   String   @id @default(cuid())
-  userId               String   @unique
+  id                   String      @id @default(cuid())
+  userId               String      @unique
   lastName             String
   firstName            String
   middleInitial        String?
@@ -57,6 +57,8 @@ model UserHealthForm {
   city                 String
   state                String
   postalCode           String
+  departmentId         String?
+  yearLevel            String?
   guardianName         String?
   guardianContact      String?
   emergencyContact     String
@@ -64,28 +66,29 @@ model UserHealthForm {
   emergencyNumber      String
   bloodType            String?
   signaturePath        String
-  dateSigned           DateTime @default(now())
+  dateSigned           DateTime    @default(now())
   pastIllnesses        String?
   hospitalization      String?
   medications          String?
-  allergies            Boolean  @default(false)
-  immunized            Boolean  @default(false)
-  communicableDisease  Boolean  @default(false)
-  asthmatic            Boolean  @default(false)
-  chronicIllness       Boolean  @default(false)
-  hiking               Boolean  @default(false)
-  dancing              Boolean  @default(false)
-  swimming             Boolean  @default(false)
-  basketball           Boolean  @default(false)
-  ballgames            Boolean  @default(false)
-  jogging              Boolean  @default(false)
-  football             Boolean  @default(false)
-  badminton            Boolean  @default(false)
-  calisthenics         Boolean  @default(false)
-  wallclimbing         Boolean  @default(false)
+  allergies            Boolean     @default(false)
+  immunized            Boolean     @default(false)
+  communicableDisease  Boolean     @default(false)
+  asthmatic            Boolean     @default(false)
+  chronicIllness       Boolean     @default(false)
+  hiking               Boolean     @default(false)
+  dancing              Boolean     @default(false)
+  swimming             Boolean     @default(false)
+  basketball           Boolean     @default(false)
+  ballgames            Boolean     @default(false)
+  jogging              Boolean     @default(false)
+  football             Boolean     @default(false)
+  badminton            Boolean     @default(false)
+  calisthenics         Boolean     @default(false)
+  wallclimbing         Boolean     @default(false)
   notFitActivities     String?
-  medicationPermission Boolean  @default(false)
-  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  medicationPermission Boolean     @default(false)
+  user                 User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  department           Department? @relation(fields: [departmentId], references: [id])
 }
 
 model UploadedForm {
@@ -142,6 +145,7 @@ model Department {
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
   clearanceRequests ClearanceRequest[]
+  healthForms       UserHealthForm[]
 }
 
 model ClearanceRequest {

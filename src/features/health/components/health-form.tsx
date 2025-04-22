@@ -35,6 +35,8 @@ interface FormData {
   city: string
   state: string
   postalCode: string
+  departmentId: string
+  yearLevel: string
   guardianName: string
   guardianContact: string
   emergencyContact: string
@@ -87,6 +89,8 @@ export function HealthForm({ baseUrl = "/student", userType = "student" }: Healt
     city: "",
     state: "",
     postalCode: "",
+    departmentId: "",
+    yearLevel: "",
     guardianName: "",
     guardianContact: "",
     emergencyContact: "",
@@ -123,12 +127,20 @@ export function HealthForm({ baseUrl = "/student", userType = "student" }: Healt
   const [uploadedSignature, setUploadedSignature] = useState<string | null>(null)
   const [isUploadingSignature, setIsUploadingSignature] = useState(false)
   
+  const [departments, setDepartments] = useState([])
+  const [isLoadingDepartments, setIsLoadingDepartments] = useState(false)
+  
   // Fetch existing health form data if available
   useEffect(() => {
     if (userId) {
       fetchHealthFormData()
     }
   }, [userId])
+
+  // Fetch departments
+  useEffect(() => {
+    fetchDepartments()
+  }, [])
 
   // Add useEffect to display uploaded signature in canvas whenever it changes
   useEffect(() => {
@@ -184,6 +196,8 @@ export function HealthForm({ baseUrl = "/student", userType = "student" }: Healt
           city: formData.city || "",
           state: formData.state || "",
           postalCode: formData.postalCode || "",
+          departmentId: formData.departmentId || "",
+          yearLevel: formData.yearLevel || "",
           guardianName: formData.guardianName || "",
           guardianContact: formData.guardianContact || "",
           emergencyContact: formData.emergencyContact || "",
@@ -223,6 +237,22 @@ export function HealthForm({ baseUrl = "/student", userType = "student" }: Healt
     }
   }
   
+  const fetchDepartments = async () => {
+    try {
+      setIsLoadingDepartments(true)
+      const response = await fetch('/api/admin/departments')
+      const data = await response.json()
+      
+      if (data.departments) {
+        setDepartments(data.departments.filter((dept: any) => dept.status === "ACTIVE"))
+      }
+    } catch (error) {
+      console.error("Error fetching departments:", error)
+    } finally {
+      setIsLoadingDepartments(false)
+    }
+  }
+
   // Function to load signature from path
   const loadSignatureFromPath = (signaturePath: string) => {
     const img = new Image()
@@ -309,6 +339,8 @@ export function HealthForm({ baseUrl = "/student", userType = "student" }: Healt
       if (!formData.city.trim()) newErrors.city = "City is required"
       if (!formData.state.trim()) newErrors.state = "State/Province is required"
       if (!formData.postalCode.trim()) newErrors.postalCode = "Postal code is required"
+      if (userType === "student" && !formData.departmentId) newErrors.departmentId = "Department is required"
+      if (userType === "student" && !formData.yearLevel) newErrors.yearLevel = "Year level is required"
       if (!formData.guardianName.trim()) newErrors.guardianName = "Parent/Guardian name is required"
       if (!formData.guardianContact.trim()) newErrors.guardianContact = "Contact number is required"
       if (!formData.emergencyContact.trim()) newErrors.emergencyContact = "Emergency contact person is required"
@@ -438,6 +470,8 @@ export function HealthForm({ baseUrl = "/student", userType = "student" }: Healt
           city: formData.city,
           state: formData.state,
           postalCode: formData.postalCode,
+          departmentId: userType === "student" ? formData.departmentId : (userType === "faculty" ? formData.departmentId : null),
+          yearLevel: userType === "student" ? formData.yearLevel : null,
           guardianName: formData.guardianName,
           guardianContact: formData.guardianContact,
           emergencyContact: formData.emergencyContact,
@@ -789,6 +823,70 @@ export function HealthForm({ baseUrl = "/student", userType = "student" }: Healt
                     {errors.emergencyNumber && <p className="text-xs text-red-500">{errors.emergencyNumber}</p>}
                   </div>
                 </div>
+
+                {/* Department and Year Level fields for students */}
+                {userType === "student" && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="departmentId" className="text-[#5b6779] text-sm font-medium">Department</Label>
+                      <Select 
+                        value={formData.departmentId} 
+                        onValueChange={(value) => handleSelectChange("departmentId", value)}
+                      >
+                        <SelectTrigger className={`w-full py-2 pl-3 pr-10 bg-white text-[#5b6779] text-sm rounded-lg border ${errors.departmentId ? 'border-red-500' : 'border-[#dde5f0]'} focus:outline-none focus:ring-1 focus:ring-[#d9e6fb]`}>
+                          <SelectValue placeholder="Select department" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {departments.map((dept: any) => (
+                            <SelectItem key={dept.id} value={dept.id}>{dept.name}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      {errors.departmentId && <p className="text-xs text-red-500">{errors.departmentId}</p>}
+                    </div>
+                    
+                    <div className="space-y-2">
+                      <Label htmlFor="yearLevel" className="text-[#5b6779] text-sm font-medium">Year Level</Label>
+                      <Select 
+                        value={formData.yearLevel} 
+                        onValueChange={(value) => handleSelectChange("yearLevel", value)}
+                      >
+                        <SelectTrigger className={`w-full py-2 pl-3 pr-10 bg-white text-[#5b6779] text-sm rounded-lg border ${errors.yearLevel ? 'border-red-500' : 'border-[#dde5f0]'} focus:outline-none focus:ring-1 focus:ring-[#d9e6fb]`}>
+                          <SelectValue placeholder="Select year level" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="1st Year">1st Year</SelectItem>
+                          <SelectItem value="2nd Year">2nd Year</SelectItem>
+                          <SelectItem value="3rd Year">3rd Year</SelectItem>
+                          <SelectItem value="4th Year">4th Year</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      {errors.yearLevel && <p className="text-xs text-red-500">{errors.yearLevel}</p>}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Department field for faculty/staff */}
+                {userType !== "student" && (
+                  <div className="grid grid-cols-1 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="departmentId" className="text-[#5b6779] text-sm font-medium">Department</Label>
+                      <Select 
+                        value={formData.departmentId} 
+                        onValueChange={(value) => handleSelectChange("departmentId", value)}
+                      >
+                        <SelectTrigger className={`w-full py-2 pl-3 pr-10 bg-white text-[#5b6779] text-sm rounded-lg border ${errors.departmentId ? 'border-red-500' : 'border-[#dde5f0]'} focus:outline-none focus:ring-1 focus:ring-[#d9e6fb]`}>
+                          <SelectValue placeholder="Select department" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {departments.map((dept: any) => (
+                            <SelectItem key={dept.id} value={dept.id}>{dept.name}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -1087,6 +1185,7 @@ export function HealthForm({ baseUrl = "/student", userType = "student" }: Healt
                           I certify that the information provided in this form is true and accurate to the best of my knowledge.
                         </Label>
                       </div>
+
                       {errors.certifyInfo && <p className="text-xs text-red-500">{errors.certifyInfo}</p>}
                     </div>
 

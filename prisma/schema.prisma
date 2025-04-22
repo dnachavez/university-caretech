@@ -57,6 +57,8 @@ model UserHealthForm {
   city                 String
   state                String
   postalCode           String
+  departmentId         String?
+  yearLevel            String?
   guardianName         String?
   guardianContact      String?
   emergencyContact     String
@@ -86,6 +88,7 @@ model UserHealthForm {
   notFitActivities     String?
   medicationPermission Boolean  @default(false)
   user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  department           Department? @relation(fields: [departmentId], references: [id])
 }
 
 model UploadedForm {
@@ -142,6 +145,7 @@ model Department {
   createdAt     DateTime          @default(now())
   updatedAt     DateTime          @updatedAt
   clearanceRequests ClearanceRequest[]
+  healthForms   UserHealthForm[]
 }
 
 model ClearanceRequest {

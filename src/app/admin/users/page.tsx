@@ -5,7 +5,8 @@ import { useRouter } from "next/navigation"
 import { useAuthStore } from "@/store/auth-store"
 import { 
   ChevronRight, Users, Search, CheckCircle2, 
-  XCircle, Clock, RefreshCcw, Trash2, ShieldAlert, Eye
+  XCircle, Clock, RefreshCcw, Trash2, ShieldAlert, Eye,
+  UserPlus
 } from "lucide-react"
 import Link from "next/link"
 import {
@@ -72,6 +73,8 @@ interface HealthForm {
   communicableDisease: boolean
   asthmatic: boolean
   chronicIllness: boolean
+  departmentId?: string
+  yearLevel?: string
   [key: string]: any
 }
 
@@ -100,6 +103,18 @@ export default function UsersPage() {
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const [viewDetailsOpen, setViewDetailsOpen] = useState(false)
   const [confirmDialog, setConfirmDialog] = useState({ open: false, type: '', userId: '' })
+  const [departments, setDepartments] = useState<Array<{id: string, name: string}>>([])
+  const [activeTab, setActiveTab] = useState("all")
+  const [searchTerm, setSearchTerm] = useState("")
+  const [addUserDialog, setAddUserDialog] = useState(false)
+  const [newUser, setNewUser] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    username: '',
+    role: 'STUDENT',
+    departmentId: ''
+  })
   
   // Protect this route
   useEffect(() => {
@@ -116,6 +131,13 @@ export default function UsersPage() {
     // Fetch users from the database
     fetchUsers()
   }, [isAuthenticated, user, router])
+  
+  // Fetch departments
+  useEffect(() => {
+    if (isAuthenticated && user && user.role === 'ADMIN') {
+      fetchDepartments()
+    }
+  }, [isAuthenticated, user])
   
   const fetchUsers = async () => {
     try {
@@ -135,6 +157,19 @@ export default function UsersPage() {
       toast.error("Failed to load users")
     } finally {
       setLoading(false)
+    }
+  }
+
+  const fetchDepartments = async () => {
+    try {
+      const response = await fetch('/api/admin/departments')
+      const data = await response.json()
+      
+      if (data.departments) {
+        setDepartments(data.departments)
+      }
+    } catch (error) {
+      console.error("Error fetching departments:", error)
     }
   }
 
@@ -302,6 +337,56 @@ export default function UsersPage() {
     }
   }
 
+  const handleAddUser = async () => {
+    try {
+      // Validate inputs
+      if (!newUser.firstName || !newUser.lastName || !newUser.email || !newUser.username) {
+        toast.error("Please fill in all required fields")
+        return
+      }
+      
+      const response = await fetch('/api/admin/users/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newUser)
+      })
+      
+      if (response.ok) {
+        const data = await response.json()
+        
+        // Show success message with temporary password
+        toast.success(
+          <div>
+            <p>User created successfully with temporary password: <strong>{data.temporaryPassword}</strong></p>
+            {newUser.departmentId && (
+              <p className="text-xs mt-1">Note: User needs to complete their health form information.</p>
+            )}
+          </div>,
+          { duration: 6000 }
+        )
+        
+        setAddUserDialog(false)
+        setNewUser({
+          firstName: '',
+          lastName: '',
+          email: '',
+          username: '',
+          role: 'STUDENT',
+          departmentId: ''
+        })
+        fetchUsers()
+      } else {
+        const data = await response.json()
+        toast.error(data.error || "Failed to create user")
+      }
+    } catch (error) {
+      console.error("Error creating user:", error)
+      toast.error("Failed to create user")
+    }
+  }
+
   const filteredUsers = users.filter(user => 
     user.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -408,15 +493,25 @@ export default function UsersPage() {
                 <Users className="h-5 w-5 text-blue-500 mr-2" />
                 All Users
               </CardTitle>
-              <Button 
-                size="sm" 
-                variant="outline" 
-                onClick={fetchUsers}
-                className="text-gray-600"
-              >
-                <RefreshCcw className="h-4 w-4 mr-1" />
-                Refresh
-              </Button>
+              <div className="flex gap-2">
+                <Button 
+                  size="sm" 
+                  variant="outline" 
+                  onClick={fetchUsers}
+                  className="text-gray-600"
+                >
+                  <RefreshCcw className="h-4 w-4 mr-1" />
+                  Refresh
+                </Button>
+                <Button 
+                  size="sm" 
+                  onClick={() => setAddUserDialog(true)}
+                  className="bg-blue-600 hover:bg-blue-700 text-white"
+                >
+                  <UserPlus className="h-4 w-4 mr-1" />
+                  Add User
+                </Button>
+              </div>
             </div>
             <CardDescription>
               View and manage system users
@@ -580,6 +675,29 @@ export default function UsersPage() {
                   <h3 className="text-sm font-medium text-gray-500">Date Registered</h3>
                   <p>{new Date(selectedUser.createdAt).toLocaleDateString()}</p>
                 </div>
+                <div>
+                  <h3 className="text-sm font-medium text-gray-500">Address</h3>
+                  <p>
+                    {selectedUser.healthForm?.addressLine1}
+                    {selectedUser.healthForm?.addressLine2 && <span>, {selectedUser.healthForm?.addressLine2}</span>}
+                    <br />
+                    {selectedUser.healthForm?.city}, {selectedUser.healthForm?.state} {selectedUser.healthForm?.postalCode}
+                  </p>
+                </div>
+                {selectedUser.healthForm?.departmentId && (
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-500">Department</h3>
+                    <p>
+                      {departments.find((d) => d.id === selectedUser.healthForm?.departmentId)?.name || 'Unknown Department'}
+                    </p>
+                  </div>
+                )}
+                {selectedUser.role === 'STUDENT' && selectedUser.healthForm?.yearLevel && (
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-500">Year Level</h3>
+                    <p>{selectedUser.healthForm?.yearLevel}</p>
+                  </div>
+                )}
               </div>
               
               {/* Health Form Information if available */}
@@ -604,17 +722,11 @@ export default function UsersPage() {
                       <p>{selectedUser.healthForm.birthPlace}</p>
                     </div>
                     <div>
-                      <h3 className="text-sm font-medium text-gray-500">Address</h3>
-                      <p>
-                        {selectedUser.healthForm.addressLine1}
-                        {selectedUser.healthForm.addressLine2 && <span>, {selectedUser.healthForm.addressLine2}</span>}
-                        <br />
-                        {selectedUser.healthForm.city}, {selectedUser.healthForm.state} {selectedUser.healthForm.postalCode}
-                      </p>
-                    </div>
-                    <div>
                       <h3 className="text-sm font-medium text-gray-500">Emergency Contact</h3>
-                      <p>{selectedUser.healthForm.emergencyContact} ({selectedUser.healthForm.relationship})<br />{selectedUser.healthForm.emergencyNumber}</p>
+                      <p>
+                        {selectedUser.healthForm.emergencyContact} ({selectedUser.healthForm.relationship})<br />
+                        {selectedUser.healthForm.emergencyNumber}
+                      </p>
                     </div>
                     <div>
                       <h3 className="text-sm font-medium text-gray-500">Blood Type</h3>
@@ -724,6 +836,96 @@ export default function UsersPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Add User Dialog */}
+      <Dialog open={addUserDialog} onOpenChange={setAddUserDialog}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>Add New User</DialogTitle>
+            <DialogDescription>
+              Create a new user account and assign them to a department.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-2 gap-3">
+              <div className="flex flex-col space-y-1.5">
+                <label htmlFor="firstName" className="text-sm font-medium text-gray-700">First Name</label>
+                <Input 
+                  id="firstName" 
+                  placeholder="Enter first name"
+                  value={newUser.firstName}
+                  onChange={(e) => setNewUser({...newUser, firstName: e.target.value})}
+                />
+              </div>
+              <div className="flex flex-col space-y-1.5">
+                <label htmlFor="lastName" className="text-sm font-medium text-gray-700">Last Name</label>
+                <Input 
+                  id="lastName" 
+                  placeholder="Enter last name"
+                  value={newUser.lastName}
+                  onChange={(e) => setNewUser({...newUser, lastName: e.target.value})}
+                />
+              </div>
+            </div>
+            
+            <div className="flex flex-col space-y-1.5">
+              <label htmlFor="email" className="text-sm font-medium text-gray-700">Email</label>
+              <Input 
+                id="email" 
+                type="email"
+                placeholder="Enter email address"
+                value={newUser.email}
+                onChange={(e) => setNewUser({...newUser, email: e.target.value})}
+              />
+            </div>
+            
+            <div className="flex flex-col space-y-1.5">
+              <label htmlFor="username" className="text-sm font-medium text-gray-700">Username</label>
+              <Input 
+                id="username" 
+                placeholder="Enter username"
+                value={newUser.username}
+                onChange={(e) => setNewUser({...newUser, username: e.target.value})}
+              />
+            </div>
+            
+            <div className="flex flex-col space-y-1.5">
+              <label htmlFor="role" className="text-sm font-medium text-gray-700">Role</label>
+              <select 
+                id="role"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                value={newUser.role}
+                onChange={(e) => setNewUser({...newUser, role: e.target.value})}
+              >
+                <option value="STUDENT">Student</option>
+                <option value="FACULTY">Faculty</option>
+                <option value="STAFF">Staff</option>
+              </select>
+            </div>
+            
+            <div className="flex flex-col space-y-1.5">
+              <label htmlFor="department" className="text-sm font-medium text-gray-700">Department (Optional)</label>
+              <select 
+                id="department"
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                value={newUser.departmentId}
+                onChange={(e) => setNewUser({...newUser, departmentId: e.target.value})}
+              >
+                <option value="">-- Select Department --</option>
+                {departments.map((dept) => (
+                  <option key={dept.id} value={dept.id}>{dept.name}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setAddUserDialog(false)}>Cancel</Button>
+            <Button onClick={handleAddUser}>Add User</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
@@ -732,7 +934,7 @@ interface UserTableProps {
   users: User[]
   getStatusBadge: (status: string) => React.ReactNode
   getRoleBadge: (role: string) => React.ReactNode
-  onViewDetails: (userId: string) => void
+  onViewDetails?: (userId: string) => void
   onApprove?: (userId: string) => void
   onReject?: (userId: string) => void
   onUnreject?: (userId: string) => void
@@ -745,7 +947,7 @@ function UserTable({
   users, 
   getStatusBadge, 
   getRoleBadge, 
-  onViewDetails,
+  onViewDetails = () => {},
   onApprove = () => {},
   onReject = () => {},
   onUnreject = () => {},
@@ -797,9 +999,11 @@ function UserTable({
                         </Button>
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
-                        <DropdownMenuItem onClick={() => onViewDetails(user.id)}>
-                          <Eye className="mr-2 h-4 w-4" />
-                          View Details
+                        <DropdownMenuItem asChild>
+                          <Link href={`/admin/users/${user.id}/profile`}>
+                            <Eye className="mr-2 h-4 w-4" />
+                            View Profile
+                          </Link>
                         </DropdownMenuItem>
                         
                         {/* Only show approve option if user is PENDING */}
