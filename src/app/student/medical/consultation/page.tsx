@@ -237,8 +237,8 @@ export default function ConsultationPage() {
             Home
           </Link>
           <ChevronRight className="h-4 w-4 mx-1" />
-          <Link href="/student/dashboard" className="hover:text-blue-600">
-            Dashboard
+          <Link href="/student/medical" className="hover:text-blue-600">
+            Medical
           </Link>
           <ChevronRight className="h-4 w-4 mx-1" />
           <span className="text-gray-700 font-medium">Consultation</span>

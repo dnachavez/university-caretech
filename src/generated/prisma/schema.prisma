@@ -24,6 +24,7 @@ model User {
   healthForm        StudentHealthForm?
   uploadedForms     UploadedForm[]
   appointments      Appointment[]
+  clearanceRequests ClearanceRequest[]
 }
 
 model VerificationToken {
@@ -125,4 +126,30 @@ model Appointment {
   timeSlot         TimeSlot @relation(fields: [timeSlotId], references: [id])
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
+}
+
+model Department {
+  id                String             @id @default(cuid())
+  name              String
+  isActive          Boolean            @default(true)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
+  clearanceRequests ClearanceRequest[]
+}
+
+model ClearanceRequest {
+  id             String     @id @default(cuid())
+  userId         String
+  departmentId   String
+  reason         String
+  otherReason    String?
+  purpose        String
+  dateNeeded     DateTime
+  additionalInfo String?
+  status         String     @default("PENDING") // PENDING, APPROVED, REJECTED
+  documentUrl    String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  user           User       @relation(fields: [userId], references: [id])
+  department     Department @relation(fields: [departmentId], references: [id])
 }

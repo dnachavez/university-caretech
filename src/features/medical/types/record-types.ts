@@ -7,6 +7,7 @@ export interface MedicalRecord {
   filePath: string
   createdAt: string
   updatedAt: string
+  departmentName?: string // Department name for clearance requests
 }
 
 // Specific record types

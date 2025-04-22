@@ -223,6 +223,29 @@ exports.Prisma.AppointmentScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.DepartmentScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.ClearanceRequestScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  departmentId: 'departmentId',
+  reason: 'reason',
+  otherReason: 'otherReason',
+  purpose: 'purpose',
+  dateNeeded: 'dateNeeded',
+  additionalInfo: 'additionalInfo',
+  status: 'status',
+  documentUrl: 'documentUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -241,7 +264,9 @@ exports.Prisma.ModelName = {
   UploadedForm: 'UploadedForm',
   ConsultationDate: 'ConsultationDate',
   TimeSlot: 'TimeSlot',
-  Appointment: 'Appointment'
+  Appointment: 'Appointment',
+  Department: 'Department',
+  ClearanceRequest: 'ClearanceRequest'
 };
 
 /**

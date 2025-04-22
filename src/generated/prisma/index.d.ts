@@ -48,6 +48,16 @@ export type TimeSlot = $Result.DefaultSelection<Prisma.$TimeSlotPayload>
  * 
  */
 export type Appointment = $Result.DefaultSelection<Prisma.$AppointmentPayload>
+/**
+ * Model Department
+ * 
+ */
+export type Department = $Result.DefaultSelection<Prisma.$DepartmentPayload>
+/**
+ * Model ClearanceRequest
+ * 
+ */
+export type ClearanceRequest = $Result.DefaultSelection<Prisma.$ClearanceRequestPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -243,6 +253,26 @@ export class PrismaClient<
     * ```
     */
   get appointment(): Prisma.AppointmentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.department`: Exposes CRUD operations for the **Department** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Departments
+    * const departments = await prisma.department.findMany()
+    * ```
+    */
+  get department(): Prisma.DepartmentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.clearanceRequest`: Exposes CRUD operations for the **ClearanceRequest** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ClearanceRequests
+    * const clearanceRequests = await prisma.clearanceRequest.findMany()
+    * ```
+    */
+  get clearanceRequest(): Prisma.ClearanceRequestDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -689,7 +719,9 @@ export namespace Prisma {
     UploadedForm: 'UploadedForm',
     ConsultationDate: 'ConsultationDate',
     TimeSlot: 'TimeSlot',
-    Appointment: 'Appointment'
+    Appointment: 'Appointment',
+    Department: 'Department',
+    ClearanceRequest: 'ClearanceRequest'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -708,7 +740,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "verificationToken" | "studentHealthForm" | "uploadedForm" | "consultationDate" | "timeSlot" | "appointment"
+      modelProps: "user" | "verificationToken" | "studentHealthForm" | "uploadedForm" | "consultationDate" | "timeSlot" | "appointment" | "department" | "clearanceRequest"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1230,6 +1262,154 @@ export namespace Prisma {
           }
         }
       }
+      Department: {
+        payload: Prisma.$DepartmentPayload<ExtArgs>
+        fields: Prisma.DepartmentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DepartmentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DepartmentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>
+          }
+          findFirst: {
+            args: Prisma.DepartmentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DepartmentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>
+          }
+          findMany: {
+            args: Prisma.DepartmentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>[]
+          }
+          create: {
+            args: Prisma.DepartmentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>
+          }
+          createMany: {
+            args: Prisma.DepartmentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DepartmentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>[]
+          }
+          delete: {
+            args: Prisma.DepartmentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>
+          }
+          update: {
+            args: Prisma.DepartmentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>
+          }
+          deleteMany: {
+            args: Prisma.DepartmentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DepartmentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DepartmentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>[]
+          }
+          upsert: {
+            args: Prisma.DepartmentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DepartmentPayload>
+          }
+          aggregate: {
+            args: Prisma.DepartmentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDepartment>
+          }
+          groupBy: {
+            args: Prisma.DepartmentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DepartmentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DepartmentCountArgs<ExtArgs>
+            result: $Utils.Optional<DepartmentCountAggregateOutputType> | number
+          }
+        }
+      }
+      ClearanceRequest: {
+        payload: Prisma.$ClearanceRequestPayload<ExtArgs>
+        fields: Prisma.ClearanceRequestFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ClearanceRequestFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceRequestPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ClearanceRequestFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceRequestPayload>
+          }
+          findFirst: {
+            args: Prisma.ClearanceRequestFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceRequestPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ClearanceRequestFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceRequestPayload>
+          }
+          findMany: {
+            args: Prisma.ClearanceRequestFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceRequestPayload>[]
+          }
+          create: {
+            args: Prisma.ClearanceRequestCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceRequestPayload>
+          }
+          createMany: {
+            args: Prisma.ClearanceRequestCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ClearanceRequestCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceRequestPayload>[]
+          }
+          delete: {
+            args: Prisma.ClearanceRequestDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceRequestPayload>
+          }
+          update: {
+            args: Prisma.ClearanceRequestUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceRequestPayload>
+          }
+          deleteMany: {
+            args: Prisma.ClearanceRequestDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ClearanceRequestUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ClearanceRequestUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceRequestPayload>[]
+          }
+          upsert: {
+            args: Prisma.ClearanceRequestUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ClearanceRequestPayload>
+          }
+          aggregate: {
+            args: Prisma.ClearanceRequestAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateClearanceRequest>
+          }
+          groupBy: {
+            args: Prisma.ClearanceRequestGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ClearanceRequestGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ClearanceRequestCountArgs<ExtArgs>
+            result: $Utils.Optional<ClearanceRequestCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1321,6 +1501,8 @@ export namespace Prisma {
     consultationDate?: ConsultationDateOmit
     timeSlot?: TimeSlotOmit
     appointment?: AppointmentOmit
+    department?: DepartmentOmit
+    clearanceRequest?: ClearanceRequestOmit
   }
 
   /* Types for Logging */
@@ -1417,11 +1599,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     uploadedForms: number
     appointments: number
+    clearanceRequests: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     uploadedForms?: boolean | UserCountOutputTypeCountUploadedFormsArgs
     appointments?: boolean | UserCountOutputTypeCountAppointmentsArgs
+    clearanceRequests?: boolean | UserCountOutputTypeCountClearanceRequestsArgs
   }
 
   // Custom InputTypes
@@ -1447,6 +1631,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountAppointmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AppointmentWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountClearanceRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClearanceRequestWhereInput
   }
 
 
@@ -1478,6 +1669,37 @@ export namespace Prisma {
    */
   export type ConsultationDateCountOutputTypeCountTimeSlotsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TimeSlotWhereInput
+  }
+
+
+  /**
+   * Count Type DepartmentCountOutputType
+   */
+
+  export type DepartmentCountOutputType = {
+    clearanceRequests: number
+  }
+
+  export type DepartmentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    clearanceRequests?: boolean | DepartmentCountOutputTypeCountClearanceRequestsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * DepartmentCountOutputType without action
+   */
+  export type DepartmentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the DepartmentCountOutputType
+     */
+    select?: DepartmentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * DepartmentCountOutputType without action
+   */
+  export type DepartmentCountOutputTypeCountClearanceRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClearanceRequestWhereInput
   }
 
 
@@ -1708,6 +1930,7 @@ export namespace Prisma {
     healthForm?: boolean | User$healthFormArgs<ExtArgs>
     uploadedForms?: boolean | User$uploadedFormsArgs<ExtArgs>
     appointments?: boolean | User$appointmentsArgs<ExtArgs>
+    clearanceRequests?: boolean | User$clearanceRequestsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1761,6 +1984,7 @@ export namespace Prisma {
     healthForm?: boolean | User$healthFormArgs<ExtArgs>
     uploadedForms?: boolean | User$uploadedFormsArgs<ExtArgs>
     appointments?: boolean | User$appointmentsArgs<ExtArgs>
+    clearanceRequests?: boolean | User$clearanceRequestsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1772,6 +1996,7 @@ export namespace Prisma {
       healthForm: Prisma.$StudentHealthFormPayload<ExtArgs> | null
       uploadedForms: Prisma.$UploadedFormPayload<ExtArgs>[]
       appointments: Prisma.$AppointmentPayload<ExtArgs>[]
+      clearanceRequests: Prisma.$ClearanceRequestPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2183,6 +2408,7 @@ export namespace Prisma {
     healthForm<T extends User$healthFormArgs<ExtArgs> = {}>(args?: Subset<T, User$healthFormArgs<ExtArgs>>): Prisma__StudentHealthFormClient<$Result.GetResult<Prisma.$StudentHealthFormPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     uploadedForms<T extends User$uploadedFormsArgs<ExtArgs> = {}>(args?: Subset<T, User$uploadedFormsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UploadedFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     appointments<T extends User$appointmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    clearanceRequests<T extends User$clearanceRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$clearanceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2674,6 +2900,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AppointmentScalarFieldEnum | AppointmentScalarFieldEnum[]
+  }
+
+  /**
+   * User.clearanceRequests
+   */
+  export type User$clearanceRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceRequest
+     */
+    select?: ClearanceRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceRequest
+     */
+    omit?: ClearanceRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClearanceRequestInclude<ExtArgs> | null
+    where?: ClearanceRequestWhereInput
+    orderBy?: ClearanceRequestOrderByWithRelationInput | ClearanceRequestOrderByWithRelationInput[]
+    cursor?: ClearanceRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClearanceRequestScalarFieldEnum | ClearanceRequestScalarFieldEnum[]
   }
 
   /**
@@ -9610,6 +9860,2229 @@ export namespace Prisma {
 
 
   /**
+   * Model Department
+   */
+
+  export type AggregateDepartment = {
+    _count: DepartmentCountAggregateOutputType | null
+    _min: DepartmentMinAggregateOutputType | null
+    _max: DepartmentMaxAggregateOutputType | null
+  }
+
+  export type DepartmentMinAggregateOutputType = {
+    id: string | null
+    name: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DepartmentMaxAggregateOutputType = {
+    id: string | null
+    name: string | null
+    isActive: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type DepartmentCountAggregateOutputType = {
+    id: number
+    name: number
+    isActive: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type DepartmentMinAggregateInputType = {
+    id?: true
+    name?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DepartmentMaxAggregateInputType = {
+    id?: true
+    name?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type DepartmentCountAggregateInputType = {
+    id?: true
+    name?: true
+    isActive?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type DepartmentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Department to aggregate.
+     */
+    where?: DepartmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Departments to fetch.
+     */
+    orderBy?: DepartmentOrderByWithRelationInput | DepartmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DepartmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Departments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Departments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Departments
+    **/
+    _count?: true | DepartmentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DepartmentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DepartmentMaxAggregateInputType
+  }
+
+  export type GetDepartmentAggregateType<T extends DepartmentAggregateArgs> = {
+        [P in keyof T & keyof AggregateDepartment]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDepartment[P]>
+      : GetScalarType<T[P], AggregateDepartment[P]>
+  }
+
+
+
+
+  export type DepartmentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DepartmentWhereInput
+    orderBy?: DepartmentOrderByWithAggregationInput | DepartmentOrderByWithAggregationInput[]
+    by: DepartmentScalarFieldEnum[] | DepartmentScalarFieldEnum
+    having?: DepartmentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DepartmentCountAggregateInputType | true
+    _min?: DepartmentMinAggregateInputType
+    _max?: DepartmentMaxAggregateInputType
+  }
+
+  export type DepartmentGroupByOutputType = {
+    id: string
+    name: string
+    isActive: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: DepartmentCountAggregateOutputType | null
+    _min: DepartmentMinAggregateOutputType | null
+    _max: DepartmentMaxAggregateOutputType | null
+  }
+
+  type GetDepartmentGroupByPayload<T extends DepartmentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DepartmentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DepartmentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DepartmentGroupByOutputType[P]>
+            : GetScalarType<T[P], DepartmentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DepartmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    clearanceRequests?: boolean | Department$clearanceRequestsArgs<ExtArgs>
+    _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["department"]>
+
+  export type DepartmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["department"]>
+
+  export type DepartmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    name?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["department"]>
+
+  export type DepartmentSelectScalar = {
+    id?: boolean
+    name?: boolean
+    isActive?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type DepartmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["department"]>
+  export type DepartmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    clearanceRequests?: boolean | Department$clearanceRequestsArgs<ExtArgs>
+    _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type DepartmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type DepartmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $DepartmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Department"
+    objects: {
+      clearanceRequests: Prisma.$ClearanceRequestPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      name: string
+      isActive: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["department"]>
+    composites: {}
+  }
+
+  type DepartmentGetPayload<S extends boolean | null | undefined | DepartmentDefaultArgs> = $Result.GetResult<Prisma.$DepartmentPayload, S>
+
+  type DepartmentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DepartmentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DepartmentCountAggregateInputType | true
+    }
+
+  export interface DepartmentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Department'], meta: { name: 'Department' } }
+    /**
+     * Find zero or one Department that matches the filter.
+     * @param {DepartmentFindUniqueArgs} args - Arguments to find a Department
+     * @example
+     * // Get one Department
+     * const department = await prisma.department.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DepartmentFindUniqueArgs>(args: SelectSubset<T, DepartmentFindUniqueArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Department that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DepartmentFindUniqueOrThrowArgs} args - Arguments to find a Department
+     * @example
+     * // Get one Department
+     * const department = await prisma.department.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DepartmentFindUniqueOrThrowArgs>(args: SelectSubset<T, DepartmentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Department that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartmentFindFirstArgs} args - Arguments to find a Department
+     * @example
+     * // Get one Department
+     * const department = await prisma.department.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DepartmentFindFirstArgs>(args?: SelectSubset<T, DepartmentFindFirstArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Department that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartmentFindFirstOrThrowArgs} args - Arguments to find a Department
+     * @example
+     * // Get one Department
+     * const department = await prisma.department.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DepartmentFindFirstOrThrowArgs>(args?: SelectSubset<T, DepartmentFindFirstOrThrowArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Departments that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartmentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Departments
+     * const departments = await prisma.department.findMany()
+     * 
+     * // Get first 10 Departments
+     * const departments = await prisma.department.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const departmentWithIdOnly = await prisma.department.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DepartmentFindManyArgs>(args?: SelectSubset<T, DepartmentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Department.
+     * @param {DepartmentCreateArgs} args - Arguments to create a Department.
+     * @example
+     * // Create one Department
+     * const Department = await prisma.department.create({
+     *   data: {
+     *     // ... data to create a Department
+     *   }
+     * })
+     * 
+     */
+    create<T extends DepartmentCreateArgs>(args: SelectSubset<T, DepartmentCreateArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Departments.
+     * @param {DepartmentCreateManyArgs} args - Arguments to create many Departments.
+     * @example
+     * // Create many Departments
+     * const department = await prisma.department.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DepartmentCreateManyArgs>(args?: SelectSubset<T, DepartmentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Departments and returns the data saved in the database.
+     * @param {DepartmentCreateManyAndReturnArgs} args - Arguments to create many Departments.
+     * @example
+     * // Create many Departments
+     * const department = await prisma.department.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Departments and only return the `id`
+     * const departmentWithIdOnly = await prisma.department.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DepartmentCreateManyAndReturnArgs>(args?: SelectSubset<T, DepartmentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Department.
+     * @param {DepartmentDeleteArgs} args - Arguments to delete one Department.
+     * @example
+     * // Delete one Department
+     * const Department = await prisma.department.delete({
+     *   where: {
+     *     // ... filter to delete one Department
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DepartmentDeleteArgs>(args: SelectSubset<T, DepartmentDeleteArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Department.
+     * @param {DepartmentUpdateArgs} args - Arguments to update one Department.
+     * @example
+     * // Update one Department
+     * const department = await prisma.department.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DepartmentUpdateArgs>(args: SelectSubset<T, DepartmentUpdateArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Departments.
+     * @param {DepartmentDeleteManyArgs} args - Arguments to filter Departments to delete.
+     * @example
+     * // Delete a few Departments
+     * const { count } = await prisma.department.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DepartmentDeleteManyArgs>(args?: SelectSubset<T, DepartmentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Departments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartmentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Departments
+     * const department = await prisma.department.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DepartmentUpdateManyArgs>(args: SelectSubset<T, DepartmentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Departments and returns the data updated in the database.
+     * @param {DepartmentUpdateManyAndReturnArgs} args - Arguments to update many Departments.
+     * @example
+     * // Update many Departments
+     * const department = await prisma.department.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Departments and only return the `id`
+     * const departmentWithIdOnly = await prisma.department.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DepartmentUpdateManyAndReturnArgs>(args: SelectSubset<T, DepartmentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Department.
+     * @param {DepartmentUpsertArgs} args - Arguments to update or create a Department.
+     * @example
+     * // Update or create a Department
+     * const department = await prisma.department.upsert({
+     *   create: {
+     *     // ... data to create a Department
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Department we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DepartmentUpsertArgs>(args: SelectSubset<T, DepartmentUpsertArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Departments.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartmentCountArgs} args - Arguments to filter Departments to count.
+     * @example
+     * // Count the number of Departments
+     * const count = await prisma.department.count({
+     *   where: {
+     *     // ... the filter for the Departments we want to count
+     *   }
+     * })
+    **/
+    count<T extends DepartmentCountArgs>(
+      args?: Subset<T, DepartmentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DepartmentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Department.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartmentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DepartmentAggregateArgs>(args: Subset<T, DepartmentAggregateArgs>): Prisma.PrismaPromise<GetDepartmentAggregateType<T>>
+
+    /**
+     * Group by Department.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DepartmentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DepartmentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DepartmentGroupByArgs['orderBy'] }
+        : { orderBy?: DepartmentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DepartmentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDepartmentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Department model
+   */
+  readonly fields: DepartmentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Department.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DepartmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    clearanceRequests<T extends Department$clearanceRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Department$clearanceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Department model
+   */
+  interface DepartmentFieldRefs {
+    readonly id: FieldRef<"Department", 'String'>
+    readonly name: FieldRef<"Department", 'String'>
+    readonly isActive: FieldRef<"Department", 'Boolean'>
+    readonly createdAt: FieldRef<"Department", 'DateTime'>
+    readonly updatedAt: FieldRef<"Department", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Department findUnique
+   */
+  export type DepartmentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Department to fetch.
+     */
+    where: DepartmentWhereUniqueInput
+  }
+
+  /**
+   * Department findUniqueOrThrow
+   */
+  export type DepartmentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Department to fetch.
+     */
+    where: DepartmentWhereUniqueInput
+  }
+
+  /**
+   * Department findFirst
+   */
+  export type DepartmentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Department to fetch.
+     */
+    where?: DepartmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Departments to fetch.
+     */
+    orderBy?: DepartmentOrderByWithRelationInput | DepartmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Departments.
+     */
+    cursor?: DepartmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Departments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Departments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Departments.
+     */
+    distinct?: DepartmentScalarFieldEnum | DepartmentScalarFieldEnum[]
+  }
+
+  /**
+   * Department findFirstOrThrow
+   */
+  export type DepartmentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Department to fetch.
+     */
+    where?: DepartmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Departments to fetch.
+     */
+    orderBy?: DepartmentOrderByWithRelationInput | DepartmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Departments.
+     */
+    cursor?: DepartmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Departments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Departments.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Departments.
+     */
+    distinct?: DepartmentScalarFieldEnum | DepartmentScalarFieldEnum[]
+  }
+
+  /**
+   * Department findMany
+   */
+  export type DepartmentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * Filter, which Departments to fetch.
+     */
+    where?: DepartmentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Departments to fetch.
+     */
+    orderBy?: DepartmentOrderByWithRelationInput | DepartmentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Departments.
+     */
+    cursor?: DepartmentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Departments from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Departments.
+     */
+    skip?: number
+    distinct?: DepartmentScalarFieldEnum | DepartmentScalarFieldEnum[]
+  }
+
+  /**
+   * Department create
+   */
+  export type DepartmentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Department.
+     */
+    data: XOR<DepartmentCreateInput, DepartmentUncheckedCreateInput>
+  }
+
+  /**
+   * Department createMany
+   */
+  export type DepartmentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Departments.
+     */
+    data: DepartmentCreateManyInput | DepartmentCreateManyInput[]
+  }
+
+  /**
+   * Department createManyAndReturn
+   */
+  export type DepartmentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * The data used to create many Departments.
+     */
+    data: DepartmentCreateManyInput | DepartmentCreateManyInput[]
+  }
+
+  /**
+   * Department update
+   */
+  export type DepartmentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Department.
+     */
+    data: XOR<DepartmentUpdateInput, DepartmentUncheckedUpdateInput>
+    /**
+     * Choose, which Department to update.
+     */
+    where: DepartmentWhereUniqueInput
+  }
+
+  /**
+   * Department updateMany
+   */
+  export type DepartmentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Departments.
+     */
+    data: XOR<DepartmentUpdateManyMutationInput, DepartmentUncheckedUpdateManyInput>
+    /**
+     * Filter which Departments to update
+     */
+    where?: DepartmentWhereInput
+    /**
+     * Limit how many Departments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Department updateManyAndReturn
+   */
+  export type DepartmentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * The data used to update Departments.
+     */
+    data: XOR<DepartmentUpdateManyMutationInput, DepartmentUncheckedUpdateManyInput>
+    /**
+     * Filter which Departments to update
+     */
+    where?: DepartmentWhereInput
+    /**
+     * Limit how many Departments to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Department upsert
+   */
+  export type DepartmentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Department to update in case it exists.
+     */
+    where: DepartmentWhereUniqueInput
+    /**
+     * In case the Department found by the `where` argument doesn't exist, create a new Department with this data.
+     */
+    create: XOR<DepartmentCreateInput, DepartmentUncheckedCreateInput>
+    /**
+     * In case the Department was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DepartmentUpdateInput, DepartmentUncheckedUpdateInput>
+  }
+
+  /**
+   * Department delete
+   */
+  export type DepartmentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    /**
+     * Filter which Department to delete.
+     */
+    where: DepartmentWhereUniqueInput
+  }
+
+  /**
+   * Department deleteMany
+   */
+  export type DepartmentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Departments to delete
+     */
+    where?: DepartmentWhereInput
+    /**
+     * Limit how many Departments to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Department.clearanceRequests
+   */
+  export type Department$clearanceRequestsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceRequest
+     */
+    select?: ClearanceRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceRequest
+     */
+    omit?: ClearanceRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClearanceRequestInclude<ExtArgs> | null
+    where?: ClearanceRequestWhereInput
+    orderBy?: ClearanceRequestOrderByWithRelationInput | ClearanceRequestOrderByWithRelationInput[]
+    cursor?: ClearanceRequestWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: ClearanceRequestScalarFieldEnum | ClearanceRequestScalarFieldEnum[]
+  }
+
+  /**
+   * Department without action
+   */
+  export type DepartmentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model ClearanceRequest
+   */
+
+  export type AggregateClearanceRequest = {
+    _count: ClearanceRequestCountAggregateOutputType | null
+    _min: ClearanceRequestMinAggregateOutputType | null
+    _max: ClearanceRequestMaxAggregateOutputType | null
+  }
+
+  export type ClearanceRequestMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    departmentId: string | null
+    reason: string | null
+    otherReason: string | null
+    purpose: string | null
+    dateNeeded: Date | null
+    additionalInfo: string | null
+    status: string | null
+    documentUrl: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ClearanceRequestMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    departmentId: string | null
+    reason: string | null
+    otherReason: string | null
+    purpose: string | null
+    dateNeeded: Date | null
+    additionalInfo: string | null
+    status: string | null
+    documentUrl: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ClearanceRequestCountAggregateOutputType = {
+    id: number
+    userId: number
+    departmentId: number
+    reason: number
+    otherReason: number
+    purpose: number
+    dateNeeded: number
+    additionalInfo: number
+    status: number
+    documentUrl: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ClearanceRequestMinAggregateInputType = {
+    id?: true
+    userId?: true
+    departmentId?: true
+    reason?: true
+    otherReason?: true
+    purpose?: true
+    dateNeeded?: true
+    additionalInfo?: true
+    status?: true
+    documentUrl?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ClearanceRequestMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    departmentId?: true
+    reason?: true
+    otherReason?: true
+    purpose?: true
+    dateNeeded?: true
+    additionalInfo?: true
+    status?: true
+    documentUrl?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ClearanceRequestCountAggregateInputType = {
+    id?: true
+    userId?: true
+    departmentId?: true
+    reason?: true
+    otherReason?: true
+    purpose?: true
+    dateNeeded?: true
+    additionalInfo?: true
+    status?: true
+    documentUrl?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ClearanceRequestAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClearanceRequest to aggregate.
+     */
+    where?: ClearanceRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClearanceRequests to fetch.
+     */
+    orderBy?: ClearanceRequestOrderByWithRelationInput | ClearanceRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ClearanceRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClearanceRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClearanceRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned ClearanceRequests
+    **/
+    _count?: true | ClearanceRequestCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ClearanceRequestMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ClearanceRequestMaxAggregateInputType
+  }
+
+  export type GetClearanceRequestAggregateType<T extends ClearanceRequestAggregateArgs> = {
+        [P in keyof T & keyof AggregateClearanceRequest]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateClearanceRequest[P]>
+      : GetScalarType<T[P], AggregateClearanceRequest[P]>
+  }
+
+
+
+
+  export type ClearanceRequestGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ClearanceRequestWhereInput
+    orderBy?: ClearanceRequestOrderByWithAggregationInput | ClearanceRequestOrderByWithAggregationInput[]
+    by: ClearanceRequestScalarFieldEnum[] | ClearanceRequestScalarFieldEnum
+    having?: ClearanceRequestScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ClearanceRequestCountAggregateInputType | true
+    _min?: ClearanceRequestMinAggregateInputType
+    _max?: ClearanceRequestMaxAggregateInputType
+  }
+
+  export type ClearanceRequestGroupByOutputType = {
+    id: string
+    userId: string
+    departmentId: string
+    reason: string
+    otherReason: string | null
+    purpose: string
+    dateNeeded: Date
+    additionalInfo: string | null
+    status: string
+    documentUrl: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ClearanceRequestCountAggregateOutputType | null
+    _min: ClearanceRequestMinAggregateOutputType | null
+    _max: ClearanceRequestMaxAggregateOutputType | null
+  }
+
+  type GetClearanceRequestGroupByPayload<T extends ClearanceRequestGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ClearanceRequestGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ClearanceRequestGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ClearanceRequestGroupByOutputType[P]>
+            : GetScalarType<T[P], ClearanceRequestGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ClearanceRequestSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    departmentId?: boolean
+    reason?: boolean
+    otherReason?: boolean
+    purpose?: boolean
+    dateNeeded?: boolean
+    additionalInfo?: boolean
+    status?: boolean
+    documentUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    department?: boolean | DepartmentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["clearanceRequest"]>
+
+  export type ClearanceRequestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    departmentId?: boolean
+    reason?: boolean
+    otherReason?: boolean
+    purpose?: boolean
+    dateNeeded?: boolean
+    additionalInfo?: boolean
+    status?: boolean
+    documentUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    department?: boolean | DepartmentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["clearanceRequest"]>
+
+  export type ClearanceRequestSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    departmentId?: boolean
+    reason?: boolean
+    otherReason?: boolean
+    purpose?: boolean
+    dateNeeded?: boolean
+    additionalInfo?: boolean
+    status?: boolean
+    documentUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    department?: boolean | DepartmentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["clearanceRequest"]>
+
+  export type ClearanceRequestSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    departmentId?: boolean
+    reason?: boolean
+    otherReason?: boolean
+    purpose?: boolean
+    dateNeeded?: boolean
+    additionalInfo?: boolean
+    status?: boolean
+    documentUrl?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ClearanceRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "departmentId" | "reason" | "otherReason" | "purpose" | "dateNeeded" | "additionalInfo" | "status" | "documentUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["clearanceRequest"]>
+  export type ClearanceRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    department?: boolean | DepartmentDefaultArgs<ExtArgs>
+  }
+  export type ClearanceRequestIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    department?: boolean | DepartmentDefaultArgs<ExtArgs>
+  }
+  export type ClearanceRequestIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    department?: boolean | DepartmentDefaultArgs<ExtArgs>
+  }
+
+  export type $ClearanceRequestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "ClearanceRequest"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      department: Prisma.$DepartmentPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      departmentId: string
+      reason: string
+      otherReason: string | null
+      purpose: string
+      dateNeeded: Date
+      additionalInfo: string | null
+      status: string
+      documentUrl: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["clearanceRequest"]>
+    composites: {}
+  }
+
+  type ClearanceRequestGetPayload<S extends boolean | null | undefined | ClearanceRequestDefaultArgs> = $Result.GetResult<Prisma.$ClearanceRequestPayload, S>
+
+  type ClearanceRequestCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ClearanceRequestFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ClearanceRequestCountAggregateInputType | true
+    }
+
+  export interface ClearanceRequestDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['ClearanceRequest'], meta: { name: 'ClearanceRequest' } }
+    /**
+     * Find zero or one ClearanceRequest that matches the filter.
+     * @param {ClearanceRequestFindUniqueArgs} args - Arguments to find a ClearanceRequest
+     * @example
+     * // Get one ClearanceRequest
+     * const clearanceRequest = await prisma.clearanceRequest.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ClearanceRequestFindUniqueArgs>(args: SelectSubset<T, ClearanceRequestFindUniqueArgs<ExtArgs>>): Prisma__ClearanceRequestClient<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one ClearanceRequest that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ClearanceRequestFindUniqueOrThrowArgs} args - Arguments to find a ClearanceRequest
+     * @example
+     * // Get one ClearanceRequest
+     * const clearanceRequest = await prisma.clearanceRequest.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ClearanceRequestFindUniqueOrThrowArgs>(args: SelectSubset<T, ClearanceRequestFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ClearanceRequestClient<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ClearanceRequest that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClearanceRequestFindFirstArgs} args - Arguments to find a ClearanceRequest
+     * @example
+     * // Get one ClearanceRequest
+     * const clearanceRequest = await prisma.clearanceRequest.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ClearanceRequestFindFirstArgs>(args?: SelectSubset<T, ClearanceRequestFindFirstArgs<ExtArgs>>): Prisma__ClearanceRequestClient<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first ClearanceRequest that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClearanceRequestFindFirstOrThrowArgs} args - Arguments to find a ClearanceRequest
+     * @example
+     * // Get one ClearanceRequest
+     * const clearanceRequest = await prisma.clearanceRequest.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ClearanceRequestFindFirstOrThrowArgs>(args?: SelectSubset<T, ClearanceRequestFindFirstOrThrowArgs<ExtArgs>>): Prisma__ClearanceRequestClient<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more ClearanceRequests that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClearanceRequestFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all ClearanceRequests
+     * const clearanceRequests = await prisma.clearanceRequest.findMany()
+     * 
+     * // Get first 10 ClearanceRequests
+     * const clearanceRequests = await prisma.clearanceRequest.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const clearanceRequestWithIdOnly = await prisma.clearanceRequest.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ClearanceRequestFindManyArgs>(args?: SelectSubset<T, ClearanceRequestFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a ClearanceRequest.
+     * @param {ClearanceRequestCreateArgs} args - Arguments to create a ClearanceRequest.
+     * @example
+     * // Create one ClearanceRequest
+     * const ClearanceRequest = await prisma.clearanceRequest.create({
+     *   data: {
+     *     // ... data to create a ClearanceRequest
+     *   }
+     * })
+     * 
+     */
+    create<T extends ClearanceRequestCreateArgs>(args: SelectSubset<T, ClearanceRequestCreateArgs<ExtArgs>>): Prisma__ClearanceRequestClient<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many ClearanceRequests.
+     * @param {ClearanceRequestCreateManyArgs} args - Arguments to create many ClearanceRequests.
+     * @example
+     * // Create many ClearanceRequests
+     * const clearanceRequest = await prisma.clearanceRequest.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ClearanceRequestCreateManyArgs>(args?: SelectSubset<T, ClearanceRequestCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many ClearanceRequests and returns the data saved in the database.
+     * @param {ClearanceRequestCreateManyAndReturnArgs} args - Arguments to create many ClearanceRequests.
+     * @example
+     * // Create many ClearanceRequests
+     * const clearanceRequest = await prisma.clearanceRequest.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many ClearanceRequests and only return the `id`
+     * const clearanceRequestWithIdOnly = await prisma.clearanceRequest.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ClearanceRequestCreateManyAndReturnArgs>(args?: SelectSubset<T, ClearanceRequestCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a ClearanceRequest.
+     * @param {ClearanceRequestDeleteArgs} args - Arguments to delete one ClearanceRequest.
+     * @example
+     * // Delete one ClearanceRequest
+     * const ClearanceRequest = await prisma.clearanceRequest.delete({
+     *   where: {
+     *     // ... filter to delete one ClearanceRequest
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ClearanceRequestDeleteArgs>(args: SelectSubset<T, ClearanceRequestDeleteArgs<ExtArgs>>): Prisma__ClearanceRequestClient<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one ClearanceRequest.
+     * @param {ClearanceRequestUpdateArgs} args - Arguments to update one ClearanceRequest.
+     * @example
+     * // Update one ClearanceRequest
+     * const clearanceRequest = await prisma.clearanceRequest.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ClearanceRequestUpdateArgs>(args: SelectSubset<T, ClearanceRequestUpdateArgs<ExtArgs>>): Prisma__ClearanceRequestClient<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more ClearanceRequests.
+     * @param {ClearanceRequestDeleteManyArgs} args - Arguments to filter ClearanceRequests to delete.
+     * @example
+     * // Delete a few ClearanceRequests
+     * const { count } = await prisma.clearanceRequest.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ClearanceRequestDeleteManyArgs>(args?: SelectSubset<T, ClearanceRequestDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ClearanceRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClearanceRequestUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many ClearanceRequests
+     * const clearanceRequest = await prisma.clearanceRequest.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ClearanceRequestUpdateManyArgs>(args: SelectSubset<T, ClearanceRequestUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more ClearanceRequests and returns the data updated in the database.
+     * @param {ClearanceRequestUpdateManyAndReturnArgs} args - Arguments to update many ClearanceRequests.
+     * @example
+     * // Update many ClearanceRequests
+     * const clearanceRequest = await prisma.clearanceRequest.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more ClearanceRequests and only return the `id`
+     * const clearanceRequestWithIdOnly = await prisma.clearanceRequest.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ClearanceRequestUpdateManyAndReturnArgs>(args: SelectSubset<T, ClearanceRequestUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one ClearanceRequest.
+     * @param {ClearanceRequestUpsertArgs} args - Arguments to update or create a ClearanceRequest.
+     * @example
+     * // Update or create a ClearanceRequest
+     * const clearanceRequest = await prisma.clearanceRequest.upsert({
+     *   create: {
+     *     // ... data to create a ClearanceRequest
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the ClearanceRequest we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ClearanceRequestUpsertArgs>(args: SelectSubset<T, ClearanceRequestUpsertArgs<ExtArgs>>): Prisma__ClearanceRequestClient<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of ClearanceRequests.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClearanceRequestCountArgs} args - Arguments to filter ClearanceRequests to count.
+     * @example
+     * // Count the number of ClearanceRequests
+     * const count = await prisma.clearanceRequest.count({
+     *   where: {
+     *     // ... the filter for the ClearanceRequests we want to count
+     *   }
+     * })
+    **/
+    count<T extends ClearanceRequestCountArgs>(
+      args?: Subset<T, ClearanceRequestCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ClearanceRequestCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a ClearanceRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClearanceRequestAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ClearanceRequestAggregateArgs>(args: Subset<T, ClearanceRequestAggregateArgs>): Prisma.PrismaPromise<GetClearanceRequestAggregateType<T>>
+
+    /**
+     * Group by ClearanceRequest.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ClearanceRequestGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ClearanceRequestGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ClearanceRequestGroupByArgs['orderBy'] }
+        : { orderBy?: ClearanceRequestGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ClearanceRequestGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetClearanceRequestGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the ClearanceRequest model
+   */
+  readonly fields: ClearanceRequestFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for ClearanceRequest.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ClearanceRequestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    department<T extends DepartmentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartmentDefaultArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the ClearanceRequest model
+   */
+  interface ClearanceRequestFieldRefs {
+    readonly id: FieldRef<"ClearanceRequest", 'String'>
+    readonly userId: FieldRef<"ClearanceRequest", 'String'>
+    readonly departmentId: FieldRef<"ClearanceRequest", 'String'>
+    readonly reason: FieldRef<"ClearanceRequest", 'String'>
+    readonly otherReason: FieldRef<"ClearanceRequest", 'String'>
+    readonly purpose: FieldRef<"ClearanceRequest", 'String'>
+    readonly dateNeeded: FieldRef<"ClearanceRequest", 'DateTime'>
+    readonly additionalInfo: FieldRef<"ClearanceRequest", 'String'>
+    readonly status: FieldRef<"ClearanceRequest", 'String'>
+    readonly documentUrl: FieldRef<"ClearanceRequest", 'String'>
+    readonly createdAt: FieldRef<"ClearanceRequest", 'DateTime'>
+    readonly updatedAt: FieldRef<"ClearanceRequest", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * ClearanceRequest findUnique
+   */
+  export type ClearanceRequestFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceRequest
+     */
+    select?: ClearanceRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceRequest
+     */
+    omit?: ClearanceRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClearanceRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which ClearanceRequest to fetch.
+     */
+    where: ClearanceRequestWhereUniqueInput
+  }
+
+  /**
+   * ClearanceRequest findUniqueOrThrow
+   */
+  export type ClearanceRequestFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceRequest
+     */
+    select?: ClearanceRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceRequest
+     */
+    omit?: ClearanceRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClearanceRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which ClearanceRequest to fetch.
+     */
+    where: ClearanceRequestWhereUniqueInput
+  }
+
+  /**
+   * ClearanceRequest findFirst
+   */
+  export type ClearanceRequestFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceRequest
+     */
+    select?: ClearanceRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceRequest
+     */
+    omit?: ClearanceRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClearanceRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which ClearanceRequest to fetch.
+     */
+    where?: ClearanceRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClearanceRequests to fetch.
+     */
+    orderBy?: ClearanceRequestOrderByWithRelationInput | ClearanceRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClearanceRequests.
+     */
+    cursor?: ClearanceRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClearanceRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClearanceRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClearanceRequests.
+     */
+    distinct?: ClearanceRequestScalarFieldEnum | ClearanceRequestScalarFieldEnum[]
+  }
+
+  /**
+   * ClearanceRequest findFirstOrThrow
+   */
+  export type ClearanceRequestFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceRequest
+     */
+    select?: ClearanceRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceRequest
+     */
+    omit?: ClearanceRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClearanceRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which ClearanceRequest to fetch.
+     */
+    where?: ClearanceRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClearanceRequests to fetch.
+     */
+    orderBy?: ClearanceRequestOrderByWithRelationInput | ClearanceRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for ClearanceRequests.
+     */
+    cursor?: ClearanceRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClearanceRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClearanceRequests.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of ClearanceRequests.
+     */
+    distinct?: ClearanceRequestScalarFieldEnum | ClearanceRequestScalarFieldEnum[]
+  }
+
+  /**
+   * ClearanceRequest findMany
+   */
+  export type ClearanceRequestFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceRequest
+     */
+    select?: ClearanceRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceRequest
+     */
+    omit?: ClearanceRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClearanceRequestInclude<ExtArgs> | null
+    /**
+     * Filter, which ClearanceRequests to fetch.
+     */
+    where?: ClearanceRequestWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of ClearanceRequests to fetch.
+     */
+    orderBy?: ClearanceRequestOrderByWithRelationInput | ClearanceRequestOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing ClearanceRequests.
+     */
+    cursor?: ClearanceRequestWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` ClearanceRequests from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` ClearanceRequests.
+     */
+    skip?: number
+    distinct?: ClearanceRequestScalarFieldEnum | ClearanceRequestScalarFieldEnum[]
+  }
+
+  /**
+   * ClearanceRequest create
+   */
+  export type ClearanceRequestCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceRequest
+     */
+    select?: ClearanceRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceRequest
+     */
+    omit?: ClearanceRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClearanceRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to create a ClearanceRequest.
+     */
+    data: XOR<ClearanceRequestCreateInput, ClearanceRequestUncheckedCreateInput>
+  }
+
+  /**
+   * ClearanceRequest createMany
+   */
+  export type ClearanceRequestCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many ClearanceRequests.
+     */
+    data: ClearanceRequestCreateManyInput | ClearanceRequestCreateManyInput[]
+  }
+
+  /**
+   * ClearanceRequest createManyAndReturn
+   */
+  export type ClearanceRequestCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceRequest
+     */
+    select?: ClearanceRequestSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceRequest
+     */
+    omit?: ClearanceRequestOmit<ExtArgs> | null
+    /**
+     * The data used to create many ClearanceRequests.
+     */
+    data: ClearanceRequestCreateManyInput | ClearanceRequestCreateManyInput[]
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClearanceRequestIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ClearanceRequest update
+   */
+  export type ClearanceRequestUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceRequest
+     */
+    select?: ClearanceRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceRequest
+     */
+    omit?: ClearanceRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClearanceRequestInclude<ExtArgs> | null
+    /**
+     * The data needed to update a ClearanceRequest.
+     */
+    data: XOR<ClearanceRequestUpdateInput, ClearanceRequestUncheckedUpdateInput>
+    /**
+     * Choose, which ClearanceRequest to update.
+     */
+    where: ClearanceRequestWhereUniqueInput
+  }
+
+  /**
+   * ClearanceRequest updateMany
+   */
+  export type ClearanceRequestUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update ClearanceRequests.
+     */
+    data: XOR<ClearanceRequestUpdateManyMutationInput, ClearanceRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which ClearanceRequests to update
+     */
+    where?: ClearanceRequestWhereInput
+    /**
+     * Limit how many ClearanceRequests to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * ClearanceRequest updateManyAndReturn
+   */
+  export type ClearanceRequestUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceRequest
+     */
+    select?: ClearanceRequestSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceRequest
+     */
+    omit?: ClearanceRequestOmit<ExtArgs> | null
+    /**
+     * The data used to update ClearanceRequests.
+     */
+    data: XOR<ClearanceRequestUpdateManyMutationInput, ClearanceRequestUncheckedUpdateManyInput>
+    /**
+     * Filter which ClearanceRequests to update
+     */
+    where?: ClearanceRequestWhereInput
+    /**
+     * Limit how many ClearanceRequests to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClearanceRequestIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * ClearanceRequest upsert
+   */
+  export type ClearanceRequestUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceRequest
+     */
+    select?: ClearanceRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceRequest
+     */
+    omit?: ClearanceRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClearanceRequestInclude<ExtArgs> | null
+    /**
+     * The filter to search for the ClearanceRequest to update in case it exists.
+     */
+    where: ClearanceRequestWhereUniqueInput
+    /**
+     * In case the ClearanceRequest found by the `where` argument doesn't exist, create a new ClearanceRequest with this data.
+     */
+    create: XOR<ClearanceRequestCreateInput, ClearanceRequestUncheckedCreateInput>
+    /**
+     * In case the ClearanceRequest was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ClearanceRequestUpdateInput, ClearanceRequestUncheckedUpdateInput>
+  }
+
+  /**
+   * ClearanceRequest delete
+   */
+  export type ClearanceRequestDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceRequest
+     */
+    select?: ClearanceRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceRequest
+     */
+    omit?: ClearanceRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClearanceRequestInclude<ExtArgs> | null
+    /**
+     * Filter which ClearanceRequest to delete.
+     */
+    where: ClearanceRequestWhereUniqueInput
+  }
+
+  /**
+   * ClearanceRequest deleteMany
+   */
+  export type ClearanceRequestDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which ClearanceRequests to delete
+     */
+    where?: ClearanceRequestWhereInput
+    /**
+     * Limit how many ClearanceRequests to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * ClearanceRequest without action
+   */
+  export type ClearanceRequestDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ClearanceRequest
+     */
+    select?: ClearanceRequestSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the ClearanceRequest
+     */
+    omit?: ClearanceRequestOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ClearanceRequestInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9750,6 +12223,35 @@ export namespace Prisma {
   export type AppointmentScalarFieldEnum = (typeof AppointmentScalarFieldEnum)[keyof typeof AppointmentScalarFieldEnum]
 
 
+  export const DepartmentScalarFieldEnum: {
+    id: 'id',
+    name: 'name',
+    isActive: 'isActive',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
+
+
+  export const ClearanceRequestScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    departmentId: 'departmentId',
+    reason: 'reason',
+    otherReason: 'otherReason',
+    purpose: 'purpose',
+    dateNeeded: 'dateNeeded',
+    additionalInfo: 'additionalInfo',
+    status: 'status',
+    documentUrl: 'documentUrl',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ClearanceRequestScalarFieldEnum = (typeof ClearanceRequestScalarFieldEnum)[keyof typeof ClearanceRequestScalarFieldEnum]
+
+
   export const SortOrder: {
     asc: 'asc',
     desc: 'desc'
@@ -9821,6 +12323,7 @@ export namespace Prisma {
     healthForm?: XOR<StudentHealthFormNullableScalarRelationFilter, StudentHealthFormWhereInput> | null
     uploadedForms?: UploadedFormListRelationFilter
     appointments?: AppointmentListRelationFilter
+    clearanceRequests?: ClearanceRequestListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9839,6 +12342,7 @@ export namespace Prisma {
     healthForm?: StudentHealthFormOrderByWithRelationInput
     uploadedForms?: UploadedFormOrderByRelationAggregateInput
     appointments?: AppointmentOrderByRelationAggregateInput
+    clearanceRequests?: ClearanceRequestOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -9860,6 +12364,7 @@ export namespace Prisma {
     healthForm?: XOR<StudentHealthFormNullableScalarRelationFilter, StudentHealthFormWhereInput> | null
     uploadedForms?: UploadedFormListRelationFilter
     appointments?: AppointmentListRelationFilter
+    clearanceRequests?: ClearanceRequestListRelationFilter
   }, "id" | "username" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -10461,6 +12966,154 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"Appointment"> | Date | string
   }
 
+  export type DepartmentWhereInput = {
+    AND?: DepartmentWhereInput | DepartmentWhereInput[]
+    OR?: DepartmentWhereInput[]
+    NOT?: DepartmentWhereInput | DepartmentWhereInput[]
+    id?: StringFilter<"Department"> | string
+    name?: StringFilter<"Department"> | string
+    isActive?: BoolFilter<"Department"> | boolean
+    createdAt?: DateTimeFilter<"Department"> | Date | string
+    updatedAt?: DateTimeFilter<"Department"> | Date | string
+    clearanceRequests?: ClearanceRequestListRelationFilter
+  }
+
+  export type DepartmentOrderByWithRelationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    clearanceRequests?: ClearanceRequestOrderByRelationAggregateInput
+  }
+
+  export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: DepartmentWhereInput | DepartmentWhereInput[]
+    OR?: DepartmentWhereInput[]
+    NOT?: DepartmentWhereInput | DepartmentWhereInput[]
+    name?: StringFilter<"Department"> | string
+    isActive?: BoolFilter<"Department"> | boolean
+    createdAt?: DateTimeFilter<"Department"> | Date | string
+    updatedAt?: DateTimeFilter<"Department"> | Date | string
+    clearanceRequests?: ClearanceRequestListRelationFilter
+  }, "id">
+
+  export type DepartmentOrderByWithAggregationInput = {
+    id?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: DepartmentCountOrderByAggregateInput
+    _max?: DepartmentMaxOrderByAggregateInput
+    _min?: DepartmentMinOrderByAggregateInput
+  }
+
+  export type DepartmentScalarWhereWithAggregatesInput = {
+    AND?: DepartmentScalarWhereWithAggregatesInput | DepartmentScalarWhereWithAggregatesInput[]
+    OR?: DepartmentScalarWhereWithAggregatesInput[]
+    NOT?: DepartmentScalarWhereWithAggregatesInput | DepartmentScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Department"> | string
+    name?: StringWithAggregatesFilter<"Department"> | string
+    isActive?: BoolWithAggregatesFilter<"Department"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"Department"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Department"> | Date | string
+  }
+
+  export type ClearanceRequestWhereInput = {
+    AND?: ClearanceRequestWhereInput | ClearanceRequestWhereInput[]
+    OR?: ClearanceRequestWhereInput[]
+    NOT?: ClearanceRequestWhereInput | ClearanceRequestWhereInput[]
+    id?: StringFilter<"ClearanceRequest"> | string
+    userId?: StringFilter<"ClearanceRequest"> | string
+    departmentId?: StringFilter<"ClearanceRequest"> | string
+    reason?: StringFilter<"ClearanceRequest"> | string
+    otherReason?: StringNullableFilter<"ClearanceRequest"> | string | null
+    purpose?: StringFilter<"ClearanceRequest"> | string
+    dateNeeded?: DateTimeFilter<"ClearanceRequest"> | Date | string
+    additionalInfo?: StringNullableFilter<"ClearanceRequest"> | string | null
+    status?: StringFilter<"ClearanceRequest"> | string
+    documentUrl?: StringNullableFilter<"ClearanceRequest"> | string | null
+    createdAt?: DateTimeFilter<"ClearanceRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"ClearanceRequest"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    department?: XOR<DepartmentScalarRelationFilter, DepartmentWhereInput>
+  }
+
+  export type ClearanceRequestOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    departmentId?: SortOrder
+    reason?: SortOrder
+    otherReason?: SortOrderInput | SortOrder
+    purpose?: SortOrder
+    dateNeeded?: SortOrder
+    additionalInfo?: SortOrderInput | SortOrder
+    status?: SortOrder
+    documentUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    department?: DepartmentOrderByWithRelationInput
+  }
+
+  export type ClearanceRequestWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: ClearanceRequestWhereInput | ClearanceRequestWhereInput[]
+    OR?: ClearanceRequestWhereInput[]
+    NOT?: ClearanceRequestWhereInput | ClearanceRequestWhereInput[]
+    userId?: StringFilter<"ClearanceRequest"> | string
+    departmentId?: StringFilter<"ClearanceRequest"> | string
+    reason?: StringFilter<"ClearanceRequest"> | string
+    otherReason?: StringNullableFilter<"ClearanceRequest"> | string | null
+    purpose?: StringFilter<"ClearanceRequest"> | string
+    dateNeeded?: DateTimeFilter<"ClearanceRequest"> | Date | string
+    additionalInfo?: StringNullableFilter<"ClearanceRequest"> | string | null
+    status?: StringFilter<"ClearanceRequest"> | string
+    documentUrl?: StringNullableFilter<"ClearanceRequest"> | string | null
+    createdAt?: DateTimeFilter<"ClearanceRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"ClearanceRequest"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    department?: XOR<DepartmentScalarRelationFilter, DepartmentWhereInput>
+  }, "id">
+
+  export type ClearanceRequestOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    departmentId?: SortOrder
+    reason?: SortOrder
+    otherReason?: SortOrderInput | SortOrder
+    purpose?: SortOrder
+    dateNeeded?: SortOrder
+    additionalInfo?: SortOrderInput | SortOrder
+    status?: SortOrder
+    documentUrl?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ClearanceRequestCountOrderByAggregateInput
+    _max?: ClearanceRequestMaxOrderByAggregateInput
+    _min?: ClearanceRequestMinOrderByAggregateInput
+  }
+
+  export type ClearanceRequestScalarWhereWithAggregatesInput = {
+    AND?: ClearanceRequestScalarWhereWithAggregatesInput | ClearanceRequestScalarWhereWithAggregatesInput[]
+    OR?: ClearanceRequestScalarWhereWithAggregatesInput[]
+    NOT?: ClearanceRequestScalarWhereWithAggregatesInput | ClearanceRequestScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"ClearanceRequest"> | string
+    userId?: StringWithAggregatesFilter<"ClearanceRequest"> | string
+    departmentId?: StringWithAggregatesFilter<"ClearanceRequest"> | string
+    reason?: StringWithAggregatesFilter<"ClearanceRequest"> | string
+    otherReason?: StringNullableWithAggregatesFilter<"ClearanceRequest"> | string | null
+    purpose?: StringWithAggregatesFilter<"ClearanceRequest"> | string
+    dateNeeded?: DateTimeWithAggregatesFilter<"ClearanceRequest"> | Date | string
+    additionalInfo?: StringNullableWithAggregatesFilter<"ClearanceRequest"> | string | null
+    status?: StringWithAggregatesFilter<"ClearanceRequest"> | string
+    documentUrl?: StringNullableWithAggregatesFilter<"ClearanceRequest"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"ClearanceRequest"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"ClearanceRequest"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     firstName: string
@@ -10477,6 +13130,7 @@ export namespace Prisma {
     healthForm?: StudentHealthFormCreateNestedOneWithoutUserInput
     uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
     appointments?: AppointmentCreateNestedManyWithoutUserInput
+    clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -10495,6 +13149,7 @@ export namespace Prisma {
     healthForm?: StudentHealthFormUncheckedCreateNestedOneWithoutUserInput
     uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -10513,6 +13168,7 @@ export namespace Prisma {
     healthForm?: StudentHealthFormUpdateOneWithoutUserNestedInput
     uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -10531,6 +13187,7 @@ export namespace Prisma {
     healthForm?: StudentHealthFormUncheckedUpdateOneWithoutUserNestedInput
     uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -11239,6 +13896,169 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type DepartmentCreateInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clearanceRequests?: ClearanceRequestCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentUncheckedCreateInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clearanceRequests?: ClearanceRequestUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type DepartmentUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type DepartmentCreateManyInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DepartmentUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DepartmentUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClearanceRequestCreateInput = {
+    id?: string
+    reason: string
+    otherReason?: string | null
+    purpose: string
+    dateNeeded: Date | string
+    additionalInfo?: string | null
+    status?: string
+    documentUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutClearanceRequestsInput
+    department: DepartmentCreateNestedOneWithoutClearanceRequestsInput
+  }
+
+  export type ClearanceRequestUncheckedCreateInput = {
+    id?: string
+    userId: string
+    departmentId: string
+    reason: string
+    otherReason?: string | null
+    purpose: string
+    dateNeeded: Date | string
+    additionalInfo?: string | null
+    status?: string
+    documentUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClearanceRequestUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    otherReason?: NullableStringFieldUpdateOperationsInput | string | null
+    purpose?: StringFieldUpdateOperationsInput | string
+    dateNeeded?: DateTimeFieldUpdateOperationsInput | Date | string
+    additionalInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    documentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutClearanceRequestsNestedInput
+    department?: DepartmentUpdateOneRequiredWithoutClearanceRequestsNestedInput
+  }
+
+  export type ClearanceRequestUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    departmentId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    otherReason?: NullableStringFieldUpdateOperationsInput | string | null
+    purpose?: StringFieldUpdateOperationsInput | string
+    dateNeeded?: DateTimeFieldUpdateOperationsInput | Date | string
+    additionalInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    documentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClearanceRequestCreateManyInput = {
+    id?: string
+    userId: string
+    departmentId: string
+    reason: string
+    otherReason?: string | null
+    purpose: string
+    dateNeeded: Date | string
+    additionalInfo?: string | null
+    status?: string
+    documentUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClearanceRequestUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    otherReason?: NullableStringFieldUpdateOperationsInput | string | null
+    purpose?: StringFieldUpdateOperationsInput | string
+    dateNeeded?: DateTimeFieldUpdateOperationsInput | Date | string
+    additionalInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    documentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClearanceRequestUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    departmentId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    otherReason?: NullableStringFieldUpdateOperationsInput | string | null
+    purpose?: StringFieldUpdateOperationsInput | string
+    dateNeeded?: DateTimeFieldUpdateOperationsInput | Date | string
+    additionalInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    documentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[]
@@ -11300,6 +14120,12 @@ export namespace Prisma {
     none?: AppointmentWhereInput
   }
 
+  export type ClearanceRequestListRelationFilter = {
+    every?: ClearanceRequestWhereInput
+    some?: ClearanceRequestWhereInput
+    none?: ClearanceRequestWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -11310,6 +14136,10 @@ export namespace Prisma {
   }
 
   export type AppointmentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ClearanceRequestOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -11726,6 +14556,80 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
+  export type DepartmentCountOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DepartmentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DepartmentMinOrderByAggregateInput = {
+    id?: SortOrder
+    name?: SortOrder
+    isActive?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type DepartmentScalarRelationFilter = {
+    is?: DepartmentWhereInput
+    isNot?: DepartmentWhereInput
+  }
+
+  export type ClearanceRequestCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    departmentId?: SortOrder
+    reason?: SortOrder
+    otherReason?: SortOrder
+    purpose?: SortOrder
+    dateNeeded?: SortOrder
+    additionalInfo?: SortOrder
+    status?: SortOrder
+    documentUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClearanceRequestMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    departmentId?: SortOrder
+    reason?: SortOrder
+    otherReason?: SortOrder
+    purpose?: SortOrder
+    dateNeeded?: SortOrder
+    additionalInfo?: SortOrder
+    status?: SortOrder
+    documentUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ClearanceRequestMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    departmentId?: SortOrder
+    reason?: SortOrder
+    otherReason?: SortOrder
+    purpose?: SortOrder
+    dateNeeded?: SortOrder
+    additionalInfo?: SortOrder
+    status?: SortOrder
+    documentUrl?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
   export type StudentHealthFormCreateNestedOneWithoutUserInput = {
     create?: XOR<StudentHealthFormCreateWithoutUserInput, StudentHealthFormUncheckedCreateWithoutUserInput>
     connectOrCreate?: StudentHealthFormCreateOrConnectWithoutUserInput
@@ -11746,6 +14650,13 @@ export namespace Prisma {
     connect?: AppointmentWhereUniqueInput | AppointmentWhereUniqueInput[]
   }
 
+  export type ClearanceRequestCreateNestedManyWithoutUserInput = {
+    create?: XOR<ClearanceRequestCreateWithoutUserInput, ClearanceRequestUncheckedCreateWithoutUserInput> | ClearanceRequestCreateWithoutUserInput[] | ClearanceRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ClearanceRequestCreateOrConnectWithoutUserInput | ClearanceRequestCreateOrConnectWithoutUserInput[]
+    createMany?: ClearanceRequestCreateManyUserInputEnvelope
+    connect?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+  }
+
   export type StudentHealthFormUncheckedCreateNestedOneWithoutUserInput = {
     create?: XOR<StudentHealthFormCreateWithoutUserInput, StudentHealthFormUncheckedCreateWithoutUserInput>
     connectOrCreate?: StudentHealthFormCreateOrConnectWithoutUserInput
@@ -11764,6 +14675,13 @@ export namespace Prisma {
     connectOrCreate?: AppointmentCreateOrConnectWithoutUserInput | AppointmentCreateOrConnectWithoutUserInput[]
     createMany?: AppointmentCreateManyUserInputEnvelope
     connect?: AppointmentWhereUniqueInput | AppointmentWhereUniqueInput[]
+  }
+
+  export type ClearanceRequestUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<ClearanceRequestCreateWithoutUserInput, ClearanceRequestUncheckedCreateWithoutUserInput> | ClearanceRequestCreateWithoutUserInput[] | ClearanceRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ClearanceRequestCreateOrConnectWithoutUserInput | ClearanceRequestCreateOrConnectWithoutUserInput[]
+    createMany?: ClearanceRequestCreateManyUserInputEnvelope
+    connect?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -11820,6 +14738,20 @@ export namespace Prisma {
     deleteMany?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
   }
 
+  export type ClearanceRequestUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ClearanceRequestCreateWithoutUserInput, ClearanceRequestUncheckedCreateWithoutUserInput> | ClearanceRequestCreateWithoutUserInput[] | ClearanceRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ClearanceRequestCreateOrConnectWithoutUserInput | ClearanceRequestCreateOrConnectWithoutUserInput[]
+    upsert?: ClearanceRequestUpsertWithWhereUniqueWithoutUserInput | ClearanceRequestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ClearanceRequestCreateManyUserInputEnvelope
+    set?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    disconnect?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    delete?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    connect?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    update?: ClearanceRequestUpdateWithWhereUniqueWithoutUserInput | ClearanceRequestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ClearanceRequestUpdateManyWithWhereWithoutUserInput | ClearanceRequestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ClearanceRequestScalarWhereInput | ClearanceRequestScalarWhereInput[]
+  }
+
   export type StudentHealthFormUncheckedUpdateOneWithoutUserNestedInput = {
     create?: XOR<StudentHealthFormCreateWithoutUserInput, StudentHealthFormUncheckedCreateWithoutUserInput>
     connectOrCreate?: StudentHealthFormCreateOrConnectWithoutUserInput
@@ -11856,6 +14788,20 @@ export namespace Prisma {
     update?: AppointmentUpdateWithWhereUniqueWithoutUserInput | AppointmentUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: AppointmentUpdateManyWithWhereWithoutUserInput | AppointmentUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
+  }
+
+  export type ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<ClearanceRequestCreateWithoutUserInput, ClearanceRequestUncheckedCreateWithoutUserInput> | ClearanceRequestCreateWithoutUserInput[] | ClearanceRequestUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: ClearanceRequestCreateOrConnectWithoutUserInput | ClearanceRequestCreateOrConnectWithoutUserInput[]
+    upsert?: ClearanceRequestUpsertWithWhereUniqueWithoutUserInput | ClearanceRequestUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: ClearanceRequestCreateManyUserInputEnvelope
+    set?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    disconnect?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    delete?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    connect?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    update?: ClearanceRequestUpdateWithWhereUniqueWithoutUserInput | ClearanceRequestUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: ClearanceRequestUpdateManyWithWhereWithoutUserInput | ClearanceRequestUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: ClearanceRequestScalarWhereInput | ClearanceRequestScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutHealthFormInput = {
@@ -12000,6 +14946,76 @@ export namespace Prisma {
     upsert?: TimeSlotUpsertWithoutAppointmentInput
     connect?: TimeSlotWhereUniqueInput
     update?: XOR<XOR<TimeSlotUpdateToOneWithWhereWithoutAppointmentInput, TimeSlotUpdateWithoutAppointmentInput>, TimeSlotUncheckedUpdateWithoutAppointmentInput>
+  }
+
+  export type ClearanceRequestCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<ClearanceRequestCreateWithoutDepartmentInput, ClearanceRequestUncheckedCreateWithoutDepartmentInput> | ClearanceRequestCreateWithoutDepartmentInput[] | ClearanceRequestUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: ClearanceRequestCreateOrConnectWithoutDepartmentInput | ClearanceRequestCreateOrConnectWithoutDepartmentInput[]
+    createMany?: ClearanceRequestCreateManyDepartmentInputEnvelope
+    connect?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+  }
+
+  export type ClearanceRequestUncheckedCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<ClearanceRequestCreateWithoutDepartmentInput, ClearanceRequestUncheckedCreateWithoutDepartmentInput> | ClearanceRequestCreateWithoutDepartmentInput[] | ClearanceRequestUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: ClearanceRequestCreateOrConnectWithoutDepartmentInput | ClearanceRequestCreateOrConnectWithoutDepartmentInput[]
+    createMany?: ClearanceRequestCreateManyDepartmentInputEnvelope
+    connect?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+  }
+
+  export type ClearanceRequestUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<ClearanceRequestCreateWithoutDepartmentInput, ClearanceRequestUncheckedCreateWithoutDepartmentInput> | ClearanceRequestCreateWithoutDepartmentInput[] | ClearanceRequestUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: ClearanceRequestCreateOrConnectWithoutDepartmentInput | ClearanceRequestCreateOrConnectWithoutDepartmentInput[]
+    upsert?: ClearanceRequestUpsertWithWhereUniqueWithoutDepartmentInput | ClearanceRequestUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: ClearanceRequestCreateManyDepartmentInputEnvelope
+    set?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    disconnect?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    delete?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    connect?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    update?: ClearanceRequestUpdateWithWhereUniqueWithoutDepartmentInput | ClearanceRequestUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: ClearanceRequestUpdateManyWithWhereWithoutDepartmentInput | ClearanceRequestUpdateManyWithWhereWithoutDepartmentInput[]
+    deleteMany?: ClearanceRequestScalarWhereInput | ClearanceRequestScalarWhereInput[]
+  }
+
+  export type ClearanceRequestUncheckedUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<ClearanceRequestCreateWithoutDepartmentInput, ClearanceRequestUncheckedCreateWithoutDepartmentInput> | ClearanceRequestCreateWithoutDepartmentInput[] | ClearanceRequestUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: ClearanceRequestCreateOrConnectWithoutDepartmentInput | ClearanceRequestCreateOrConnectWithoutDepartmentInput[]
+    upsert?: ClearanceRequestUpsertWithWhereUniqueWithoutDepartmentInput | ClearanceRequestUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: ClearanceRequestCreateManyDepartmentInputEnvelope
+    set?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    disconnect?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    delete?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    connect?: ClearanceRequestWhereUniqueInput | ClearanceRequestWhereUniqueInput[]
+    update?: ClearanceRequestUpdateWithWhereUniqueWithoutDepartmentInput | ClearanceRequestUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: ClearanceRequestUpdateManyWithWhereWithoutDepartmentInput | ClearanceRequestUpdateManyWithWhereWithoutDepartmentInput[]
+    deleteMany?: ClearanceRequestScalarWhereInput | ClearanceRequestScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutClearanceRequestsInput = {
+    create?: XOR<UserCreateWithoutClearanceRequestsInput, UserUncheckedCreateWithoutClearanceRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutClearanceRequestsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type DepartmentCreateNestedOneWithoutClearanceRequestsInput = {
+    create?: XOR<DepartmentCreateWithoutClearanceRequestsInput, DepartmentUncheckedCreateWithoutClearanceRequestsInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutClearanceRequestsInput
+    connect?: DepartmentWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutClearanceRequestsNestedInput = {
+    create?: XOR<UserCreateWithoutClearanceRequestsInput, UserUncheckedCreateWithoutClearanceRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutClearanceRequestsInput
+    upsert?: UserUpsertWithoutClearanceRequestsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutClearanceRequestsInput, UserUpdateWithoutClearanceRequestsInput>, UserUncheckedUpdateWithoutClearanceRequestsInput>
+  }
+
+  export type DepartmentUpdateOneRequiredWithoutClearanceRequestsNestedInput = {
+    create?: XOR<DepartmentCreateWithoutClearanceRequestsInput, DepartmentUncheckedCreateWithoutClearanceRequestsInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutClearanceRequestsInput
+    upsert?: DepartmentUpsertWithoutClearanceRequestsInput
+    connect?: DepartmentWhereUniqueInput
+    update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutClearanceRequestsInput, DepartmentUpdateWithoutClearanceRequestsInput>, DepartmentUncheckedUpdateWithoutClearanceRequestsInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -12277,6 +15293,43 @@ export namespace Prisma {
     data: AppointmentCreateManyUserInput | AppointmentCreateManyUserInput[]
   }
 
+  export type ClearanceRequestCreateWithoutUserInput = {
+    id?: string
+    reason: string
+    otherReason?: string | null
+    purpose: string
+    dateNeeded: Date | string
+    additionalInfo?: string | null
+    status?: string
+    documentUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    department: DepartmentCreateNestedOneWithoutClearanceRequestsInput
+  }
+
+  export type ClearanceRequestUncheckedCreateWithoutUserInput = {
+    id?: string
+    departmentId: string
+    reason: string
+    otherReason?: string | null
+    purpose: string
+    dateNeeded: Date | string
+    additionalInfo?: string | null
+    status?: string
+    documentUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClearanceRequestCreateOrConnectWithoutUserInput = {
+    where: ClearanceRequestWhereUniqueInput
+    create: XOR<ClearanceRequestCreateWithoutUserInput, ClearanceRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type ClearanceRequestCreateManyUserInputEnvelope = {
+    data: ClearanceRequestCreateManyUserInput | ClearanceRequestCreateManyUserInput[]
+  }
+
   export type StudentHealthFormUpsertWithoutUserInput = {
     update: XOR<StudentHealthFormUpdateWithoutUserInput, StudentHealthFormUncheckedUpdateWithoutUserInput>
     create: XOR<StudentHealthFormCreateWithoutUserInput, StudentHealthFormUncheckedCreateWithoutUserInput>
@@ -12437,6 +15490,40 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Appointment"> | Date | string
   }
 
+  export type ClearanceRequestUpsertWithWhereUniqueWithoutUserInput = {
+    where: ClearanceRequestWhereUniqueInput
+    update: XOR<ClearanceRequestUpdateWithoutUserInput, ClearanceRequestUncheckedUpdateWithoutUserInput>
+    create: XOR<ClearanceRequestCreateWithoutUserInput, ClearanceRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type ClearanceRequestUpdateWithWhereUniqueWithoutUserInput = {
+    where: ClearanceRequestWhereUniqueInput
+    data: XOR<ClearanceRequestUpdateWithoutUserInput, ClearanceRequestUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ClearanceRequestUpdateManyWithWhereWithoutUserInput = {
+    where: ClearanceRequestScalarWhereInput
+    data: XOR<ClearanceRequestUpdateManyMutationInput, ClearanceRequestUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ClearanceRequestScalarWhereInput = {
+    AND?: ClearanceRequestScalarWhereInput | ClearanceRequestScalarWhereInput[]
+    OR?: ClearanceRequestScalarWhereInput[]
+    NOT?: ClearanceRequestScalarWhereInput | ClearanceRequestScalarWhereInput[]
+    id?: StringFilter<"ClearanceRequest"> | string
+    userId?: StringFilter<"ClearanceRequest"> | string
+    departmentId?: StringFilter<"ClearanceRequest"> | string
+    reason?: StringFilter<"ClearanceRequest"> | string
+    otherReason?: StringNullableFilter<"ClearanceRequest"> | string | null
+    purpose?: StringFilter<"ClearanceRequest"> | string
+    dateNeeded?: DateTimeFilter<"ClearanceRequest"> | Date | string
+    additionalInfo?: StringNullableFilter<"ClearanceRequest"> | string | null
+    status?: StringFilter<"ClearanceRequest"> | string
+    documentUrl?: StringNullableFilter<"ClearanceRequest"> | string | null
+    createdAt?: DateTimeFilter<"ClearanceRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"ClearanceRequest"> | Date | string
+  }
+
   export type UserCreateWithoutHealthFormInput = {
     id?: string
     firstName: string
@@ -12452,6 +15539,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
     appointments?: AppointmentCreateNestedManyWithoutUserInput
+    clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutHealthFormInput = {
@@ -12469,6 +15557,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutHealthFormInput = {
@@ -12502,6 +15591,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutHealthFormInput = {
@@ -12519,6 +15609,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutUploadedFormsInput = {
@@ -12536,6 +15627,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     healthForm?: StudentHealthFormCreateNestedOneWithoutUserInput
     appointments?: AppointmentCreateNestedManyWithoutUserInput
+    clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUploadedFormsInput = {
@@ -12553,6 +15645,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     healthForm?: StudentHealthFormUncheckedCreateNestedOneWithoutUserInput
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUploadedFormsInput = {
@@ -12586,6 +15679,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     healthForm?: StudentHealthFormUpdateOneWithoutUserNestedInput
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUploadedFormsInput = {
@@ -12603,6 +15697,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     healthForm?: StudentHealthFormUncheckedUpdateOneWithoutUserNestedInput
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TimeSlotCreateWithoutConsultationDateInput = {
@@ -12786,6 +15881,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     healthForm?: StudentHealthFormCreateNestedOneWithoutUserInput
     uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
+    clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAppointmentsInput = {
@@ -12803,6 +15899,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     healthForm?: StudentHealthFormUncheckedCreateNestedOneWithoutUserInput
     uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
+    clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAppointmentsInput = {
@@ -12861,6 +15958,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     healthForm?: StudentHealthFormUpdateOneWithoutUserNestedInput
     uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
+    clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAppointmentsInput = {
@@ -12878,6 +15976,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     healthForm?: StudentHealthFormUncheckedUpdateOneWithoutUserNestedInput
     uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
+    clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TimeSlotUpsertWithoutAppointmentInput = {
@@ -12911,6 +16010,195 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ClearanceRequestCreateWithoutDepartmentInput = {
+    id?: string
+    reason: string
+    otherReason?: string | null
+    purpose: string
+    dateNeeded: Date | string
+    additionalInfo?: string | null
+    status?: string
+    documentUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutClearanceRequestsInput
+  }
+
+  export type ClearanceRequestUncheckedCreateWithoutDepartmentInput = {
+    id?: string
+    userId: string
+    reason: string
+    otherReason?: string | null
+    purpose: string
+    dateNeeded: Date | string
+    additionalInfo?: string | null
+    status?: string
+    documentUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClearanceRequestCreateOrConnectWithoutDepartmentInput = {
+    where: ClearanceRequestWhereUniqueInput
+    create: XOR<ClearanceRequestCreateWithoutDepartmentInput, ClearanceRequestUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type ClearanceRequestCreateManyDepartmentInputEnvelope = {
+    data: ClearanceRequestCreateManyDepartmentInput | ClearanceRequestCreateManyDepartmentInput[]
+  }
+
+  export type ClearanceRequestUpsertWithWhereUniqueWithoutDepartmentInput = {
+    where: ClearanceRequestWhereUniqueInput
+    update: XOR<ClearanceRequestUpdateWithoutDepartmentInput, ClearanceRequestUncheckedUpdateWithoutDepartmentInput>
+    create: XOR<ClearanceRequestCreateWithoutDepartmentInput, ClearanceRequestUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type ClearanceRequestUpdateWithWhereUniqueWithoutDepartmentInput = {
+    where: ClearanceRequestWhereUniqueInput
+    data: XOR<ClearanceRequestUpdateWithoutDepartmentInput, ClearanceRequestUncheckedUpdateWithoutDepartmentInput>
+  }
+
+  export type ClearanceRequestUpdateManyWithWhereWithoutDepartmentInput = {
+    where: ClearanceRequestScalarWhereInput
+    data: XOR<ClearanceRequestUpdateManyMutationInput, ClearanceRequestUncheckedUpdateManyWithoutDepartmentInput>
+  }
+
+  export type UserCreateWithoutClearanceRequestsInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    username: string
+    email: string
+    password: string
+    role: string
+    status?: string
+    emailVerified?: boolean
+    verificationToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    healthForm?: StudentHealthFormCreateNestedOneWithoutUserInput
+    uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
+    appointments?: AppointmentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutClearanceRequestsInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    username: string
+    email: string
+    password: string
+    role: string
+    status?: string
+    emailVerified?: boolean
+    verificationToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    healthForm?: StudentHealthFormUncheckedCreateNestedOneWithoutUserInput
+    uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutClearanceRequestsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutClearanceRequestsInput, UserUncheckedCreateWithoutClearanceRequestsInput>
+  }
+
+  export type DepartmentCreateWithoutClearanceRequestsInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DepartmentUncheckedCreateWithoutClearanceRequestsInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type DepartmentCreateOrConnectWithoutClearanceRequestsInput = {
+    where: DepartmentWhereUniqueInput
+    create: XOR<DepartmentCreateWithoutClearanceRequestsInput, DepartmentUncheckedCreateWithoutClearanceRequestsInput>
+  }
+
+  export type UserUpsertWithoutClearanceRequestsInput = {
+    update: XOR<UserUpdateWithoutClearanceRequestsInput, UserUncheckedUpdateWithoutClearanceRequestsInput>
+    create: XOR<UserCreateWithoutClearanceRequestsInput, UserUncheckedCreateWithoutClearanceRequestsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutClearanceRequestsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutClearanceRequestsInput, UserUncheckedUpdateWithoutClearanceRequestsInput>
+  }
+
+  export type UserUpdateWithoutClearanceRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    healthForm?: StudentHealthFormUpdateOneWithoutUserNestedInput
+    uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
+    appointments?: AppointmentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutClearanceRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    healthForm?: StudentHealthFormUncheckedUpdateOneWithoutUserNestedInput
+    uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
+    appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type DepartmentUpsertWithoutClearanceRequestsInput = {
+    update: XOR<DepartmentUpdateWithoutClearanceRequestsInput, DepartmentUncheckedUpdateWithoutClearanceRequestsInput>
+    create: XOR<DepartmentCreateWithoutClearanceRequestsInput, DepartmentUncheckedCreateWithoutClearanceRequestsInput>
+    where?: DepartmentWhereInput
+  }
+
+  export type DepartmentUpdateToOneWithWhereWithoutClearanceRequestsInput = {
+    where?: DepartmentWhereInput
+    data: XOR<DepartmentUpdateWithoutClearanceRequestsInput, DepartmentUncheckedUpdateWithoutClearanceRequestsInput>
+  }
+
+  export type DepartmentUpdateWithoutClearanceRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DepartmentUncheckedUpdateWithoutClearanceRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UploadedFormCreateManyUserInput = {
     id?: string
     formType: string
@@ -12928,6 +16216,20 @@ export namespace Prisma {
     reasonForVisit: string
     additionalNotes?: string | null
     status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClearanceRequestCreateManyUserInput = {
+    id?: string
+    departmentId: string
+    reason: string
+    otherReason?: string | null
+    purpose: string
+    dateNeeded: Date | string
+    additionalInfo?: string | null
+    status?: string
+    documentUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -12995,6 +16297,48 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type ClearanceRequestUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    otherReason?: NullableStringFieldUpdateOperationsInput | string | null
+    purpose?: StringFieldUpdateOperationsInput | string
+    dateNeeded?: DateTimeFieldUpdateOperationsInput | Date | string
+    additionalInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    documentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    department?: DepartmentUpdateOneRequiredWithoutClearanceRequestsNestedInput
+  }
+
+  export type ClearanceRequestUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    departmentId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    otherReason?: NullableStringFieldUpdateOperationsInput | string | null
+    purpose?: StringFieldUpdateOperationsInput | string
+    dateNeeded?: DateTimeFieldUpdateOperationsInput | Date | string
+    additionalInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    documentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClearanceRequestUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    departmentId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    otherReason?: NullableStringFieldUpdateOperationsInput | string | null
+    purpose?: StringFieldUpdateOperationsInput | string
+    dateNeeded?: DateTimeFieldUpdateOperationsInput | Date | string
+    additionalInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    documentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type TimeSlotCreateManyConsultationDateInput = {
     id?: string
     startTime: string
@@ -13029,6 +16373,62 @@ export namespace Prisma {
     startTime?: StringFieldUpdateOperationsInput | string
     endTime?: StringFieldUpdateOperationsInput | string
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClearanceRequestCreateManyDepartmentInput = {
+    id?: string
+    userId: string
+    reason: string
+    otherReason?: string | null
+    purpose: string
+    dateNeeded: Date | string
+    additionalInfo?: string | null
+    status?: string
+    documentUrl?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ClearanceRequestUpdateWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    otherReason?: NullableStringFieldUpdateOperationsInput | string | null
+    purpose?: StringFieldUpdateOperationsInput | string
+    dateNeeded?: DateTimeFieldUpdateOperationsInput | Date | string
+    additionalInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    documentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutClearanceRequestsNestedInput
+  }
+
+  export type ClearanceRequestUncheckedUpdateWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    otherReason?: NullableStringFieldUpdateOperationsInput | string | null
+    purpose?: StringFieldUpdateOperationsInput | string
+    dateNeeded?: DateTimeFieldUpdateOperationsInput | Date | string
+    additionalInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    documentUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ClearanceRequestUncheckedUpdateManyWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    reason?: StringFieldUpdateOperationsInput | string
+    otherReason?: NullableStringFieldUpdateOperationsInput | string | null
+    purpose?: StringFieldUpdateOperationsInput | string
+    dateNeeded?: DateTimeFieldUpdateOperationsInput | Date | string
+    additionalInfo?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    documentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
