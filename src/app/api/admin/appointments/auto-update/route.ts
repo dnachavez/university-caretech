@@ -26,10 +26,12 @@ export async function GET(req: NextRequest) {
     const currentMinutes = now.getMinutes();
     const currentTimeInMinutes = currentHours * 60 + currentMinutes;
     
-    // 1. Find all confirmed appointments for today
+    // 1. Find all confirmed and ongoing appointments for today
     const todaysAppointments = await prisma.appointment.findMany({
       where: {
-        status: "CONFIRMED",
+        status: {
+          in: ["CONFIRMED", "ONGOING"]
+        },
         timeSlot: {
           consultationDate: {
             date: {
