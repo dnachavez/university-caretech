@@ -182,6 +182,17 @@ exports.Prisma.StudentHealthFormScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.UploadedFormScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  formType: 'formType',
+  filePath: 'filePath',
+  notes: 'notes',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -191,24 +202,13 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.UserRole = exports.$Enums.UserRole = {
-  STUDENT: 'STUDENT',
-  FACULTY: 'FACULTY',
-  STAFF: 'STAFF',
-  ADMIN: 'ADMIN'
-};
 
-exports.UserStatus = exports.$Enums.UserStatus = {
-  UNVERIFIED: 'UNVERIFIED',
-  PENDING_APPROVAL: 'PENDING_APPROVAL',
-  ACTIVE: 'ACTIVE',
-  SUSPENDED: 'SUSPENDED'
-};
 
 exports.Prisma.ModelName = {
   User: 'User',
   VerificationToken: 'VerificationToken',
-  StudentHealthForm: 'StudentHealthForm'
+  StudentHealthForm: 'StudentHealthForm',
+  UploadedForm: 'UploadedForm'
 };
 
 /**

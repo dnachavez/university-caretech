@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
   output   = "../src/generated/prisma"
@@ -11,20 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum UserRole {
-  STUDENT
-  FACULTY
-  STAFF
-  ADMIN
-}
-
-enum UserStatus {
-  UNVERIFIED // Email not verified
-  PENDING_APPROVAL // Email verified but waiting for admin approval (for FACULTY/STAFF)
-  ACTIVE // Email verified and approved (if needed)
-  SUSPENDED
-}
-
 model User {
   id                String             @id @default(cuid())
   firstName         String
@@ -32,13 +15,14 @@ model User {
   username          String             @unique
   email             String             @unique
   password          String
-  role              UserRole
-  status            UserStatus         @default(UNVERIFIED)
+  role              String
+  status            String             @default("UNVERIFIED")
   emailVerified     Boolean            @default(false)
   verificationToken String?
-  healthForm        StudentHealthForm?
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
+  healthForm        StudentHealthForm?
+  uploadedForms     UploadedForm[]
 }
 
 model VerificationToken {
@@ -52,7 +36,6 @@ model VerificationToken {
 model StudentHealthForm {
   id                   String   @id @default(cuid())
   userId               String   @unique
-  user                 User     @relation(fields: [userId], references: [id])
   lastName             String
   firstName            String
   middleInitial        String?
@@ -93,4 +76,17 @@ model StudentHealthForm {
   dateSigned           DateTime @default(now())
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
+  user                 User     @relation(fields: [userId], references: [id])
+}
+
+model UploadedForm {
+  id        String   @id @default(cuid())
+  userId    String
+  formType  String
+  filePath  String
+  notes     String?
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
 }

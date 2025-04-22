@@ -22,6 +22,7 @@ model User {
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
   healthForm        StudentHealthForm?
+  uploadedForms     UploadedForm[]
 }
 
 model VerificationToken {
@@ -76,4 +77,16 @@ model StudentHealthForm {
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
   user                 User     @relation(fields: [userId], references: [id])
+}
+
+model UploadedForm {
+  id          String   @id @default(cuid())
+  userId      String
+  formType    String
+  filePath    String
+  notes       String?
+  status      String   @default("PENDING")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id])
 }
