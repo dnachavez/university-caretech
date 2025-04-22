@@ -35,6 +35,14 @@ model VerificationToken {
   createdAt DateTime @default(now())
 }
 
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  token     String
+  email     String   @unique
+  expires   DateTime
+  createdAt DateTime @default(now())
+}
+
 model UserHealthForm {
   id                   String   @id @default(cuid())
   userId               String   @unique

@@ -45,4 +45,6 @@ export interface AuthState {
   error: string | null
   login: (username: string, password: string) => Promise<boolean>
   logout: () => void
+  forgotPassword: (data: ForgotPasswordData) => Promise<boolean>
+  resetPassword: (data: ResetPasswordData) => Promise<boolean>
 } 

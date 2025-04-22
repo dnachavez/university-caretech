@@ -83,14 +83,69 @@ export class AuthService {
    * Send password reset email
    */
   static async forgotPassword(data: ForgotPasswordData): Promise<any> {
-    return simulateApiCall(data, `${API_URL}/auth/forgot-password`)
+    try {
+      const response = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        return {
+          success: false,
+          error: result.error || 'Failed to send reset instructions'
+        }
+      }
+
+      return {
+        success: true
+      }
+    } catch (error) {
+      console.error('Forgot password service error:', error)
+      return {
+        success: false,
+        error: 'Something went wrong. Please try again later.'
+      }
+    }
   }
 
   /**
    * Reset password with token
    */
   static async resetPassword(data: ResetPasswordData): Promise<any> {
-    return simulateApiCall(data, `${API_URL}/auth/reset-password`)
+    try {
+      const response = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        return {
+          success: false,
+          error: result.error || 'Failed to reset password'
+        }
+      }
+
+      return {
+        success: true,
+        message: result.message
+      }
+    } catch (error) {
+      console.error('Reset password service error:', error)
+      return {
+        success: false,
+        error: 'Something went wrong. Please try again later.'
+      }
+    }
   }
 
   /**

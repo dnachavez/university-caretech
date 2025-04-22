@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { AuthState, User } from '@/types/auth'
+import { AuthState, User, ForgotPasswordData, ResetPasswordData } from '@/types/auth'
 import { AuthService } from '@/services/auth-service'
 
 export const useAuthStore = create<AuthState>()(
@@ -45,6 +45,40 @@ export const useAuthStore = create<AuthState>()(
           user: null, 
           isAuthenticated: false 
         })
+      },
+      
+      forgotPassword: async (data: ForgotPasswordData) => {
+        set({ loading: true, error: null })
+        
+        try {
+          const result = await AuthService.forgotPassword(data)
+          set({ loading: false })
+          
+          return result.success || false
+        } catch (error) {
+          set({ 
+            error: 'Failed to process forgot password request', 
+            loading: false 
+          })
+          return false
+        }
+      },
+      
+      resetPassword: async (data: ResetPasswordData) => {
+        set({ loading: true, error: null })
+        
+        try {
+          const result = await AuthService.resetPassword(data)
+          set({ loading: false })
+          
+          return result.success || false
+        } catch (error) {
+          set({ 
+            error: 'Failed to reset password', 
+            loading: false 
+          })
+          return false
+        }
       }
     }),
     {

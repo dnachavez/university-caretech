@@ -137,6 +137,14 @@ exports.Prisma.VerificationTokenScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  email: 'email',
+  expires: 'expires',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.UserHealthFormScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -259,6 +267,7 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   User: 'User',
   VerificationToken: 'VerificationToken',
+  PasswordResetToken: 'PasswordResetToken',
   UserHealthForm: 'UserHealthForm',
   UploadedForm: 'UploadedForm',
   ConsultationDate: 'ConsultationDate',
