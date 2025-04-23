@@ -1,40 +1,71 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from 'next/cache'
+
+// Helper function for error handling
+const handlePrismaError = (error: any) => {
+  console.error('Error in consultation dates API:', error)
+  return NextResponse.json({ error: 'Database connection error. Please try again.' }, { status: 500 })
+}
+
+// Set cache control headers
+const setCacheHeaders = (response: NextResponse) => {
+  response.headers.set('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59')
+  return response
+}
 
 // GET /api/admin/consultation/dates - Get all consultation dates (including past dates)
 export async function GET(req: NextRequest) {
   try {
+    // Add a slight delay to prevent connection flood
+    await new Promise(resolve => setTimeout(resolve, 100))
+    
     const consultationDates = await prisma.consultationDate.findMany({
       include: {
-        timeSlots: true
+        timeSlots: {
+          orderBy: {
+            startTime: 'asc'
+          }
+        }
       },
       orderBy: {
-        date: 'desc'
+        date: 'asc'
       }
     });
 
-    return NextResponse.json({ consultationDates }, { status: 200 });
+    const response = NextResponse.json({ consultationDates }, { status: 200 })
+    return setCacheHeaders(response)
   } catch (error) {
-    console.error("Error fetching consultation dates:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch consultation dates" },
-      { status: 500 }
-    );
+    return handlePrismaError(error)
   }
 }
 
 // POST /api/admin/consultation/dates - Create a new consultation date with time slots
 export async function POST(req: NextRequest) {
   try {
+    // Check authorization
+    const authHeader = req.headers.get('authorization')
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    const userRole = req.headers.get('x-user-role')
+    if (userRole !== 'ADMIN') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
     const body = await req.json();
     const { date, timeSlots } = body;
     
     if (!date || !timeSlots || !Array.isArray(timeSlots) || timeSlots.length === 0) {
       return NextResponse.json(
-        { error: "Date and time slots are required" },
+        { error: "Invalid request data" },
         { status: 400 }
       );
     }
+    
+    // Add a slight delay to prevent connection flood
+    await new Promise(resolve => setTimeout(resolve, 100))
     
     // Check if date already exists
     const existingDate = await prisma.consultationDate.findFirst({
@@ -45,34 +76,44 @@ export async function POST(req: NextRequest) {
     
     if (existingDate) {
       return NextResponse.json(
-        { error: "A consultation date already exists for this date" },
+        { error: "Consultation date already exists" },
         { status: 400 }
       );
     }
     
-    // Create the consultation date with time slots
-    const consultationDate = await prisma.consultationDate.create({
+    // Create consultation date with time slots in a transaction
+    const consultationDate = await prisma.$transaction(async (tx) => {
+      // Create the consultation date
+      const newDate = await tx.consultationDate.create({
+        data: {
+          date: new Date(date)
+        }
+      });
+
+      // Create all time slots
+      for (const slot of timeSlots) {
+        await tx.timeSlot.create({
       data: {
-        date: new Date(date),
-        timeSlots: {
-          create: timeSlots.map((slot: { startTime: string, endTime: string }) => ({
             startTime: slot.startTime,
             endTime: slot.endTime,
-            isAvailable: true
-          }))
+            isAvailable: true,
+            consultationDateId: newDate.id
+          }
+        });
         }
-      },
-      include: {
-        timeSlots: true
-      }
+
+      // Return the created date with time slots
+      return tx.consultationDate.findUnique({
+        where: { id: newDate.id },
+        include: { timeSlots: true }
     });
+    });
+
+    // Revalidate cache
+    revalidatePath('/api/admin/consultation/dates')
 
     return NextResponse.json({ consultationDate }, { status: 201 });
   } catch (error) {
-    console.error("Error creating consultation date:", error);
-    return NextResponse.json(
-      { error: "Failed to create consultation date" },
-      { status: 500 }
-    );
+    return handlePrismaError(error)
   }
 } 

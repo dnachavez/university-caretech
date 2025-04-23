@@ -3,6 +3,12 @@ import { prisma } from '@/lib/prisma'
 import crypto from 'crypto'
 import bcrypt from 'bcryptjs'
 
+// Helper function for error handling
+const handlePrismaError = (error: any) => {
+  console.error('Reset password error:', error)
+  return NextResponse.json({ error: 'Database connection error. Please try again.' }, { status: 500 })
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
@@ -26,6 +32,9 @@ export async function POST(req: NextRequest) {
       }, { status: 400 })
     }
 
+    // Add a slight delay to prevent connection flood
+    await new Promise(resolve => setTimeout(resolve, 50))
+
     // Hash the token to compare with the stored hash
     const hashedToken = crypto.createHash('sha256').update(token).digest('hex')
 
@@ -45,7 +54,11 @@ export async function POST(req: NextRequest) {
 
     // Find the user with this email
     const user = await prisma.user.findUnique({
-      where: { email: storedToken.email }
+      where: { email: storedToken.email },
+      select: {
+        id: true,
+        email: true
+      }
     })
 
     if (!user) {
@@ -57,27 +70,33 @@ export async function POST(req: NextRequest) {
     // Hash the new password
     const hashedPassword = await bcrypt.hash(password, 10)
 
-    // Update the user's password
-    await prisma.user.update({
-      where: { id: user.id },
-      data: { password: hashedPassword }
-    })
+    try {
+      // Use transaction to ensure data consistency
+      await prisma.$transaction(async (tx) => {
+        // Update the user's password
+        await tx.user.update({
+          where: { id: user.id },
+          data: { password: hashedPassword }
+        })
 
-    // Delete the reset token
-    await prisma.passwordResetToken.delete({
-      where: { id: storedToken.id }
-    })
+        // Delete the reset token
+        await tx.passwordResetToken.delete({
+          where: { id: storedToken.id }
+        })
+      })
 
-    return NextResponse.json({ 
-      success: true, 
-      message: "Password has been reset successfully" 
-    })
-    
+      return NextResponse.json({ 
+        success: true, 
+        message: "Password has been reset successfully" 
+      })
+    } catch (txError) {
+      console.error('Transaction error during password reset:', txError)
+      return NextResponse.json(
+        { error: "Failed to reset password" }, 
+        { status: 500 }
+      )
+    }
   } catch (error) {
-    console.error('Reset password error:', error)
-    return NextResponse.json(
-      { error: "Failed to reset password" }, 
-      { status: 500 }
-    )
+    return handlePrismaError(error)
   }
 } 

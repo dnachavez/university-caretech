@@ -3,6 +3,12 @@ import { prisma } from '@/lib/prisma'
 import { sendEmail } from '@/lib/email'
 import crypto from 'crypto'
 
+// Helper function for error handling
+const handlePrismaError = (error: any) => {
+  console.error('Forgot password error:', error)
+  return NextResponse.json({ error: 'Database connection error. Please try again.' }, { status: 500 })
+}
+
 // Generate password reset email HTML
 function generatePasswordResetEmail(name: string, resetLink: string) {
   return `
@@ -38,9 +44,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 })
     }
 
+    // Add a slight delay to prevent connection flood
+    await new Promise(resolve => setTimeout(resolve, 50))
+
     // Find the user by email
     const user = await prisma.user.findUnique({
-      where: { email }
+      where: { email },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true
+      }
     })
 
     if (!user) {
@@ -58,44 +73,50 @@ export async function POST(req: NextRequest) {
     // Set expiry (1 hour from now)
     const expires = new Date(Date.now() + 3600000)
     
-    // Check if there's an existing token for this email
-    const existingToken = await prisma.passwordResetToken.findUnique({
-      where: { email }
-    })
+    try {
+      // Use transaction to ensure data consistency
+      await prisma.$transaction(async (tx) => {
+        // Check if there's an existing token for this email
+        const existingToken = await tx.passwordResetToken.findUnique({
+          where: { email }
+        })
 
-    // Delete existing token if it exists
-    if (existingToken) {
-      await prisma.passwordResetToken.delete({
-        where: { id: existingToken.id }
+        // Delete existing token if it exists
+        if (existingToken) {
+          await tx.passwordResetToken.delete({
+            where: { id: existingToken.id }
+          })
+        }
+        
+        // Create a new token
+        await tx.passwordResetToken.create({
+          data: {
+            email,
+            token: hashedToken,
+            expires
+          }
+        })
       })
+      
+      // Create reset URL with the unhashed token
+      const resetUrl = `${process.env.NEXTAUTH_URL}/auth/reset-password?token=${resetToken}`
+
+      // Send email
+      await sendEmail({
+        to: email,
+        subject: "Reset Your University CareTeam Password",
+        html: generatePasswordResetEmail(`${user.firstName} ${user.lastName}`, resetUrl)
+      })
+
+      return NextResponse.json({ success: true })
+    } catch (txError) {
+      console.error('Transaction error during password reset:', txError)
+      return NextResponse.json(
+        { error: "Failed to process forgot password request" }, 
+        { status: 500 }
+      )
     }
-    
-    // Create a new token
-    await prisma.passwordResetToken.create({
-      data: {
-        email,
-        token: hashedToken,
-        expires
-      }
-    })
-    
-    // Create reset URL with the unhashed token
-    const resetUrl = `${process.env.NEXTAUTH_URL}/auth/reset-password?token=${resetToken}`
-
-    // Send email
-    await sendEmail({
-      to: email,
-      subject: "Reset Your University CareTeam Password",
-      html: generatePasswordResetEmail(`${user.firstName} ${user.lastName}`, resetUrl)
-    })
-
-    return NextResponse.json({ success: true })
-    
   } catch (error) {
-    console.error('Forgot password error:', error)
-    return NextResponse.json(
-      { error: "Failed to process forgot password request" }, 
-      { status: 500 }
-    )
+    return handlePrismaError(error)
   }
 } 

@@ -2,6 +2,12 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 import bcrypt from 'bcryptjs'
 
+// Helper function for error handling
+const handlePrismaError = (error: any) => {
+  console.error('Login error:', error)
+  return NextResponse.json({ error: 'Database connection error. Please try again.' }, { status: 500 })
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
@@ -12,13 +18,27 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Username and password are required" }, { status: 400 })
     }
 
-    // Find user
+    // Add a slight delay to prevent connection flood
+    await new Promise(resolve => setTimeout(resolve, 50))
+
+    // Find user with a single query to reduce connection load
     const user = await prisma.user.findFirst({
       where: {
         OR: [
           { username },
           { email: username } // Allow login with either username or email
         ]
+      },
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        username: true,
+        email: true,
+        password: true,
+        role: true,
+        status: true,
+        emailVerified: true
       }
     })
 
@@ -78,7 +98,6 @@ export async function POST(req: NextRequest) {
     }, { status: 200 })
 
   } catch (error) {
-    console.error('Login error:', error)
-    return NextResponse.json({ error: "Failed to sign in" }, { status: 500 })
+    return handlePrismaError(error)
   }
 } 

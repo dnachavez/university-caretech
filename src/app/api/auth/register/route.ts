@@ -4,6 +4,12 @@ import { sendEmail, generateVerificationEmail } from '@/lib/email'
 import crypto from 'crypto'
 import bcrypt from 'bcryptjs'
 
+// Helper function for error handling
+const handlePrismaError = (error: any) => {
+  console.error('Registration error:', error)
+  return NextResponse.json({ error: 'Database connection error. Please try again.' }, { status: 500 })
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
@@ -14,6 +20,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "All fields are required" }, { status: 400 })
     }
 
+    // Add a slight delay to prevent connection flood
+    await new Promise(resolve => setTimeout(resolve, 50))
+
     // Check if user already exists
     const existingUser = await prisma.user.findFirst({
       where: {
@@ -21,6 +30,10 @@ export async function POST(req: NextRequest) {
           { email },
           { username }
         ]
+      },
+      select: {
+        email: true,
+        username: true
       }
     })
 
@@ -44,8 +57,11 @@ export async function POST(req: NextRequest) {
     const tokenExpiry = new Date()
     tokenExpiry.setHours(tokenExpiry.getHours() + 24)
 
+    try {
+      // Use transaction to ensure all operations succeed or fail together
+      const result = await prisma.$transaction(async (tx) => {
     // Create verification token in DB
-    await prisma.verificationToken.create({
+        await tx.verificationToken.create({
       data: {
         token: hashedToken,
         email,
@@ -53,8 +69,6 @@ export async function POST(req: NextRequest) {
       }
     })
 
-    // Use transaction to ensure both user creation and health form creation succeed together
-    const result = await prisma.$transaction(async (tx) => {
       // Create user
       const user = await tx.user.create({
         data: {
@@ -131,9 +145,11 @@ export async function POST(req: NextRequest) {
       success: true, 
       message: "Registration successful. Please check your email to verify your account." 
     }, { status: 201 })
-
+    } catch (txError) {
+      console.error('Transaction error during registration:', txError)
+      return NextResponse.json({ error: "Failed to register user" }, { status: 500 })
+    }
   } catch (error) {
-    console.error('Registration error:', error)
-    return NextResponse.json({ error: "Failed to register user" }, { status: 500 })
+    return handlePrismaError(error)
   }
 } 

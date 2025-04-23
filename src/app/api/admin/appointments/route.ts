@@ -1,9 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from 'next/cache';
+
+// Helper function for error handling
+const handlePrismaError = (error: any) => {
+  console.error('Error in appointments API:', error)
+  return NextResponse.json({ error: 'Database connection error. Please try again.' }, { status: 500 })
+}
+
+// Set cache control headers
+const setCacheHeaders = (response: NextResponse) => {
+  response.headers.set('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59')
+  return response
+}
 
 // GET /api/admin/appointments - Get all appointments with users and time slots info
 export async function GET(req: NextRequest) {
   try {
+    // Add a slight delay to prevent connection flood
+    await new Promise(resolve => setTimeout(resolve, 100))
+    
     const appointments = await prisma.appointment.findMany({
       include: {
         user: {
@@ -27,12 +43,9 @@ export async function GET(req: NextRequest) {
       }
     });
 
-    return NextResponse.json({ appointments }, { status: 200 });
+    const response = NextResponse.json({ appointments }, { status: 200 });
+    return setCacheHeaders(response);
   } catch (error) {
-    console.error("Error fetching appointments:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch appointments" },
-      { status: 500 }
-    );
+    return handlePrismaError(error);
   }
 } 
