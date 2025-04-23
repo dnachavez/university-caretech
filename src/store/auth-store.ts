@@ -71,6 +71,11 @@ export const useAuthStore = create<AuthState>()(
           const result = await AuthService.resetPassword(data)
           set({ loading: false })
           
+          if (!result.success) {
+            set({ error: result.error || 'Failed to reset password' })
+            return false
+          }
+          
           return result.success || false
         } catch (error) {
           set({ 

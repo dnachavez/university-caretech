@@ -23,7 +23,7 @@ function ResetPasswordForm() {
   const [userEmail, setUserEmail] = useState<string | null>(null)
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { resetPassword, loading } = useAuthStore()
+  const { resetPassword, loading, error } = useAuthStore()
 
   useEffect(() => {
     // Extract the token from the URL query parameters
@@ -32,6 +32,9 @@ function ResetPasswordForm() {
     if (!tokenParam) {
       setTokenValid(false)
       setIsValidating(false)
+      // Redirect to auth page with error message
+      toast.error("Missing password reset token")
+      router.push("/auth")
       return
     }
     
@@ -49,18 +52,30 @@ function ResetPasswordForm() {
         } else {
           setTokenValid(false)
           toast.error(data.error || "Invalid or expired token")
+          // Redirect to auth page
+          router.push("/auth")
         }
       } catch (error) {
         console.error("Token validation error:", error)
         setTokenValid(false)
         toast.error("Failed to validate reset token")
+        // Redirect to auth page
+        router.push("/auth")
       } finally {
         setIsValidating(false)
       }
     }
     
     validateToken()
-  }, [searchParams])
+  }, [searchParams, router])
+  
+  // Monitor auth store errors
+  useEffect(() => {
+    if (error && error.includes("token")) {
+      toast.error(error || "Invalid or expired token")
+      router.push("/auth")
+    }
+  }, [error, router])
   
   const validatePassword = () => {
     if (password.length < 8) {
@@ -102,11 +117,12 @@ function ResetPasswordForm() {
           router.push("/auth")
         }, 1500)
       } else {
-        toast.error("Failed to reset password. Please try again.")
+        // Error is handled by the useEffect monitoring error state
       }
     } catch (error) {
       console.error("Reset password error:", error)
       toast.error("Something went wrong. Please try again later.")
+      router.push("/auth")
     } finally {
       setIsSubmitting(false)
     }
