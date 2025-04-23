@@ -3,6 +3,17 @@ import { mkdir, writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
 
+// Declare the global in-memory storage
+declare global {
+  var inMemoryFileStorage: Map<string, Buffer>;
+}
+
+// Initialize the global storage if it doesn't exist
+// Using global allows it to persist between serverless function invocations
+if (!global.inMemoryFileStorage) {
+  global.inMemoryFileStorage = new Map<string, Buffer>();
+}
+
 export async function POST(request: NextRequest) {
   try {
     console.log("Upload API endpoint called");
@@ -31,50 +42,51 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Create directory if it doesn't exist
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'forms');
-    
-    if (!existsSync(uploadDir)) {
-      console.log("Creating upload directory:", uploadDir);
-      await mkdir(uploadDir, { recursive: true });
-    }
-    
     // Generate unique filename
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
     const fileExt = file.name.split('.').pop() || getExtensionFromMimeType(file.type);
     const fileName = `${uniqueSuffix}.${fileExt}`;
-    const filePath = path.join(uploadDir, fileName);
     
-    console.log("Saving file as:", fileName);
+    // Convert file to buffer
+    const buffer = Buffer.from(await file.arrayBuffer());
     
-    try {
-      // Write file to disk
-      const buffer = Buffer.from(await file.arrayBuffer());
+    if (buffer.length === 0) {
+      console.error("Empty file buffer");
+      return NextResponse.json({ success: false, message: 'Empty file data' }, { status: 400 });
+    }
+    
+    console.log("File buffer size:", buffer.length, "bytes");
+    
+    // Check if we're in production (Vercel)
+    const isProduction = process.env.VERCEL === '1' || process.env.NODE_ENV === 'production';
+    let fileUrl = '';
+    
+    if (isProduction) {
+      // In production, store in memory
+      console.log("Using in-memory storage (production environment)");
+      global.inMemoryFileStorage.set(fileName, buffer);
+      fileUrl = `/api/files/${fileName}`;
+    } else {
+      // In development, store on filesystem
+      console.log("Using filesystem storage (development environment)");
+      const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'forms');
       
-      if (buffer.length === 0) {
-        console.error("Empty file buffer");
-        return NextResponse.json({ success: false, message: 'Empty file data' }, { status: 400 });
+      if (!existsSync(uploadDir)) {
+        console.log("Creating upload directory:", uploadDir);
+        await mkdir(uploadDir, { recursive: true });
       }
       
-      console.log("File buffer size:", buffer.length, "bytes");
+      const filePath = path.join(uploadDir, fileName);
       await writeFile(filePath, buffer);
-      
-      // Return the public URL
-      const fileUrl = `/uploads/forms/${fileName}`;
-      
-      console.log("File uploaded successfully:", fileUrl);
-      return NextResponse.json({ 
-        success: true, 
-        message: 'File uploaded successfully',
-        fileUrl
-      });
-    } catch (writeError) {
-      console.error("Error writing file:", writeError);
-      return NextResponse.json(
-        { success: false, message: 'Error writing file to disk' },
-        { status: 500 }
-      );
+      fileUrl = `/uploads/forms/${fileName}`;
     }
+    
+    console.log("File uploaded successfully:", fileUrl);
+    return NextResponse.json({ 
+      success: true, 
+      message: 'File uploaded successfully',
+      fileUrl
+    });
   } catch (error) {
     console.error('Error uploading file:', error);
     return NextResponse.json(
