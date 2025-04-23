@@ -1186,42 +1186,45 @@ function DateConfigurationComponent({
                 </Button>
               </div>
               
-              {consultationDates.find(d => d.id === selectedDateId)?.timeSlots.length > 0 && (
-                <div>
-                  <h4 className="text-sm font-medium mb-2">Time Slots</h4>
-                  <div className="grid grid-cols-2 gap-2">
-                    {consultationDates.find(d => d.id === selectedDateId)?.timeSlots.map(slot => (
-                      <div 
-                        key={slot.id} 
-                        className={cn(
-                          "px-3 py-2 border rounded-md flex items-center justify-between text-sm",
-                          selectedTimeSlots.includes(slot.id) 
-                            ? "border-blue-500 bg-blue-50" 
-                            : "border-gray-200"
-                        )}
-                        onClick={() => handleToggleTimeSlotSelection(slot.id)}
-                      >
-                        <span className={slot.isAvailable ? "text-green-600" : "text-red-600"}>
-                          {slot.startTime} - {slot.endTime}
-                        </span>
-                        <span className="text-xs text-gray-500">
-                          {slot.isAvailable ? "Available" : "Booked"}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
+              {(() => {
+                const selectedDate = consultationDates.find(d => d.id === selectedDateId);
+                return selectedDate && selectedDate.timeSlots.length > 0 && (
+                  <div>
+                    <h4 className="text-sm font-medium mb-2">Time Slots</h4>
+                    <div className="grid grid-cols-2 gap-2">
+                      {selectedDate.timeSlots.map(slot => (
+                        <div 
+                          key={slot.id} 
+                          className={cn(
+                            "px-3 py-2 border rounded-md flex items-center justify-between text-sm",
+                            selectedTimeSlots.includes(slot.id) 
+                              ? "border-blue-500 bg-blue-50" 
+                              : "border-gray-200"
+                          )}
+                          onClick={() => handleToggleTimeSlotSelection(slot.id)}
+                        >
+                          <span className={slot.isAvailable ? "text-green-600" : "text-red-600"}>
+                            {slot.startTime} - {slot.endTime}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            {slot.isAvailable ? "Available" : "Booked"}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
                   
-                  <Button 
-                    type="button" 
-                    onClick={handleRemoveTimeSlotsFromDate}
-                    disabled={loading || selectedTimeSlots.length === 0}
-                    className="mt-2"
-                    variant="outline"
-                  >
-                    Remove Selected Time Slots
-                  </Button>
-                </div>
-              )}
+                    <Button 
+                      type="button" 
+                      onClick={handleRemoveTimeSlotsFromDate}
+                      disabled={loading || selectedTimeSlots.length === 0}
+                      className="mt-2"
+                      variant="outline"
+                    >
+                      Remove Selected Time Slots
+                    </Button>
+                  </div>
+                );
+              })()}
             </>
           )}
         </div>
