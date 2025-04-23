@@ -28,8 +28,27 @@ import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { format } from "date-fns"
+import { DatePicker } from "@/components/ui/date-picker"
+import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
+import { cn } from "@/lib/utils"
 
 // Define types for appointments and time slots
 interface TimeSlot {
@@ -68,6 +87,15 @@ interface Appointment {
   timeSlot: TimeSlot
 }
 
+interface ConsultationDate {
+  id: string
+  date: string
+  isActive: boolean
+  timeSlots: TimeSlot[]
+  createdAt: string
+  updatedAt: string
+}
+
 export default function FSAppointmentsPage() {
   const { user, isAuthenticated } = useAuthStore()
   const router = useRouter()
@@ -78,6 +106,15 @@ export default function FSAppointmentsPage() {
   const [completedAppointments, setCancelledAppointments] = useState<Appointment[]>([])
   const [rejectedAppointments, setRejectedAppointments] = useState<Appointment[]>([])
   const [loading, setLoading] = useState(true)
+  
+  // For schedule setup
+  const [consultationDates, setConsultationDates] = useState<ConsultationDate[]>([])
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
+  const [dateDialogOpen, setDateDialogOpen] = useState(false)
+  const [rescheduleDialogOpen, setRescheduleDialogOpen] = useState(false)
+  const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null)
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>("")
+  const [availableTimeSlots, setAvailableTimeSlots] = useState<TimeSlot[]>([])
   
   // Protect this route
   useEffect(() => {
@@ -90,11 +127,11 @@ export default function FSAppointmentsPage() {
     if (user.role !== 'STAFF') {
       router.push(user.role === 'ADMIN' ? '/admin/dashboard' : 
         (user.role === 'STUDENT' ? '/student/dashboard' : '/fs/dashboard'))
-      return
     }
 
-    // Fetch appointments
+    // Fetch appointments and consultation dates
     fetchAppointments()
+    fetchConsultationDates()
     
     // Set up auto update interval
     const autoUpdateInterval = setInterval(() => {
@@ -146,6 +183,20 @@ export default function FSAppointmentsPage() {
     }
   }
   
+  const fetchConsultationDates = async () => {
+    try {
+      const response = await fetch('/api/admin/consultation/dates')
+      const data = await response.json()
+      
+      if (data.consultationDates) {
+        setConsultationDates(data.consultationDates)
+      }
+    } catch (error) {
+      console.error("Error fetching consultation dates:", error)
+      toast.error("Failed to load consultation dates")
+    }
+  }
+  
   const handleConfirmAppointment = async (appointmentId: string) => {
     try {
       const response = await fetch(`/api/fs/appointments/${appointmentId}/confirm`, {
@@ -182,195 +233,505 @@ export default function FSAppointmentsPage() {
     }
   }
   
-  const getStatusBadge = (status: string) => {
-    switch (status) {
-      case 'SCHEDULED':
-        return <Badge variant="outline" className="bg-blue-50 text-blue-700 border-blue-200">Scheduled</Badge>
-      case 'CONFIRMED':
-        return <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200">Confirmed</Badge>
-      case 'ONGOING':
-        return <Badge variant="outline" className="bg-purple-50 text-purple-700 border-purple-200">Ongoing</Badge>
-      case 'COMPLETED':
-        return <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200">Completed</Badge>
-      case 'CANCELLED':
-        return <Badge variant="outline" className="bg-red-50 text-red-700 border-red-200">Cancelled</Badge>
-      default:
-        return <Badge variant="outline">Unknown</Badge>
+  const handleUnconfirmAppointment = async (appointmentId: string) => {
+    try {
+      const response = await fetch(`/api/fs/appointments/${appointmentId}/unconfirm`, {
+        method: 'PATCH'
+      })
+      
+      if (response.ok) {
+        toast.success("Appointment has been unconfirmed")
+        fetchAppointments()
+      } else {
+        toast.error("Failed to unconfirm appointment")
+      }
+    } catch (error) {
+      console.error("Error unconfirming appointment:", error)
+      toast.error("Failed to unconfirm appointment")
     }
   }
 
+  const handleUnrejectAppointment = async (appointmentId: string) => {
+    try {
+      const response = await fetch(`/api/fs/appointments/${appointmentId}/unreject`, {
+        method: 'PATCH'
+      })
+      
+      if (response.ok) {
+        toast.success("Appointment has been unrejected")
+        fetchAppointments()
+      } else {
+        toast.error("Failed to unreject appointment")
+      }
+    } catch (error) {
+      console.error("Error unrejecting appointment:", error)
+      toast.error("Failed to unreject appointment")
+    }
+  }
+  
+  const openRescheduleDialog = (appointment: Appointment) => {
+    setSelectedAppointment(appointment)
+    // Clear any previously selected time slots
+    setAvailableTimeSlots([])
+    setSelectedTimeSlot("")
+    setRescheduleDialogOpen(true)
+  }
+  
+  const handleRescheduleAppointment = async () => {
+    if (!selectedAppointment || !selectedTimeSlot) return
+    
+    try {
+      const response = await fetch(`/api/fs/appointments/${selectedAppointment.id}/reschedule`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          timeSlotId: selectedTimeSlot
+        })
+      })
+      
+      if (response.ok) {
+        toast.success("Appointment rescheduled successfully")
+        fetchAppointments()
+        setRescheduleDialogOpen(false)
+        setSelectedAppointment(null)
+        setSelectedTimeSlot("")
+      } else {
+        const data = await response.json()
+        toast.error(data.error || "Failed to reschedule appointment")
+      }
+    } catch (error) {
+      console.error("Error rescheduling appointment:", error)
+      toast.error("Failed to reschedule appointment")
+    }
+  }
+  
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case 'SCHEDULED':
+        return <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-200">Scheduled</Badge>
+      case 'CONFIRMED':
+        return <Badge className="bg-green-100 text-green-800 hover:bg-green-200">Confirmed</Badge>
+      case 'ONGOING':
+        return <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-200">Ongoing</Badge>
+      case 'COMPLETED':
+        return <Badge className="bg-purple-100 text-purple-800 hover:bg-purple-200">Completed</Badge>
+      case 'CANCELLED':
+        return <Badge className="bg-red-100 text-red-800 hover:bg-red-200">Rejected</Badge>
+      default:
+        return <Badge className="bg-gray-100 text-gray-800">Unknown</Badge>
+    }
+  }
+
+  const handleAddTimeSlot = (timeSlot: string) => {
+    // API call would go here to add a time slot for the selected date
+    console.log(`Added time slot: ${timeSlot} on ${format(selectedDate, 'PPP')}`);
+  }
+
+  const handleRemoveTimeSlot = (index: number) => {
+    // We now remove by index instead of comparing objects
+    const updatedSlots = [...availableTimeSlots]
+    updatedSlots.splice(index, 1)
+    setAvailableTimeSlots(updatedSlots)
+  }
+
+  if (!isAuthenticated || !user) {
+    return null // Don't render anything while checking auth
+  }
+
   return (
-    <div className="flex flex-col gap-6">
-      <div className="flex justify-between items-center">
+    <div className="max-w-7xl mx-auto">
+      {/* Header with Breadcrumb */}
+      <div className="flex items-start justify-between mb-6">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Appointments</h1>
-          <p className="text-muted-foreground">
-            View and manage all student appointments
+          <h1 className="text-2xl font-bold tracking-tight text-gray-700">Appointment Management</h1>
+          <p className="text-gray-500">
+            Manage medical consultation appointments
           </p>
         </div>
-        <Button 
-          onClick={() => fetchAppointments()} 
-          variant="outline" 
-          size="sm" 
-          className="gap-1"
+        <nav className="flex items-center text-sm text-gray-500">
+          <Link href="/" className="hover:text-blue-600">
+            Home
+          </Link>
+          <ChevronRight className="h-4 w-4 mx-1" />
+          <Link href="/fs/dashboard" className="hover:text-blue-600">
+            Dashboard
+          </Link>
+          <ChevronRight className="h-4 w-4 mx-1" />
+          <span className="text-gray-700 font-medium">Appointments</span>
+        </nav>
+      </div>
+
+      <div className="flex justify-end mb-4">
+        <Button
+          variant="outline"
+          className="mr-2"
+          onClick={() => {
+            fetchAppointments();
+            autoUpdateAppointmentStatuses();
+          }}
         >
-          <RefreshCcw className="h-4 w-4" />
-          Refresh
+          <RefreshCcw className="h-4 w-4 mr-1" />
+          Refresh Appointments
+        </Button>
+        <Button
+          variant="default"
+          onClick={() => setDateDialogOpen(true)}
+        >
+          <CalendarDays className="h-4 w-4 mr-1" />
+          Configure Available Dates
         </Button>
       </div>
 
-      {loading ? (
-        <div className="flex items-center justify-center min-h-[300px]">
-          Loading appointments...
-        </div>
-      ) : (
-        <Tabs defaultValue="scheduled" className="w-full">
-          <TabsList className="grid w-full grid-cols-5">
-            <TabsTrigger value="scheduled" className="flex gap-2 items-center">
-              <Calendar className="h-4 w-4" />
-              Scheduled
-              {scheduledAppointments.length > 0 && (
-                <Badge variant="secondary" className="ml-1">{scheduledAppointments.length}</Badge>
-              )}
-            </TabsTrigger>
-            <TabsTrigger value="confirmed" className="flex gap-2 items-center">
-              <CheckCircle2 className="h-4 w-4" />
-              Confirmed
-              {confirmedAppointments.length > 0 && (
-                <Badge variant="secondary" className="ml-1">{confirmedAppointments.length}</Badge>
-              )}
-            </TabsTrigger>
-            <TabsTrigger value="ongoing" className="flex gap-2 items-center">
-              <Clock className="h-4 w-4" />
-              Ongoing
-              {ongoingAppointments.length > 0 && (
-                <Badge variant="secondary" className="ml-1">{ongoingAppointments.length}</Badge>
-              )}
-            </TabsTrigger>
-            <TabsTrigger value="completed" className="flex gap-2 items-center">
-              <CalendarCheck className="h-4 w-4" />
-              Completed
-              {completedAppointments.length > 0 && (
-                <Badge variant="secondary" className="ml-1">{completedAppointments.length}</Badge>
-              )}
-            </TabsTrigger>
-            <TabsTrigger value="cancelled" className="flex gap-2 items-center">
-              <XCircle className="h-4 w-4" />
-              Cancelled
-              {rejectedAppointments.length > 0 && (
-                <Badge variant="secondary" className="ml-1">{rejectedAppointments.length}</Badge>
-              )}
-            </TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="scheduled">
-            <Card>
-              <CardHeader>
-                <CardTitle>Scheduled Appointments</CardTitle>
-                <CardDescription>
-                  These appointments are waiting for confirmation
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <AppointmentTable 
-                  appointments={scheduledAppointments} 
-                  getStatusBadge={getStatusBadge}
-                  onConfirm={handleConfirmAppointment}
-                  onReject={handleRejectAppointment}
-                  showActions={true}
-                />
-              </CardContent>
-            </Card>
-          </TabsContent>
-          
-          <TabsContent value="confirmed">
-            <Card>
-              <CardHeader>
-                <CardTitle>Confirmed Appointments</CardTitle>
-                <CardDescription>
-                  These appointments have been confirmed
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <AppointmentTable 
-                  appointments={confirmedAppointments} 
-                  getStatusBadge={getStatusBadge}
-                  showActions={false}
-                />
-              </CardContent>
-            </Card>
-          </TabsContent>
-          
-          <TabsContent value="ongoing">
-            <Card>
-              <CardHeader>
-                <CardTitle>Ongoing Appointments</CardTitle>
-                <CardDescription>
-                  These appointments are currently in progress
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <AppointmentTable 
-                  appointments={ongoingAppointments} 
-                  getStatusBadge={getStatusBadge}
-                  showActions={false}
-                />
-              </CardContent>
-            </Card>
-          </TabsContent>
-          
-          <TabsContent value="completed">
-            <Card>
-              <CardHeader>
-                <CardTitle>Completed Appointments</CardTitle>
-                <CardDescription>
-                  These appointments have been completed
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <AppointmentTable 
-                  appointments={completedAppointments} 
-                  getStatusBadge={getStatusBadge}
-                  showActions={false}
-                />
-              </CardContent>
-            </Card>
-          </TabsContent>
-          
-          <TabsContent value="cancelled">
-            <Card>
-              <CardHeader>
-                <CardTitle>Cancelled Appointments</CardTitle>
-                <CardDescription>
-                  These appointments have been cancelled
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <AppointmentTable 
-                  appointments={rejectedAppointments} 
-                  getStatusBadge={getStatusBadge}
-                  showActions={false}
-                />
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+        {/* Today's Appointments */}
+        <Card className="shadow-sm border-blue-100">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg font-medium flex items-center">
+              <Calendar className="h-5 w-5 text-blue-500 mr-2" />
+              Today's Appointments
+            </CardTitle>
+            <CardDescription>
+              {format(new Date(), 'EEEE, MMMM d, yyyy')}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-blue-600">
+              {appointments.filter(appt => {
+                const apptDate = new Date(appt.timeSlot.consultationDate.date);
+                const today = new Date();
+                return apptDate.toDateString() === today.toDateString();
+              }).length}
+            </div>
+            <div className="flex mt-2 text-sm text-gray-500 space-x-4">
+              <div className="flex items-center">
+                <div className="h-3 w-3 rounded-full bg-yellow-500 mr-1"></div>
+                <span>Scheduled: {scheduledAppointments.filter(appt => {
+                  const apptDate = new Date(appt.timeSlot.consultationDate.date);
+                  const today = new Date();
+                  return apptDate.toDateString() === today.toDateString();
+                }).length}</span>
+              </div>
+              <div className="flex items-center">
+                <div className="h-3 w-3 rounded-full bg-blue-500 mr-1"></div>
+                <span>Ongoing: {ongoingAppointments.length}</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Pending Confirmation */}
+        <Card className="shadow-sm border-yellow-100">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg font-medium flex items-center">
+              <Clock className="h-5 w-5 text-yellow-500 mr-2" />
+              Pending Confirmation
+            </CardTitle>
+            <CardDescription>
+              Appointments awaiting approval
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-yellow-600">
+              {scheduledAppointments.length}
+            </div>
+            <p className="text-sm text-gray-500 mt-2">
+              New appointment requests that need your confirmation
+            </p>
+          </CardContent>
+        </Card>
+
+        {/* Confirmed Appointments */}
+        <Card className="shadow-sm border-green-100">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-lg font-medium flex items-center">
+              <CalendarCheck className="h-5 w-5 text-green-500 mr-2" />
+              Confirmed Appointments
+            </CardTitle>
+            <CardDescription>
+              Ready for service
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-3xl font-bold text-green-600">
+              {confirmedAppointments.length}
+            </div>
+            <p className="text-sm text-gray-500 mt-2">
+              Appointments that have been confirmed and scheduled
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Pending Approvals Card */}
+      {scheduledAppointments.length > 0 && (
+        <Card className="shadow-sm border-yellow-200 mb-6">
+          <CardHeader className="pb-3">
+            <CardTitle className="text-lg font-medium flex items-center">
+              <Clock className="h-5 w-5 text-yellow-500 mr-2" />
+              Pending Approvals
+            </CardTitle>
+            <CardDescription>
+              Appointment requests awaiting your confirmation
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <AppointmentTable 
+              appointments={scheduledAppointments}
+              getStatusBadge={getStatusBadge}
+              onConfirm={handleConfirmAppointment}
+              onReject={handleRejectAppointment}
+              onReschedule={openRescheduleDialog}
+              onUnconfirm={handleUnconfirmAppointment}
+              onUnreject={handleUnrejectAppointment}
+              showActions={true}
+            />
+          </CardContent>
+        </Card>
       )}
+
+      {/* All Appointments Card */}
+      <Card className="shadow-sm">
+        <CardHeader className="pb-3">
+          <CardTitle className="text-lg font-medium flex items-center">
+            <ClipboardList className="h-5 w-5 text-blue-500 mr-2" />
+            All Appointments
+          </CardTitle>
+          <CardDescription>
+            View and manage all appointments
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Tabs defaultValue="all">
+            <TabsList className="mb-4">
+              <TabsTrigger value="all">All</TabsTrigger>
+              <TabsTrigger value="scheduled">Scheduled</TabsTrigger>
+              <TabsTrigger value="confirmed">Confirmed</TabsTrigger>
+              <TabsTrigger value="ongoing">Ongoing</TabsTrigger>
+              <TabsTrigger value="completed">Completed</TabsTrigger>
+              <TabsTrigger value="rejected">Rejected</TabsTrigger>
+            </TabsList>
+            
+            <TabsContent value="all">
+              <AppointmentTable 
+                appointments={appointments}
+                getStatusBadge={getStatusBadge}
+                onConfirm={handleConfirmAppointment}
+                onReject={handleRejectAppointment}
+                onReschedule={openRescheduleDialog}
+                onUnconfirm={handleUnconfirmAppointment}
+                onUnreject={handleUnrejectAppointment}
+                showActions={true}
+              />
+            </TabsContent>
+            
+            <TabsContent value="scheduled">
+              <AppointmentTable 
+                appointments={scheduledAppointments}
+                getStatusBadge={getStatusBadge}
+                onConfirm={handleConfirmAppointment}
+                onReject={handleRejectAppointment}
+                onReschedule={openRescheduleDialog}
+                showActions={true}
+              />
+            </TabsContent>
+            
+            <TabsContent value="confirmed">
+              <AppointmentTable 
+                appointments={confirmedAppointments}
+                getStatusBadge={getStatusBadge}
+                onReschedule={openRescheduleDialog}
+                onUnconfirm={handleUnconfirmAppointment}
+                onReject={handleRejectAppointment}
+                showActions={true}
+              />
+            </TabsContent>
+            
+            <TabsContent value="ongoing">
+              <AppointmentTable 
+                appointments={ongoingAppointments}
+                getStatusBadge={getStatusBadge}
+                showActions={false}
+              />
+            </TabsContent>
+            
+            <TabsContent value="completed">
+              <AppointmentTable 
+                appointments={completedAppointments}
+                getStatusBadge={getStatusBadge}
+                showActions={false}
+              />
+            </TabsContent>
+            
+            <TabsContent value="rejected">
+              <AppointmentTable 
+                appointments={rejectedAppointments}
+                getStatusBadge={getStatusBadge}
+                onUnreject={handleUnrejectAppointment}
+                showActions={true}
+              />
+            </TabsContent>
+          </Tabs>
+        </CardContent>
+      </Card>
+      
+      {/* Date Configuration Dialog */}
+      <Dialog open={dateDialogOpen} onOpenChange={setDateDialogOpen}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Configure Available Dates</DialogTitle>
+            <DialogDescription>
+              Create and manage consultation dates and time slots
+            </DialogDescription>
+          </DialogHeader>
+          
+          <DateConfigurationComponent 
+            consultationDates={consultationDates} 
+            onUpdate={fetchConsultationDates}
+          />
+          
+          <DialogFooter>
+            <Button 
+              variant="outline" 
+              onClick={() => setDateDialogOpen(false)}
+            >
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Reschedule Dialog */}
+      <Dialog open={rescheduleDialogOpen} onOpenChange={setRescheduleDialogOpen}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Reschedule Appointment</DialogTitle>
+            <DialogDescription>
+              Select a new date and time slot for this appointment
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="py-4">
+            {selectedAppointment && (
+              <div className="mb-4 p-4 bg-gray-50 rounded-md">
+                <h3 className="font-medium">Current Appointment</h3>
+                <p className="text-sm mt-1">
+                  <span className="text-gray-500">Patient: </span> 
+                  {selectedAppointment.user.firstName} {selectedAppointment.user.lastName}
+                </p>
+                <p className="text-sm">
+                  <span className="text-gray-500">Date: </span> 
+                  {format(new Date(selectedAppointment.timeSlot.consultationDate.date), 'PPP')}
+                </p>
+                <p className="text-sm">
+                  <span className="text-gray-500">Time: </span> 
+                  {selectedAppointment.timeSlot.startTime} - {selectedAppointment.timeSlot.endTime}
+                </p>
+                <p className="text-sm">
+                  <span className="text-gray-500">Type: </span> 
+                  {selectedAppointment.consultationType}
+                </p>
+              </div>
+            )}
+            
+            <div className="space-y-4">
+              {/* Add date selection for rescheduling */}
+              <div>
+                <Label htmlFor="date-select">Select Date</Label>
+                <Select 
+                  onValueChange={(value) => {
+                    // When date changes, filter available time slots for that date
+                    const dateTimeSlots = consultationDates
+                      .find(d => d.id === value)?.timeSlots
+                      .filter(slot => slot.isAvailable) || [];
+                    
+                    setAvailableTimeSlots(dateTimeSlots);
+                    setSelectedTimeSlot("");
+                  }}
+                >
+                  <SelectTrigger id="date-select">
+                    <SelectValue placeholder="Select a date" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {consultationDates
+                      .filter(date => date.isActive)
+                      .map(date => (
+                        <SelectItem key={date.id} value={date.id}>
+                          {format(new Date(date.date), 'MMM d, yyyy')}
+                        </SelectItem>
+                      ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div>
+                <Label htmlFor="time-slot">Time Slot</Label>
+                <Select value={selectedTimeSlot} onValueChange={setSelectedTimeSlot} disabled={availableTimeSlots.length === 0}>
+                  <SelectTrigger id="time-slot">
+                    <SelectValue placeholder={availableTimeSlots.length === 0 ? "Select a date first" : "Select a time slot"} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableTimeSlots.length === 0 ? (
+                      <SelectItem value="none" disabled>
+                        {availableTimeSlots.length === 0 ? "Select a date first" : "No available time slots"}
+                      </SelectItem>
+                    ) : (
+                      availableTimeSlots.map((slot) => (
+                        <SelectItem key={slot.id} value={slot.id}>
+                          {slot.startTime} - {slot.endTime}
+                        </SelectItem>
+                      ))
+                    )}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </div>
+          
+          <DialogFooter>
+            <Button 
+              variant="outline" 
+              onClick={() => {
+                setRescheduleDialogOpen(false)
+                setSelectedAppointment(null)
+                setSelectedTimeSlot("")
+                setAvailableTimeSlots([])
+              }}
+            >
+              Cancel
+            </Button>
+            <Button 
+              onClick={handleRescheduleAppointment}
+              disabled={!selectedTimeSlot}
+            >
+              Reschedule
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
 
+// AppointmentTable Component
 function AppointmentTable({ 
   appointments, 
-  getStatusBadge,
-  onConfirm = () => {},
+  getStatusBadge, 
+  onConfirm = () => {}, 
   onReject = () => {},
+  onReschedule = () => {},
+  onUnconfirm = () => {},
+  onUnreject = () => {},
   showActions = true
 }: {
   appointments: Appointment[],
   getStatusBadge: (status: string) => React.ReactNode,
   onConfirm?: (id: string) => void,
   onReject?: (id: string) => void,
+  onReschedule?: (appointment: Appointment) => void,
+  onUnconfirm?: (id: string) => void,
+  onUnreject?: (id: string) => void,
   showActions?: boolean
 }) {
   return (
@@ -378,11 +739,10 @@ function AppointmentTable({
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[250px]">Patient</TableHead>
-            <TableHead>Type</TableHead>
-            <TableHead>Reason</TableHead>
+            <TableHead>Patient</TableHead>
             <TableHead>Date</TableHead>
             <TableHead>Time</TableHead>
+            <TableHead>Type</TableHead>
             <TableHead>Status</TableHead>
             {showActions && <TableHead className="text-right">Actions</TableHead>}
           </TableRow>
@@ -390,34 +750,24 @@ function AppointmentTable({
         <TableBody>
           {appointments.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={showActions ? 7 : 6} className="text-center py-6 text-muted-foreground">
+              <TableCell colSpan={showActions ? 6 : 5} className="text-center text-gray-500 py-6">
                 No appointments found
               </TableCell>
             </TableRow>
           ) : (
             appointments.map((appointment) => (
               <TableRow key={appointment.id}>
-                <TableCell className="font-medium">
-                  <div className="flex items-center gap-2">
-                    <Avatar className="h-7 w-7">
-                      <AvatarFallback className="text-xs">
+                <TableCell>
+                  <div className="flex items-center">
+                    <Avatar className="h-8 w-8 mr-2">
+                      <AvatarFallback>
                         {appointment.user.firstName[0]}{appointment.user.lastName[0]}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <div>{appointment.user.firstName} {appointment.user.lastName}</div>
-                      <div className="text-xs text-muted-foreground">{appointment.user.role}</div>
+                      <div className="font-medium">{appointment.user.firstName} {appointment.user.lastName}</div>
+                      <div className="text-xs text-gray-500">{appointment.user.role}</div>
                     </div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="max-w-[150px] truncate">
-                    {appointment.consultationType}
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="max-w-[150px] truncate" title={appointment.reasonForVisit}>
-                    {appointment.reasonForVisit}
                   </div>
                 </TableCell>
                 <TableCell>
@@ -427,29 +777,80 @@ function AppointmentTable({
                   {appointment.timeSlot.startTime} - {appointment.timeSlot.endTime}
                 </TableCell>
                 <TableCell>
+                  {appointment.consultationType}
+                </TableCell>
+                <TableCell>
                   {getStatusBadge(appointment.status)}
                 </TableCell>
                 {showActions && (
                   <TableCell className="text-right">
                     <div className="flex justify-end gap-2">
-                      <Button 
-                        onClick={() => onConfirm(appointment.id)} 
-                        size="sm" 
-                        variant="outline"
-                        className="h-8 gap-1 border-green-200 text-green-700 hover:bg-green-50"
-                      >
-                        <CheckCircle2 className="h-4 w-4" />
-                        Confirm
-                      </Button>
-                      <Button 
-                        onClick={() => onReject(appointment.id)} 
-                        size="sm" 
-                        variant="outline"
-                        className="h-8 gap-1 border-red-200 text-red-700 hover:bg-red-50"
-                      >
-                        <XCircle className="h-4 w-4" />
-                        Reject
-                      </Button>
+                      {appointment.status === 'SCHEDULED' && (
+                        <>
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            className="text-green-600 border-green-200 hover:bg-green-50"
+                            onClick={() => onConfirm(appointment.id)}
+                          >
+                            <CheckCircle2 className="h-4 w-4 mr-1" />
+                            Confirm
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            className="text-red-600 border-red-200 hover:bg-red-50"
+                            onClick={() => onReject(appointment.id)}
+                          >
+                            <XCircle className="h-4 w-4 mr-1" />
+                            Reject
+                          </Button>
+                        </>
+                      )}
+                      {appointment.status === 'CONFIRMED' && (
+                        <>
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            className="text-orange-600 border-orange-200 hover:bg-orange-50"
+                            onClick={() => onUnconfirm(appointment.id)}
+                          >
+                            <XCircle className="h-4 w-4 mr-1" />
+                            Unconfirm
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            className="text-red-600 border-red-200 hover:bg-red-50"
+                            onClick={() => onReject(appointment.id)}
+                          >
+                            <XCircle className="h-4 w-4 mr-1" />
+                            Reject
+                          </Button>
+                        </>
+                      )}
+                      {appointment.status === 'CANCELLED' && (
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="text-blue-600 border-blue-200 hover:bg-blue-50"
+                          onClick={() => onUnreject(appointment.id)}
+                        >
+                          <RefreshCcw className="h-4 w-4 mr-1" />
+                          Unreject
+                        </Button>
+                      )}
+                      {(appointment.status === 'SCHEDULED' || appointment.status === 'CONFIRMED') && (
+                        <Button 
+                          size="sm" 
+                          variant="outline" 
+                          className="text-blue-600 border-blue-200 hover:bg-blue-50"
+                          onClick={() => onReschedule(appointment)}
+                        >
+                          <Calendar className="h-4 w-4 mr-1" />
+                          Reschedule
+                        </Button>
+                      )}
                     </div>
                   </TableCell>
                 )}
@@ -458,6 +859,373 @@ function AppointmentTable({
           )}
         </TableBody>
       </Table>
+    </div>
+  )
+}
+
+// DateConfigurationComponent
+function DateConfigurationComponent({ 
+  consultationDates,
+  onUpdate
+}: {
+  consultationDates: ConsultationDate[],
+  onUpdate: () => void
+}) {
+  const [date, setDate] = useState<Date>(new Date())
+  const [timeSlots, setTimeSlots] = useState<{ startTime: string, endTime: string }[]>([
+    { startTime: "08:00 AM", endTime: "08:30 AM" }
+  ])
+  const [selectedDateId, setSelectedDateId] = useState<string>("")
+  const [selectedTimeSlots, setSelectedTimeSlots] = useState<string[]>([])
+  const [loading, setLoading] = useState(false)
+  
+  const handleAddTimeSlot = () => {
+    setTimeSlots([...timeSlots, { startTime: "08:00 AM", endTime: "08:30 AM" }])
+  }
+  
+  const handleRemoveTimeSlot = (index: number) => {
+    setTimeSlots(timeSlots.filter((_, i) => i !== index))
+  }
+  
+  const handleTimeSlotChange = (index: number, field: 'startTime' | 'endTime', value: string) => {
+    const updatedSlots = [...timeSlots]
+    updatedSlots[index][field] = value
+    setTimeSlots(updatedSlots)
+  }
+  
+  const handleToggleTimeSlotSelection = (timeSlotId: string) => {
+    if (selectedTimeSlots.includes(timeSlotId)) {
+      setSelectedTimeSlots(selectedTimeSlots.filter(id => id !== timeSlotId))
+    } else {
+      setSelectedTimeSlots([...selectedTimeSlots, timeSlotId])
+    }
+  }
+  
+  const handleCreateDate = async () => {
+    try {
+      setLoading(true)
+      const response = await fetch('/api/admin/consultation/dates', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          date: format(date, 'yyyy-MM-dd'),
+          timeSlots: timeSlots
+        })
+      })
+      
+      if (response.ok) {
+        toast.success("Consultation date created successfully")
+        onUpdate()
+        
+        // Reset form
+        setTimeSlots([{ startTime: "08:00 AM", endTime: "08:30 AM" }])
+      } else {
+        const data = await response.json()
+        toast.error(data.error || "Failed to create consultation date")
+      }
+    } catch (error) {
+      console.error("Error creating consultation date:", error)
+      toast.error("Failed to create consultation date")
+    } finally {
+      setLoading(false)
+    }
+  }
+  
+  const handleToggleDateActive = async (dateId: string) => {
+    try {
+      setLoading(true)
+      const date = consultationDates.find(d => d.id === dateId)
+      if (!date) return
+      
+      const response = await fetch(`/api/admin/consultation/dates/${dateId}/toggle-active`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          isActive: !date.isActive
+        })
+      })
+      
+      if (response.ok) {
+        toast.success(`Date ${date.isActive ? "deactivated" : "activated"} successfully`)
+        onUpdate()
+      } else {
+        const data = await response.json()
+        toast.error(data.error || "Failed to update date status")
+      }
+    } catch (error) {
+      console.error("Error toggling date status:", error)
+      toast.error("Failed to update date status")
+    } finally {
+      setLoading(false)
+    }
+  }
+  
+  const handleAddTimeSlotsToDate = async () => {
+    if (!selectedDateId) {
+      toast.error("Please select a date")
+      return
+    }
+    
+    try {
+      setLoading(true)
+      const response = await fetch(`/api/admin/consultation/dates/${selectedDateId}/time-slots`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          timeSlots: timeSlots
+        })
+      })
+      
+      if (response.ok) {
+        toast.success("Time slots added successfully")
+        onUpdate()
+        
+        // Reset form
+        setTimeSlots([{ startTime: "08:00 AM", endTime: "08:30 AM" }])
+      } else {
+        const data = await response.json()
+        toast.error(data.error || "Failed to add time slots")
+      }
+    } catch (error) {
+      console.error("Error adding time slots:", error)
+      toast.error("Failed to add time slots")
+    } finally {
+      setLoading(false)
+    }
+  }
+  
+  const handleRemoveTimeSlotsFromDate = async () => {
+    if (!selectedDateId || selectedTimeSlots.length === 0) {
+      toast.error("Please select a date and at least one time slot")
+      return
+    }
+    
+    try {
+      setLoading(true)
+      const response = await fetch(`/api/admin/consultation/dates/${selectedDateId}/time-slots/remove`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          timeSlotIds: selectedTimeSlots
+        })
+      })
+      
+      if (response.ok) {
+        toast.success("Time slots removed successfully")
+        onUpdate()
+        setSelectedTimeSlots([])
+      } else {
+        const data = await response.json()
+        toast.error(data.error || "Failed to remove time slots")
+      }
+    } catch (error) {
+      console.error("Error removing time slots:", error)
+      toast.error("Failed to remove time slots")
+    } finally {
+      setLoading(false)
+    }
+  }
+  
+  return (
+    <div className="space-y-6">
+      {/* Create New Date Section */}
+      <div className="space-y-4 border-b pb-6">
+        <h3 className="font-medium">Create New Consultation Date</h3>
+        
+        <div className="grid gap-4">
+          <div>
+            <Label htmlFor="date-picker">Select Date</Label>
+            <DatePicker date={date} setDate={setDate} />
+          </div>
+          
+          <div>
+            <div className="flex items-center justify-between mb-2">
+              <Label>Time Slots</Label>
+              <Button 
+                type="button" 
+                onClick={handleAddTimeSlot} 
+                variant="outline" 
+                size="sm"
+              >
+                Add Time Slot
+              </Button>
+            </div>
+            
+            {timeSlots.map((slot, index) => (
+              <div key={index} className="flex items-center gap-2 mb-2">
+                <Select 
+                  value={slot.startTime} 
+                  onValueChange={(value) => handleTimeSlotChange(index, 'startTime', value)}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Start Time" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="08:00 AM">08:00 AM</SelectItem>
+                    <SelectItem value="08:30 AM">08:30 AM</SelectItem>
+                    <SelectItem value="09:00 AM">09:00 AM</SelectItem>
+                    <SelectItem value="09:30 AM">09:30 AM</SelectItem>
+                    <SelectItem value="10:00 AM">10:00 AM</SelectItem>
+                    <SelectItem value="10:30 AM">10:30 AM</SelectItem>
+                    <SelectItem value="11:00 AM">11:00 AM</SelectItem>
+                    <SelectItem value="11:30 AM">11:30 AM</SelectItem>
+                    <SelectItem value="01:00 PM">01:00 PM</SelectItem>
+                    <SelectItem value="01:30 PM">01:30 PM</SelectItem>
+                    <SelectItem value="02:00 PM">02:00 PM</SelectItem>
+                    <SelectItem value="02:30 PM">02:30 PM</SelectItem>
+                    <SelectItem value="03:00 PM">03:00 PM</SelectItem>
+                    <SelectItem value="03:30 PM">03:30 PM</SelectItem>
+                    <SelectItem value="04:00 PM">04:00 PM</SelectItem>
+                    <SelectItem value="04:30 PM">04:30 PM</SelectItem>
+                  </SelectContent>
+                </Select>
+                
+                <span>to</span>
+                
+                <Select 
+                  value={slot.endTime} 
+                  onValueChange={(value) => handleTimeSlotChange(index, 'endTime', value)}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="End Time" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="08:30 AM">08:30 AM</SelectItem>
+                    <SelectItem value="09:00 AM">09:00 AM</SelectItem>
+                    <SelectItem value="09:30 AM">09:30 AM</SelectItem>
+                    <SelectItem value="10:00 AM">10:00 AM</SelectItem>
+                    <SelectItem value="10:30 AM">10:30 AM</SelectItem>
+                    <SelectItem value="11:00 AM">11:00 AM</SelectItem>
+                    <SelectItem value="11:30 AM">11:30 AM</SelectItem>
+                    <SelectItem value="12:00 PM">12:00 PM</SelectItem>
+                    <SelectItem value="01:30 PM">01:30 PM</SelectItem>
+                    <SelectItem value="02:00 PM">02:00 PM</SelectItem>
+                    <SelectItem value="02:30 PM">02:30 PM</SelectItem>
+                    <SelectItem value="03:00 PM">03:00 PM</SelectItem>
+                    <SelectItem value="03:30 PM">03:30 PM</SelectItem>
+                    <SelectItem value="04:00 PM">04:00 PM</SelectItem>
+                    <SelectItem value="04:30 PM">04:30 PM</SelectItem>
+                    <SelectItem value="05:00 PM">05:00 PM</SelectItem>
+                  </SelectContent>
+                </Select>
+                
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => handleRemoveTimeSlot(index)}
+                  disabled={timeSlots.length === 1}
+                  className="text-red-500 hover:text-red-700"
+                >
+                  <XCircle className="h-4 w-4" />
+                </Button>
+              </div>
+            ))}
+          </div>
+          
+          <Button 
+            type="button" 
+            onClick={handleCreateDate}
+            disabled={loading}
+          >
+            {loading ? "Creating..." : "Create Consultation Date"}
+          </Button>
+        </div>
+      </div>
+      
+      {/* Manage Existing Dates Section */}
+      <div className="space-y-4">
+        <h3 className="font-medium">Manage Existing Dates</h3>
+        
+        <div className="grid gap-4">
+          <div>
+            <Label htmlFor="existing-date">Select Date</Label>
+            <Select value={selectedDateId} onValueChange={setSelectedDateId}>
+              <SelectTrigger id="existing-date">
+                <SelectValue placeholder="Select a date" />
+              </SelectTrigger>
+              <SelectContent>
+                {consultationDates.map(date => (
+                  <SelectItem key={date.id} value={date.id}>
+                    {format(new Date(date.date), 'MMM d, yyyy')} {date.isActive ? "(Active)" : "(Inactive)"}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          
+          {selectedDateId && (
+            <>
+              <div className="flex gap-2">
+                <Button 
+                  type="button" 
+                  onClick={() => handleToggleDateActive(selectedDateId)}
+                  disabled={loading}
+                  variant="outline"
+                >
+                  {loading ? "Updating..." : 
+                    consultationDates.find(d => d.id === selectedDateId)?.isActive ? 
+                      "Deactivate Date" : "Activate Date"}
+                </Button>
+                
+                <Button 
+                  type="button" 
+                  onClick={handleAddTimeSlotsToDate}
+                  disabled={loading}
+                  variant="outline"
+                >
+                  Add Time Slots to This Date
+                </Button>
+              </div>
+              
+              {consultationDates.find(d => d.id === selectedDateId)?.timeSlots.length > 0 && (
+                <div>
+                  <h4 className="text-sm font-medium mb-2">Time Slots</h4>
+                  <div className="grid grid-cols-2 gap-2">
+                    {consultationDates.find(d => d.id === selectedDateId)?.timeSlots.map(slot => (
+                      <div 
+                        key={slot.id} 
+                        className={cn(
+                          "px-3 py-2 border rounded-md flex items-center justify-between text-sm",
+                          selectedTimeSlots.includes(slot.id) 
+                            ? "border-blue-500 bg-blue-50" 
+                            : "border-gray-200"
+                        )}
+                        onClick={() => handleToggleTimeSlotSelection(slot.id)}
+                      >
+                        <span className={slot.isAvailable ? "text-green-600" : "text-red-600"}>
+                          {slot.startTime} - {slot.endTime}
+                        </span>
+                        <span className="text-xs text-gray-500">
+                          {slot.isAvailable ? "Available" : "Booked"}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <Button 
+                    type="button" 
+                    onClick={handleRemoveTimeSlotsFromDate}
+                    disabled={loading || selectedTimeSlots.length === 0}
+                    className="mt-2"
+                    variant="outline"
+                  >
+                    Remove Selected Time Slots
+                  </Button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+      </div>
     </div>
   )
 } 
