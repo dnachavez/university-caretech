@@ -7,7 +7,7 @@ import bcrypt from 'bcryptjs'
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { firstName, lastName, username, email, password, role } = body
+    const { firstName, lastName, username, email, password, role, departmentId, yearLevel } = body
 
     // Validate input
     if (!firstName || !lastName || !username || !email || !password || !role) {
@@ -53,18 +53,68 @@ export async function POST(req: NextRequest) {
       }
     })
 
-    // Create user
-    const user = await prisma.user.create({
-      data: {
-        firstName,
-        lastName,
-        username,
-        email,
-        password: hashedPassword,
-        role: role.toUpperCase(),
-        status: 'UNVERIFIED',
-        verificationToken: hashedToken
+    // Use transaction to ensure both user creation and health form creation succeed together
+    const result = await prisma.$transaction(async (tx) => {
+      // Create user
+      const user = await tx.user.create({
+        data: {
+          firstName,
+          lastName,
+          username,
+          email,
+          password: hashedPassword,
+          role: role.toUpperCase(),
+          status: 'UNVERIFIED',
+          verificationToken: hashedToken
+        }
+      })
+
+      // Create health form if departmentId is provided
+      if (departmentId) {
+        // Get current date for defaults
+        const defaultDate = new Date()
+        
+        // Create a basic health form entry with the provided data
+        await tx.userHealthForm.create({
+          data: {
+            userId: user.id,
+            firstName,
+            lastName,
+            birthdate: defaultDate,
+            gender: "Not Specified",
+            birthPlace: "Not Specified",
+            addressLine1: "Not Specified",
+            city: "Not Specified",
+            state: "Not Specified",
+            postalCode: "00000",
+            emergencyContact: "Not Specified",
+            relationship: "Not Specified",
+            emergencyNumber: "Not Specified",
+            signaturePath: "",
+            dateSigned: defaultDate,
+            departmentId: departmentId,
+            yearLevel: yearLevel || undefined,
+            allergies: false,
+            immunized: false,
+            communicableDisease: false,
+            asthmatic: false,
+            chronicIllness: false,
+            hiking: false,
+            dancing: false,
+            swimming: false,
+            basketball: false,
+            ballgames: false,
+            jogging: false,
+            football: false,
+            badminton: false,
+            calisthenics: false,
+            wallclimbing: false,
+            medicationPermission: false
+          }
+        })
       }
+
+      return user
     })
 
     // Generate verification URL

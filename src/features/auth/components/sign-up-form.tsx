@@ -1,14 +1,19 @@
 "use client"
 
 import type React from "react"
-import { ChevronDown, User, Mail, Phone, Lock, Loader2 } from "lucide-react"
-import { useState } from "react"
+import { ChevronDown, User, Mail, Phone, Lock, Loader2, Building, GraduationCap } from "lucide-react"
+import { useState, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { toast } from "sonner"
+
+interface Department {
+  id: string
+  name: string
+}
 
 interface SignUpFormProps {
   onTabChange: (tab: string) => void
@@ -24,10 +29,37 @@ export function SignUpForm({ onTabChange }: SignUpFormProps) {
     username: "",
     password: "",
     confirmPassword: "",
-    role: ""
+    role: "",
+    departmentId: "",
+    yearLevel: ""
   })
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [registrationSuccess, setRegistrationSuccess] = useState(false)
+  const [departments, setDepartments] = useState<Department[]>([])
+  const [isLoadingDepartments, setIsLoadingDepartments] = useState(false)
+
+  // Fetch departments on component mount
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      setIsLoadingDepartments(true)
+      try {
+        const response = await fetch('/api/departments')
+        const data = await response.json()
+        
+        if (data.departments) {
+          setDepartments(data.departments)
+        } else {
+          console.error("Failed to load departments")
+        }
+      } catch (error) {
+        console.error("Error fetching departments:", error)
+      } finally {
+        setIsLoadingDepartments(false)
+      }
+    }
+
+    fetchDepartments()
+  }, [])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target
@@ -48,13 +80,44 @@ export function SignUpForm({ onTabChange }: SignUpFormProps) {
   const handleRoleChange = (value: string) => {
     setFormData(prev => ({
       ...prev,
-      role: value
+      role: value,
+      // Reset dependent fields when role changes
+      departmentId: "",
+      yearLevel: ""
     }))
     
     if (errors.role) {
       setErrors(prev => ({
         ...prev,
         role: ""
+      }))
+    }
+  }
+
+  const handleDepartmentChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      departmentId: value
+    }))
+    
+    if (errors.departmentId) {
+      setErrors(prev => ({
+        ...prev,
+        departmentId: ""
+      }))
+    }
+  }
+
+  const handleYearLevelChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      yearLevel: value
+    }))
+    
+    if (errors.yearLevel) {
+      setErrors(prev => ({
+        ...prev,
+        yearLevel: ""
       }))
     }
   }
@@ -84,6 +147,18 @@ export function SignUpForm({ onTabChange }: SignUpFormProps) {
     }
     
     if (!formData.role) newErrors.role = "Please select a role"
+
+    // Validate department for faculty, staff, and student
+    if (formData.role && (formData.role === "faculty" || formData.role === "staff" || formData.role === "student")) {
+      if (!formData.departmentId) {
+        newErrors.departmentId = "Please select a department"
+      }
+    }
+
+    // Validate year level for students
+    if (formData.role === "student" && !formData.yearLevel) {
+      newErrors.yearLevel = "Please select a year level"
+    }
     
     setErrors(newErrors)
     return Object.keys(newErrors).length === 0
@@ -97,19 +172,31 @@ export function SignUpForm({ onTabChange }: SignUpFormProps) {
     setIsSubmitting(true)
     
     try {
+      const requestBody: any = {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        username: formData.username,
+        password: formData.password,
+        role: formData.role
+      }
+
+      // Add departmentId for faculty, staff, and student
+      if (formData.role && (formData.role === "faculty" || formData.role === "staff" || formData.role === "student")) {
+        requestBody.departmentId = formData.departmentId
+      }
+
+      // Add yearLevel for student
+      if (formData.role === "student") {
+        requestBody.yearLevel = formData.yearLevel
+      }
+
       const response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          firstName: formData.firstName,
-          lastName: formData.lastName,
-          email: formData.email,
-          username: formData.username,
-          password: formData.password,
-          role: formData.role
-        })
+        body: JSON.stringify(requestBody)
       })
       
       const data = await response.json()
@@ -132,7 +219,9 @@ export function SignUpForm({ onTabChange }: SignUpFormProps) {
         username: "",
         password: "",
         confirmPassword: "",
-        role: ""
+        role: "",
+        departmentId: "",
+        yearLevel: ""
       })
       
     } catch (error) {
@@ -295,6 +384,55 @@ export function SignUpForm({ onTabChange }: SignUpFormProps) {
             </Select>
             {errors.role && <p className="text-xs text-red-500">{errors.role}</p>}
           </div>
+
+          {/* Department selection for faculty, staff and student */}
+          {formData.role && (formData.role === "faculty" || formData.role === "staff" || formData.role === "student") && (
+            <div className="space-y-2">
+              <Label htmlFor="department" className="text-[#5b6779] text-sm font-medium flex items-center">
+                <Building className="h-4 w-4 mr-1 text-[#5b6779]" /> Department
+              </Label>
+              <Select value={formData.departmentId} onValueChange={handleDepartmentChange}>
+                <SelectTrigger id="department" className={`w-full bg-[#f5f5ff] text-[#5b6779] rounded-lg border ${errors.departmentId ? 'border-red-500' : 'border-[#dde5f0]'} focus:outline-none focus:ring-1 focus:ring-[#d9e6fb]`}>
+                  <SelectValue placeholder="Select a department" />
+                </SelectTrigger>
+                <SelectContent>
+                  {isLoadingDepartments ? (
+                    <SelectItem value="loading" disabled>Loading departments...</SelectItem>
+                  ) : departments.length > 0 ? (
+                    departments.map((dept) => (
+                      <SelectItem key={dept.id} value={dept.id}>
+                        {dept.name}
+                      </SelectItem>
+                    ))
+                  ) : (
+                    <SelectItem value="none" disabled>No departments found</SelectItem>
+                  )}
+                </SelectContent>
+              </Select>
+              {errors.departmentId && <p className="text-xs text-red-500">{errors.departmentId}</p>}
+            </div>
+          )}
+
+          {/* Year Level selection for students */}
+          {formData.role === "student" && (
+            <div className="space-y-2">
+              <Label htmlFor="yearLevel" className="text-[#5b6779] text-sm font-medium flex items-center">
+                <GraduationCap className="h-4 w-4 mr-1 text-[#5b6779]" /> Year Level
+              </Label>
+              <Select value={formData.yearLevel} onValueChange={handleYearLevelChange}>
+                <SelectTrigger id="yearLevel" className={`w-full bg-[#f5f5ff] text-[#5b6779] rounded-lg border ${errors.yearLevel ? 'border-red-500' : 'border-[#dde5f0]'} focus:outline-none focus:ring-1 focus:ring-[#d9e6fb]`}>
+                  <SelectValue placeholder="Select year level" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1st Year">1st Year</SelectItem>
+                  <SelectItem value="2nd Year">2nd Year</SelectItem>
+                  <SelectItem value="3rd Year">3rd Year</SelectItem>
+                  <SelectItem value="4th Year">4th Year</SelectItem>
+                </SelectContent>
+              </Select>
+              {errors.yearLevel && <p className="text-xs text-red-500">{errors.yearLevel}</p>}
+            </div>
+          )}
 
           <Button
             type="submit"
