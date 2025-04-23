@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ignore all files inside the following directories but include the directories themselves
+public/uploads/clearances/*
+public/uploads/forms/*
+public/uploads/records/*
+public/uploads/signatures/*
+!public/uploads/clearances/.gitkeep
+!public/uploads/forms/.gitkeep
+!public/uploads/records/.gitkeep
+!public/uploads/signatures/.gitkeep
