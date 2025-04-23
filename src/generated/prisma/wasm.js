@@ -258,6 +258,20 @@ exports.Prisma.ClearanceRequestScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  title: 'title',
+  description: 'description',
+  type: 'type',
+  read: 'read',
+  icon: 'icon',
+  linkTo: 'linkTo',
+  relatedId: 'relatedId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -284,7 +298,8 @@ exports.Prisma.ModelName = {
   TimeSlot: 'TimeSlot',
   Appointment: 'Appointment',
   Department: 'Department',
-  ClearanceRequest: 'ClearanceRequest'
+  ClearanceRequest: 'ClearanceRequest',
+  Notification: 'Notification'
 };
 
 /**

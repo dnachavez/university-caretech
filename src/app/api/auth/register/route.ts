@@ -60,91 +60,123 @@ export async function POST(req: NextRequest) {
     try {
       // Use transaction to ensure all operations succeed or fail together
       const result = await prisma.$transaction(async (tx) => {
-    // Create verification token in DB
+        // Create verification token in DB
         await tx.verificationToken.create({
-      data: {
-        token: hashedToken,
-        email,
-        expires: tokenExpiry
-      }
-    })
-
-      // Create user
-      const user = await tx.user.create({
-        data: {
-          firstName,
-          lastName,
-          username,
-          email,
-          password: hashedPassword,
-          role: role.toUpperCase(),
-          status: 'UNVERIFIED',
-          verificationToken: hashedToken
-        }
-      })
-
-      // Create health form if departmentId is provided
-      if (departmentId) {
-        // Get current date for defaults
-        const defaultDate = new Date()
-        
-        // Create a basic health form entry with the provided data
-        await tx.userHealthForm.create({
           data: {
-            userId: user.id,
-            firstName,
-            lastName,
-            birthdate: defaultDate,
-            gender: "Not Specified",
-            birthPlace: "Not Specified",
-            addressLine1: "Not Specified",
-            city: "Not Specified",
-            state: "Not Specified",
-            postalCode: "00000",
-            emergencyContact: "Not Specified",
-            relationship: "Not Specified",
-            emergencyNumber: "Not Specified",
-            signaturePath: "",
-            dateSigned: defaultDate,
-            departmentId: departmentId,
-            yearLevel: yearLevel || undefined,
-            allergies: false,
-            immunized: false,
-            communicableDisease: false,
-            asthmatic: false,
-            chronicIllness: false,
-            hiking: false,
-            dancing: false,
-            swimming: false,
-            basketball: false,
-            ballgames: false,
-            jogging: false,
-            football: false,
-            badminton: false,
-            calisthenics: false,
-            wallclimbing: false,
-            medicationPermission: false
+            token: hashedToken,
+            email,
+            expires: tokenExpiry
           }
         })
-      }
 
-      return user
-    })
+        // Create user
+        const user = await tx.user.create({
+          data: {
+            firstName,
+            lastName,
+            username,
+            email,
+            password: hashedPassword,
+            role: role.toUpperCase(),
+            status: 'UNVERIFIED',
+            verificationToken: hashedToken
+          }
+        })
 
-    // Generate verification URL
-    const verificationUrl = `${process.env.NEXTAUTH_URL}/api/auth/verify?token=${verificationToken}`
+        // Create health form if departmentId is provided
+        if (departmentId) {
+          // Get current date for defaults
+          const defaultDate = new Date()
+          
+          // Create a basic health form entry with the provided data
+          await tx.userHealthForm.create({
+            data: {
+              userId: user.id,
+              firstName,
+              lastName,
+              birthdate: defaultDate,
+              gender: "Not Specified",
+              birthPlace: "Not Specified",
+              addressLine1: "Not Specified",
+              city: "Not Specified",
+              state: "Not Specified",
+              postalCode: "00000",
+              emergencyContact: "Not Specified",
+              relationship: "Not Specified",
+              emergencyNumber: "Not Specified",
+              signaturePath: "",
+              dateSigned: defaultDate,
+              departmentId: departmentId,
+              yearLevel: yearLevel || undefined,
+              allergies: false,
+              immunized: false,
+              communicableDisease: false,
+              asthmatic: false,
+              chronicIllness: false,
+              hiking: false,
+              dancing: false,
+              swimming: false,
+              basketball: false,
+              ballgames: false,
+              jogging: false,
+              football: false,
+              badminton: false,
+              calisthenics: false,
+              wallclimbing: false,
+              medicationPermission: false
+            }
+          })
+        }
+        
+        // Create notifications for admins if a faculty or staff account is registered
+        if (role.toUpperCase() === 'FACULTY' || role.toUpperCase() === 'STAFF') {
+          // Find all admin users
+          const adminUsers = await tx.user.findMany({
+            where: {
+              role: 'ADMIN',
+              status: 'ACTIVE'
+            },
+            select: {
+              id: true
+            }
+          })
+          
+          // Create notifications for each admin
+          const notificationPromises = adminUsers.map(admin => 
+            tx.notification.create({
+              data: {
+                userId: admin.id,
+                title: "New Account Approval Required",
+                description: `${firstName} ${lastName} (${role}) has registered and requires approval.`,
+                type: "ACCOUNT_APPROVAL",
+                icon: "👤",
+                linkTo: "/admin/users",
+                relatedId: user.id
+              }
+            })
+          )
+          
+          // Execute all notification creation promises
+          await Promise.all(notificationPromises)
+        }
 
-    // Send verification email
-    await sendEmail({
-      to: email,
-      subject: "Verify your University CareTeam account",
-      html: generateVerificationEmail(`${firstName} ${lastName}`, verificationUrl)
-    })
+        return user
+      })
 
-    return NextResponse.json({ 
-      success: true, 
-      message: "Registration successful. Please check your email to verify your account." 
-    }, { status: 201 })
+      // Generate verification URL
+      const verificationUrl = `${process.env.NEXTAUTH_URL}/api/auth/verify?token=${verificationToken}`
+
+      // Send verification email
+      await sendEmail({
+        to: email,
+        subject: "Verify your University CareTeam account",
+        html: generateVerificationEmail(`${firstName} ${lastName}`, verificationUrl)
+      })
+
+      return NextResponse.json({ 
+        success: true, 
+        message: "Registration successful. Please check your email to verify your account." 
+      }, { status: 201 })
     } catch (txError) {
       console.error('Transaction error during registration:', txError)
       return NextResponse.json({ error: "Failed to register user" }, { status: 500 })

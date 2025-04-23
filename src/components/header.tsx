@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Bell, Edit, LogOut, Search, ChevronDown } from "lucide-react"
+import { Bell, Edit, LogOut, Search, ChevronDown, FileText, Calendar, User } from "lucide-react"
 import { useAuthStore } from "@/store/auth-store"
 import { Input } from "./ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
@@ -17,42 +17,43 @@ import {
 } from "./ui/dropdown-menu"
 import { Badge } from "./ui/badge"
 import { useRouter } from "next/navigation"
-
-// Mock notifications for demo
-const MOCK_NOTIFICATIONS = [
-  {
-    id: 1,
-    title: "Medical form approved",
-    description: "Your medical form has been approved by the clinic staff.",
-    icon: "✅",
-    read: false,
-    time: "2 hours ago"
-  },
-  {
-    id: 2,
-    title: "Appointment reminder",
-    description: "You have a scheduled appointment tomorrow at 2:00 PM.",
-    icon: "📅",
-    read: false,
-    time: "1 day ago"
-  },
-  {
-    id: 3,
-    title: "Document upload required",
-    description: "Please upload your latest vaccination record.",
-    icon: "📄",
-    read: true,
-    time: "3 days ago"
-  }
-]
+import { Notification, fetchNotifications, markNotificationAsRead, markAllNotificationsAsRead } from "@/services/notification-service"
+import { formatDistanceToNow } from "date-fns"
 
 export function Header() {
   const { user, logout } = useAuthStore()
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState("")
-  const [notifications, setNotifications] = useState(MOCK_NOTIFICATIONS)
+  const [notifications, setNotifications] = useState<Notification[]>([])
+  const [loading, setLoading] = useState(false)
   
   const unreadCount = notifications.filter(n => !n.read).length
+  
+  // Fetch notifications on component mount and when user changes
+  const fetchUserNotifications = useCallback(async () => {
+    if (user?.id) {
+      setLoading(true)
+      try {
+        const response = await fetchNotifications()
+        if (response.success && response.notifications) {
+          setNotifications(response.notifications)
+        }
+      } catch (error) {
+        console.error("Error fetching notifications:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+  }, [user?.id])
+  
+  useEffect(() => {
+    fetchUserNotifications()
+    
+    // Set up a polling interval to check for new notifications
+    const intervalId = setInterval(fetchUserNotifications, 60000) // Check every minute
+    
+    return () => clearInterval(intervalId)
+  }, [fetchUserNotifications])
   
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -60,18 +61,33 @@ export function Header() {
     console.log("Search for:", searchQuery)
   }
   
-  const markAsRead = (id: number) => {
-    setNotifications(prev => 
-      prev.map(notif => 
-        notif.id === id ? { ...notif, read: true } : notif
-      )
-    )
+  const handleNotificationClick = async (notification: Notification) => {
+    // Mark notification as read
+    if (!notification.read) {
+      const success = await markNotificationAsRead(notification.id)
+      if (success) {
+        // Update local state
+        setNotifications(prev => 
+          prev.map(notif => 
+            notif.id === notification.id ? { ...notif, read: true } : notif
+          )
+        )
+      }
+    }
+    
+    // Navigate to the appropriate page if linkTo is provided
+    if (notification.linkTo) {
+      router.push(notification.linkTo)
+    }
   }
   
-  const markAllAsRead = () => {
-    setNotifications(prev => 
-      prev.map(notif => ({ ...notif, read: true }))
-    )
+  const handleMarkAllAsRead = async () => {
+    const success = await markAllNotificationsAsRead()
+    if (success) {
+      setNotifications(prev => 
+        prev.map(notif => ({ ...notif, read: true }))
+      )
+    }
   }
 
   const handleSignOut = () => {
@@ -104,11 +120,60 @@ export function Header() {
         return "/student/profile";
     }
   };
+  
+  // Get dashboard path based on user role
+  const getDashboardPath = () => {
+    if (!user || !user.role) return "/student/dashboard";
+    
+    // Convert role to uppercase for consistent comparison
+    const role = user.role.toUpperCase();
+    
+    switch (role) {
+      case "ADMIN":
+        return "/admin/dashboard";
+      case "FACULTY":
+      case "STAFF":
+        return "/fs/dashboard";
+      case "STUDENT":
+      default:
+        return "/student/dashboard";
+    }
+  };
+  
+  // Get notification icon based on type
+  const getNotificationIcon = (type: string, iconString?: string) => {
+    if (iconString) {
+      return <div className="mr-3 text-xl">{iconString}</div>
+    }
+    
+    switch (type) {
+      case "APPOINTMENT":
+        return <Calendar className="mr-3 h-5 w-5 text-blue-500" />;
+      case "FORM":
+        return <FileText className="mr-3 h-5 w-5 text-green-500" />;
+      case "ACCOUNT_APPROVAL":
+        return <User className="mr-3 h-5 w-5 text-orange-500" />;
+      case "CLEARANCE":
+        return <FileText className="mr-3 h-5 w-5 text-purple-500" />;
+      default:
+        return <Bell className="mr-3 h-5 w-5 text-slate-500" />;
+    }
+  };
+  
+  // Format notification time
+  const formatNotificationTime = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      return formatDistanceToNow(date, { addSuffix: true });
+    } catch (e) {
+      return "recently";
+    }
+  };
 
   return (
     <header className="bg-white border-b border-gray-200 h-16 flex items-center px-6 sticky top-0 z-10">
       <div className="flex items-center flex-1">
-        <Link href="/student/dashboard" className="flex items-center gap-2">
+        <Link href={getDashboardPath()} className="flex items-center gap-2">
           <Image 
             src="/images/university-caretech-logo.png" 
             alt="University CareTech Logo" 
@@ -155,14 +220,18 @@ export function Header() {
                   variant="ghost" 
                   size="sm" 
                   className="text-xs" 
-                  onClick={markAllAsRead}
+                  onClick={handleMarkAllAsRead}
                 >
                   Mark all as read
                 </Button>
               )}
             </div>
             <DropdownMenuSeparator />
-            {notifications.length === 0 ? (
+            {loading ? (
+              <div className="p-4 text-center text-slate-500">
+                Loading notifications...
+              </div>
+            ) : notifications.length === 0 ? (
               <div className="p-4 text-center text-slate-500">
                 No notifications
               </div>
@@ -172,13 +241,13 @@ export function Header() {
                   <DropdownMenuItem 
                     key={notification.id}
                     className={`flex items-start p-3 cursor-pointer ${!notification.read ? 'bg-blue-50' : ''}`}
-                    onClick={() => markAsRead(notification.id)}
+                    onClick={() => handleNotificationClick(notification)}
                   >
-                    <div className="mr-3 text-xl">{notification.icon}</div>
+                    {getNotificationIcon(notification.type, notification.icon)}
                     <div className="flex-1 space-y-1">
                       <p className="text-sm font-medium leading-none text-slate-700">{notification.title}</p>
                       <p className="text-xs text-slate-500">{notification.description}</p>
-                      <p className="text-xs text-slate-400">{notification.time}</p>
+                      <p className="text-xs text-slate-400">{formatNotificationTime(notification.createdAt)}</p>
                     </div>
                   </DropdownMenuItem>
                 ))}

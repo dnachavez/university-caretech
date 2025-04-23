@@ -52,6 +52,9 @@ export async function POST(req: NextRequest) {
       where: {
         id: timeSlotId,
         isAvailable: true
+      },
+      include: {
+        consultationDate: true
       }
     })
 
@@ -60,7 +63,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Start a transaction to ensure data consistency
-    const appointment = await prisma.$transaction(async (tx) => {
+    const result = await prisma.$transaction(async (tx) => {
       // Mark the time slot as unavailable
       await tx.timeSlot.update({
         where: {
@@ -71,8 +74,16 @@ export async function POST(req: NextRequest) {
         }
       })
 
+      // Get user information for notifications
+      const user = await tx.user.findUnique({
+        where: { id: userId },
+        select: { firstName: true, lastName: true }
+      })
+
+      const studentName = user ? `${user.firstName} ${user.lastName}` : 'A student'
+
       // Create the appointment
-      return await tx.appointment.create({
+      const appointment = await tx.appointment.create({
         data: {
           userId,
           timeSlotId,
@@ -88,9 +99,64 @@ export async function POST(req: NextRequest) {
           }
         }
       })
+
+      // Format date for notifications
+      const appointmentDate = new Date(timeSlot.consultationDate.date)
+      const formattedDate = appointmentDate.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      })
+
+      // Get staff and admin users to notify
+      const staffAdminUsers = await tx.user.findMany({
+        where: {
+          OR: [
+            { role: "STAFF" },
+            { role: "ADMIN" }
+          ]
+        },
+        select: {
+          id: true
+        }
+      })
+
+      // Create notifications for staff and admin users
+      const notificationPromises = staffAdminUsers.map((user) =>
+        tx.notification.create({
+          data: {
+            userId: user.id,
+            title: "New Appointment Request",
+            description: `${studentName} has requested an appointment on ${formattedDate} at ${timeSlot.startTime} for ${consultationType}.`,
+            type: "APPOINTMENT",
+            icon: "🔔",
+            linkTo: user.id === userId ? "/admin/appointments" : "/fs/appointments",
+            relatedId: appointment.id
+          }
+        })
+      )
+
+      // Create confirmation notification for student
+      await tx.notification.create({
+        data: {
+          userId,
+          title: "Appointment Scheduled",
+          description: `Your appointment has been scheduled for ${formattedDate} at ${timeSlot.startTime}. Waiting for confirmation.`,
+          type: "APPOINTMENT",
+          icon: "📅",
+          linkTo: "/student/dashboard",
+          relatedId: appointment.id
+        }
+      })
+
+      // Execute all notification creation promises
+      await Promise.all(notificationPromises)
+
+      return appointment
     })
 
-    return NextResponse.json({ appointment }, { status: 201 })
+    return NextResponse.json({ appointment: result }, { status: 201 })
   } catch (error) {
     console.error('Error creating appointment:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })

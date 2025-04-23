@@ -9,16 +9,38 @@ export async function PATCH(
   try {
     const userId = params.id;
     
-    const updatedUser = await prisma.user.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        status: "ACTIVE",
-      },
+    // Use transaction to update user and create notification
+    const result = await prisma.$transaction(async (tx) => {
+      // Update user status
+      const user = await tx.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          status: "ACTIVE",
+        },
+      });
+      
+      // Create notification for the user
+      await tx.notification.create({
+        data: {
+          userId: user.id,
+          title: "Account Approved",
+          description: "Your account has been approved. You now have full access to all features.",
+          type: "ACCOUNT_APPROVAL",
+          icon: "✅",
+          linkTo: user.role.toUpperCase() === "STUDENT" 
+            ? "/student/dashboard" 
+            : user.role.toUpperCase() === "ADMIN" 
+              ? "/admin/dashboard" 
+              : "/fs/dashboard"
+        }
+      });
+      
+      return user;
     });
 
-    return NextResponse.json({ user: updatedUser }, { status: 200 });
+    return NextResponse.json({ user: result }, { status: 200 });
   } catch (error) {
     console.error("Error approving user:", error);
     return NextResponse.json(
