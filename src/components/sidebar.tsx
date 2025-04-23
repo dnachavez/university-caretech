@@ -249,7 +249,18 @@ export function Sidebar() {
             href={`${baseRoute}/student-records`}
             icon={<Users className="h-5 w-5 text-blue-600" />} 
             label="Student Records" 
-            isActive={pathname.includes(`${baseRoute}/medical/student-records`)} 
+            isActive={pathname.includes(`${baseRoute}/student-records`)} 
+            isCollapsed={isCollapsed}
+          />
+        )}
+        
+        {/* Appointments menu for staff only */}
+        {user?.role === 'STAFF' && baseRoute === '/fs' && (
+          <NavItem 
+            href={`${baseRoute}/appointments`}
+            icon={<Calendar className="h-5 w-5 text-blue-600" />} 
+            label="Appointments" 
+            isActive={pathname.includes(`${baseRoute}/appointments`)} 
             isCollapsed={isCollapsed}
           />
         )}
