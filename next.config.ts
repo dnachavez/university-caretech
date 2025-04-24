@@ -21,10 +21,8 @@ const nextConfig: NextConfig = {
     PROJECT_ROOT: __dirname,
   },
   env: {
-    // Make database connection more stable
-    // See: https://www.prisma.io/docs/reference/api-reference/prisma-client-reference#connection-pool
-    DATABASE_CONNECTION_LIMIT: '5',
-    DATABASE_POOL_TIMEOUT: '30'
+    // Prisma Accelerate configuration
+    DATABASE_URL: process.env.DATABASE_URL,
   },
   experimental: {
     // Optimizations for Vercel
