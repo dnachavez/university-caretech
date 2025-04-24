@@ -3,11 +3,6 @@
   "outputDirectory": ".next",
   "devCommand": "next dev",
   "installCommand": "npm install",
-  "functions": {
-    "api/*": {
-      "memory": 1024
-    }
-  },
   "headers": [
     {
       "source": "/(.*)",
