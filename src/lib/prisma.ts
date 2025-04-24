@@ -4,45 +4,17 @@ const globalForPrisma = global as unknown as {
   prisma: PrismaClient | undefined
 }
 
-// Define custom client options with connection pooling settings
+// Define client options for SQLite
 const prismaClientOptions: Prisma.PrismaClientOptions = {
-  datasources: {
-    db: {
-      url: process.env.DATABASE_URL,
-    },
-  },
-  // Configure logging
   log: [
     { emit: 'stdout', level: 'error' },
     { emit: 'stdout', level: 'warn' },
   ],
 }
 
-// Create client instance with retry logic
+// Create client instance
 function createPrismaClient() {
-  const client = new PrismaClient(prismaClientOptions)
-  client.$use(async (params, next) => {
-    try {
-      return await next(params)
-    } catch (error: any) {
-      // Check if it's a connection error or prepared statement error
-      if (
-        error.message?.includes('prepared statement') ||
-        error.message?.includes('invalid buffer size') ||
-        error.message?.includes('Utf8Error')
-      ) {
-        console.error('Database connection error detected, cleaning up client')
-        // Force disconnect to clean up prepared statements
-        await client.$disconnect()
-        // Small delay before retrying
-        await new Promise(resolve => setTimeout(resolve, 100))
-        // Try one more time
-        return next(params)
-      }
-      throw error
-    }
-  })
-  return client
+  return new PrismaClient(prismaClientOptions)
 }
 
 export const prisma = globalForPrisma.prisma ?? createPrismaClient()
