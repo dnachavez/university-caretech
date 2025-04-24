@@ -1,10 +1,12 @@
 import { PrismaClient, Prisma } from '../generated/prisma'
+import { withAccelerate } from '@prisma/extension-accelerate'
 
+// Updated type to allow for extended client
 const globalForPrisma = global as unknown as {
-  prisma: PrismaClient | undefined
+  prisma: ReturnType<typeof createPrismaClient> | undefined
 }
 
-// Define client options for SQLite
+// Define client options for PostgreSQL
 const prismaClientOptions: Prisma.PrismaClientOptions = {
   log: [
     { emit: 'stdout', level: 'error' },
@@ -12,9 +14,9 @@ const prismaClientOptions: Prisma.PrismaClientOptions = {
   ],
 }
 
-// Create client instance
+// Create client instance with Accelerate extension
 function createPrismaClient() {
-  return new PrismaClient(prismaClientOptions)
+  return new PrismaClient(prismaClientOptions).$extends(withAccelerate())
 }
 
 export const prisma = globalForPrisma.prisma ?? createPrismaClient()
