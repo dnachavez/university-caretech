@@ -32,7 +32,9 @@ const handlePrismaError = (error: any) => {
 
 // Set cache control headers
 const setCacheHeaders = (response: NextResponse) => {
-  response.headers.set('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59')
+  response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate')
+  response.headers.set('Pragma', 'no-cache')
+  response.headers.set('Expires', '0')
   return response
 }
 

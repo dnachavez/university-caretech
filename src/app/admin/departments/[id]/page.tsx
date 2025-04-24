@@ -116,7 +116,13 @@ export default function DepartmentDetailPage({ params }: { params: { id: string 
   const fetchUsers = async () => {
     try {
       setIsLoading(true)
-      const response = await fetch('/api/admin/users')
+      const response = await fetch('/api/admin/users', {
+        cache: 'no-store',
+        headers: {
+          'pragma': 'no-cache',
+          'cache-control': 'no-cache'
+        }
+      })
       if (!response.ok) {
         throw new Error('Failed to fetch users')
       }

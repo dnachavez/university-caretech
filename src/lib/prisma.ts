@@ -21,28 +21,58 @@ const prismaClientOptions: Prisma.PrismaClientOptions = {
 // Create client instance with retry logic
 function createPrismaClient() {
   const client = new PrismaClient(prismaClientOptions)
+  
+  // Add middleware for error handling and connection management
   client.$use(async (params, next) => {
-    try {
-      return await next(params)
-    } catch (error: any) {
-      // Check if it's a connection error or prepared statement error
-      if (
-        error.message?.includes('prepared statement') ||
-        error.message?.includes('invalid buffer size') ||
-        error.message?.includes('Utf8Error')
-      ) {
-        console.error('Database connection error detected, cleaning up client')
-        // Force disconnect to clean up prepared statements
-        await client.$disconnect()
-        // Small delay before retrying
-        await new Promise(resolve => setTimeout(resolve, 100))
-        // Try one more time
-        return next(params)
+    const MAX_RETRIES = 3;
+    let retries = 0;
+    
+    while (retries < MAX_RETRIES) {
+      try {
+        return await next(params);
+      } catch (error: any) {
+        // Check if it's a connection error or prepared statement error
+        if (
+          error.message?.includes('prepared statement') ||
+          error.message?.includes('invalid buffer size') ||
+          error.message?.includes('Utf8Error') ||
+          (error.code && error.code === '26000') // PostgreSQL error code for prepared statement issues
+        ) {
+          console.error(`Database connection error detected (attempt ${retries + 1}/${MAX_RETRIES}): ${error.message}`);
+          
+          // Force disconnect to clean up prepared statements
+          try {
+            await client.$disconnect();
+          } catch (disconnectError) {
+            console.error('Error during disconnect:', disconnectError);
+          }
+          
+          // Increasing delay before retrying (exponential backoff)
+          const delay = Math.pow(2, retries) * 100;
+          await new Promise(resolve => setTimeout(resolve, delay));
+          
+          retries++;
+          
+          // If this was the last retry, throw the error
+          if (retries >= MAX_RETRIES) {
+            console.error('Max retries reached, failing operation');
+            throw error;
+          }
+          
+          // Continue to next retry iteration
+          continue;
+        }
+        
+        // Not a connection error, just throw it
+        throw error;
       }
-      throw error
     }
-  })
-  return client
+    
+    // This should never be reached due to the while loop, but TypeScript needs it
+    throw new Error('Unexpected end of retry loop');
+  });
+  
+  return client;
 }
 
 export const prisma = globalForPrisma.prisma ?? createPrismaClient()
@@ -58,3 +88,12 @@ if (process.env.NODE_ENV === 'production') {
     await prisma.$disconnect()
   })
 } 
+
+// Add extra cleanup handlers
+['SIGINT', 'SIGTERM'].forEach(signal => {
+  process.on(signal, async () => {
+    console.log(`Received ${signal}, closing Prisma connection`);
+    await prisma.$disconnect();
+    process.exit(0);
+  });
+}); 

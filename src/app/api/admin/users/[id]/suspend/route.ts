@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from 'next/cache';
 
 // PATCH /api/admin/users/[id]/suspend - Suspend a user account
 export async function PATCH(
@@ -17,6 +18,9 @@ export async function PATCH(
         status: "SUSPENDED",
       },
     });
+
+    // Revalidate the users list to update the cache immediately
+    revalidatePath('/api/admin/users');
 
     return NextResponse.json({ user: updatedUser }, { status: 200 });
   } catch (error) {

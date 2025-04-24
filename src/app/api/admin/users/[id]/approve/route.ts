@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { revalidatePath } from 'next/cache';
 
 // PATCH /api/admin/users/[id]/approve - Approve a pending user
 export async function PATCH(
@@ -39,6 +40,9 @@ export async function PATCH(
       
       return user;
     });
+
+    // Revalidate the users list to update the cache immediately
+    revalidatePath('/api/admin/users');
 
     return NextResponse.json({ user: result }, { status: 200 });
   } catch (error) {
