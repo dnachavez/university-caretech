@@ -874,6 +874,7 @@ function DateConfigurationComponent({
   consultationDates: ConsultationDate[],
   onUpdate: () => void
 }) {
+  const { user } = useAuthStore()
   const [date, setDate] = useState<Date>(new Date())
   const [timeSlots, setTimeSlots] = useState<{ startTime: string, endTime: string }[]>([
     { startTime: "08:00 AM", endTime: "08:30 AM" }
@@ -917,7 +918,7 @@ function DateConfigurationComponent({
     
     try {
       setLoading(true)
-      const response = await fetch('/api/admin/consultation/dates', {
+      const response = await fetch(`/api/admin/consultation/dates?userId=${user?.id}&role=${user?.role}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -946,7 +947,7 @@ function DateConfigurationComponent({
   
   const handleToggleDateActive = async (dateId: string) => {
     try {
-      const response = await fetch(`/api/admin/consultation/dates/${dateId}/toggle`, {
+      const response = await fetch(`/api/admin/consultation/dates/${dateId}/toggle?userId=${user?.id}&role=${user?.role}`, {
         method: 'PATCH'
       })
       
@@ -975,7 +976,7 @@ function DateConfigurationComponent({
     
     try {
       setLoading(true)
-      const response = await fetch(`/api/admin/consultation/dates/${selectedDateId}/timeslots`, {
+      const response = await fetch(`/api/admin/consultation/dates/${selectedDateId}/timeslots?userId=${user?.id}&role=${user?.role}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -1012,7 +1013,7 @@ function DateConfigurationComponent({
     
     try {
       setLoading(true)
-      const response = await fetch(`/api/admin/consultation/dates/${selectedDateId}/timeslots`, {
+      const response = await fetch(`/api/admin/consultation/dates/${selectedDateId}/timeslots?userId=${user?.id}&role=${user?.role}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'

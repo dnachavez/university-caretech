@@ -7,6 +7,14 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
+    // Check authorization
+    const url = new URL(req.url)
+    const userRole = url.searchParams.get('role')
+    
+    if (userRole !== 'ADMIN') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    
     const dateId = params.id;
     
     // Get the current consultation date

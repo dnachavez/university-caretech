@@ -7,6 +7,14 @@ export async function POST(
   { params }: { params: { id: string } }
 ) {
   try {
+    // Check authorization
+    const url = new URL(req.url)
+    const userRole = url.searchParams.get('role')
+    
+    if (userRole !== 'ADMIN') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    
     const dateId = params.id;
     const body = await req.json();
     const { timeSlots } = body;
@@ -68,6 +76,14 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    // Check authorization
+    const url = new URL(req.url)
+    const userRole = url.searchParams.get('role')
+    
+    if (userRole !== 'ADMIN') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+    
     const dateId = params.id;
     const body = await req.json();
     const { timeSlotIds } = body;
