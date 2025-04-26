@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation"
 import { 
   ChevronDown, ChevronRight, 
   Home, FileText, FolderOpen, 
-  FileUp, TestTube, Syringe, LogOut, 
+  FileUp, TestTube, Syringe,
   ChevronLeft, ClipboardList, FileQuestion,
   Users, Calendar, Building, Stethoscope
 } from "lucide-react"
@@ -17,7 +17,6 @@ import { Separator } from "./ui/separator"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
 import { useAuthStore } from "@/store/auth-store"
 import { useSidebarStore } from "@/store/sidebar-store"
-import { toast } from "sonner"
 
 interface NavItemProps {
   href: string
@@ -151,7 +150,7 @@ const NavGroup = ({
 export function Sidebar() {
   const pathname = usePathname()
   const router = useRouter()
-  const { logout, user } = useAuthStore()
+  const { user } = useAuthStore()
   const { isCollapsed } = useSidebarStore()
 
   // Determine the base route based on the pathname or user role
@@ -177,12 +176,6 @@ export function Sidebar() {
   
   // Check if user is admin
   const isAdmin = user?.role === 'ADMIN'
-
-  const handleSignOut = () => {
-    logout()
-    toast.success("You have been signed out successfully")
-    router.push("/auth")
-  }
 
   return (
     <div 
@@ -351,18 +344,6 @@ export function Sidebar() {
             isCollapsed={isCollapsed}
           />
         )}
-      </div>
-      
-      <div className="p-2">
-        <Separator className="my-2" />
-        <Button 
-          variant="ghost" 
-          onClick={handleSignOut}
-          className="w-full justify-start gap-2 px-3 h-10 text-red-500 hover:text-red-600 hover:bg-red-50"
-        >
-          <LogOut className="h-5 w-5" />
-          {!isCollapsed && <span>Sign Out</span>}
-        </Button>
       </div>
     </div>
   )
