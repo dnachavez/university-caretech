@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { mkdir } from 'fs/promises';
-import { existsSync } from 'fs';
 import path from 'path';
+
+// NOTE: File system operations are removed as they're not compatible with Vercel production
 
 export async function POST(request: NextRequest) {
   try {
@@ -44,14 +44,6 @@ export async function POST(request: NextRequest) {
           { status: 403 }
         );
       }
-    }
-    
-    // Create directory for records if it doesn't exist
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'records');
-    
-    if (!existsSync(uploadDir)) {
-      console.log("Creating records directory:", uploadDir);
-      await mkdir(uploadDir, { recursive: true });
     }
     
     if (!files || !Array.isArray(files) || files.length === 0) {

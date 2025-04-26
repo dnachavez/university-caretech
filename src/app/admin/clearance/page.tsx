@@ -39,6 +39,7 @@ import {
 } from "@/components/ui/dialog"
 import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
+import { toast } from "sonner"
 
 // Sample clearance requests data - replace with actual API call
 const mockClearanceRequests = [
@@ -256,9 +257,14 @@ export default function ClearanceRequestsPage() {
         body: formData
       });
       
+      const responseData = await response.json();
+      
       if (!response.ok) {
-        throw new Error('Failed to upload documents');
+        throw new Error(responseData.error || 'Failed to upload documents');
       }
+      
+      // Log success for debugging
+      console.log('Upload successful:', responseData);
       
       // Refresh clearance requests after upload
       await fetchClearanceRequests();
@@ -273,8 +279,18 @@ export default function ClearanceRequestsPage() {
       setSelectedFiles([]);
       setCurrentRequest(null);
       
+      // Show success toast
+      toast.success("Clearance Approved", {
+        description: "The clearance request has been approved successfully."
+      });
+      
     } catch (error) {
       console.error('Error uploading documents:', error);
+      
+      // Show error toast
+      toast.error("Error", {
+        description: error instanceof Error ? error.message : "Failed to upload documents"
+      });
     } finally {
       setIsLoading(false);
     }

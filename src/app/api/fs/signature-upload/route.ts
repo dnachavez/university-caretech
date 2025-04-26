@@ -1,8 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { v4 as uuidv4 } from 'uuid'
-import fs from 'fs'
 import path from 'path'
 import { prisma } from '@/lib/prisma'
+
+// Declare the global in-memory storage
+declare global {
+  var inMemoryFileStorage: Map<string, Buffer>;
+}
+
+// Initialize the global storage if it doesn't exist
+if (!global.inMemoryFileStorage) {
+  global.inMemoryFileStorage = new Map<string, Buffer>();
+}
 
 // Function to decode base64 data URI to Buffer
 function decodeBase64Image(dataString: string) {
@@ -16,7 +25,7 @@ function decodeBase64Image(dataString: string) {
 }
 
 // Check if we're running in production (Vercel) or development
-const isProduction = process.env.NODE_ENV === 'production'
+const isProduction = process.env.VERCEL === '1' || process.env.NODE_ENV === 'production'
 
 export async function POST(req: NextRequest) {
   try {
@@ -51,28 +60,35 @@ export async function POST(req: NextRequest) {
     const fileName = `signature-fs-${userId}-${uniqueId}.png`
     let publicPath = ''
     
-    if (isProduction) {
-      // For Vercel deployment, return a mock path without writing to filesystem
-      publicPath = `/signatures/${fileName}`
-    } else {
-      // For local development, actually write the file to disk
-      try {
-        // Ensure directories exist
+    try {
+      // Decode and save signature data
+      const imageBuffer = decodeBase64Image(signature)
+      
+      if (isProduction) {
+        // In production (Vercel), store in memory
+        global.inMemoryFileStorage.set(fileName, imageBuffer)
+        publicPath = `/api/files/${fileName}`
+      } else {
+        // For development, still use the in-memory approach for consistency
+        global.inMemoryFileStorage.set(fileName, imageBuffer)
+        publicPath = `/api/files/${fileName}`
+        
+        // Note: If you want to keep filesystem storage for development,
+        // you could uncomment the following code:
+        /*
         const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'signatures')
         if (!fs.existsSync(uploadDir)) {
           fs.mkdirSync(uploadDir, { recursive: true })
         }
         
         const filePath = path.join(uploadDir, fileName)
-        const imageBuffer = decodeBase64Image(signature)
         fs.writeFileSync(filePath, imageBuffer)
-        
-        // Return the public URL path for the signature
         publicPath = `/uploads/signatures/${fileName}`
-      } catch (error) {
-        console.error("Error processing image:", error)
-        return NextResponse.json({ error: "Invalid signature format" }, { status: 400 })
+        */
       }
+    } catch (error) {
+      console.error("Error processing image:", error)
+      return NextResponse.json({ error: "Invalid signature format" }, { status: 400 })
     }
     
     return NextResponse.json({ 
