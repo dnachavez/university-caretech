@@ -47,7 +47,9 @@ import {
   AlertCircle,
   Search,
   RefreshCw,
-  User
+  User,
+  Download,
+  Printer
 } from "lucide-react"
 import Link from "next/link"
 import { format } from "date-fns"
@@ -265,6 +267,13 @@ export default function AdminHealthFormsPage() {
     return matchesSearch && matchesStatus && matchesUserType
   })
 
+  const handlePrintFile = (filePath: string) => {
+    const printWindow = window.open(filePath, '_blank');
+    printWindow?.addEventListener('load', () => {
+      printWindow.print();
+    });
+  };
+
   if (!isAuthenticated || !user) {
     return null // Don't render anything while checking auth
   }
@@ -451,6 +460,25 @@ export default function AdminHealthFormsPage() {
                             <ExternalLink className="h-4 w-4" />
                           </Button>
                         </a>
+                        
+                        <Button variant="ghost" size="sm" className="text-blue-600"
+                          onClick={() => {
+                            const link = document.createElement('a');
+                            link.href = form.filePath;
+                            link.download = `form_${form.id}.pdf`;
+                            document.body.appendChild(link);
+                            link.click();
+                            document.body.removeChild(link);
+                          }}
+                        >
+                          <Download className="h-4 w-4" />
+                        </Button>
+                        
+                        <Button variant="ghost" size="sm" className="text-blue-600"
+                          onClick={() => handlePrintFile(form.filePath)}
+                        >
+                          <Printer className="h-4 w-4" />
+                        </Button>
                         
                         <DropdownMenu>
                           <DropdownMenuTrigger asChild>

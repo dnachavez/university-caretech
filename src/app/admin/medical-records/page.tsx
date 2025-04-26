@@ -3,13 +3,13 @@
 import { useState, useRef, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
-import { ChevronRight, Upload, FileText, Search, Plus, Check, X } from "lucide-react"
+import { ChevronRight, Upload, FileText, Search, Plus, Check, X, Eye, Download, Printer } from "lucide-react"
 import { useAuthStore } from "@/store/auth-store"
 import { toast } from "sonner"
 import { 
@@ -274,6 +274,23 @@ export default function AdminMedicalRecordsPage() {
     }
   }
   
+  const handleDownloadFile = (filePath: string) => {
+    const fileName = filePath.split('/').pop() || 'medical-record.pdf';
+    const link = document.createElement('a');
+    link.href = filePath;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handlePrintFile = (filePath: string) => {
+    const printWindow = window.open(filePath, '_blank');
+    printWindow?.addEventListener('load', () => {
+      printWindow.print();
+    });
+  };
+  
   if (!isAuthenticated || !user) {
     return null // Don't render anything while checking auth
   }
@@ -517,7 +534,26 @@ export default function AdminMedicalRecordsPage() {
                               variant="outline"
                               onClick={() => window.open(record.filePath, '_blank')}
                             >
+                              <Eye className="h-4 w-4 mr-1" />
                               View
+                            </Button>
+                            
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => handleDownloadFile(record.filePath)}
+                            >
+                              <Download className="h-4 w-4 mr-1" />
+                              Download
+                            </Button>
+                            
+                            <Button 
+                              size="sm" 
+                              variant="outline"
+                              onClick={() => handlePrintFile(record.filePath)}
+                            >
+                              <Printer className="h-4 w-4 mr-1" />
+                              Print
                             </Button>
                             
                             <Select 

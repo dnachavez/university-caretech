@@ -19,7 +19,7 @@ import {
   TableRow 
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { ChevronRight, FileText, Plus, ExternalLink, Loader2 } from "lucide-react"
+import { ChevronRight, FileText, Plus, ExternalLink, Loader2, Download, Printer } from "lucide-react"
 import Link from "next/link"
 import { format } from "date-fns"
 import { Badge } from "@/components/ui/badge"
@@ -79,7 +79,7 @@ export default function FormsPage() {
   }
   
   const getStatusBadge = (status: string) => {
-    switch (status.toUpperCase()) {
+    switch (status) {
       case 'PENDING':
         return <Badge variant="outline" className="bg-yellow-50 text-yellow-700 border-yellow-200">Pending</Badge>
       case 'APPROVED':
@@ -103,6 +103,23 @@ export default function FormsPage() {
         return type
     }
   }
+  
+  const handleDownloadFile = (filePath: string) => {
+    const fileName = filePath.split('/').pop() || 'form.pdf';
+    const link = document.createElement('a');
+    link.href = filePath;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+  
+  const handlePrintFile = (filePath: string) => {
+    const printWindow = window.open(filePath, '_blank');
+    printWindow?.addEventListener('load', () => {
+      printWindow.print();
+    });
+  };
 
   if (!isAuthenticated || !user) {
     return null // Don't render anything while checking auth
@@ -189,17 +206,37 @@ export default function FormsPage() {
                     <TableCell>{getStatusBadge(form.status)}</TableCell>
                     <TableCell className="max-w-[200px] truncate">{form.notes || '-'}</TableCell>
                     <TableCell className="text-right">
-                      <a 
-                        href={form.filePath} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center text-blue-600 hover:text-blue-800"
-                      >
-                        <Button variant="ghost" size="sm" className="text-blue-600">
-                          <ExternalLink className="h-4 w-4 mr-1" />
-                          View
+                      <div className="flex justify-end gap-1">
+                        <a 
+                          href={form.filePath} 
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center text-blue-600 hover:text-blue-800"
+                        >
+                          <Button variant="ghost" size="sm" className="text-blue-600">
+                            <ExternalLink className="h-4 w-4 mr-1" />
+                            View
+                          </Button>
+                        </a>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-blue-600"
+                          onClick={() => handleDownloadFile(form.filePath)}
+                        >
+                          <Download className="h-4 w-4 mr-1" />
+                          Download
                         </Button>
-                      </a>
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          className="text-blue-600"
+                          onClick={() => handlePrintFile(form.filePath)}
+                        >
+                          <Printer className="h-4 w-4 mr-1" />
+                          Print
+                        </Button>
+                      </div>
                     </TableCell>
                   </TableRow>
                 ))}
