@@ -16,6 +16,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collap
 import { Separator } from "./ui/separator"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./ui/tooltip"
 import { useAuthStore } from "@/store/auth-store"
+import { useSidebarStore } from "@/store/sidebar-store"
 import { toast } from "sonner"
 
 interface NavItemProps {
@@ -148,10 +149,10 @@ const NavGroup = ({
 }
 
 export function Sidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
   const { logout, user } = useAuthStore()
+  const { isCollapsed } = useSidebarStore()
 
   // Determine the base route based on the pathname or user role
   const baseRoute = useMemo(() => {
@@ -343,21 +344,6 @@ export function Sidebar() {
       
       <div className="p-2">
         <Separator className="my-2" />
-        <Button 
-          variant="ghost" 
-          onClick={() => setIsCollapsed(!isCollapsed)}
-          className="w-full justify-start gap-2 px-3 h-10 text-slate-600 hover:bg-blue-50 hover:text-blue-600"
-        >
-          {isCollapsed ? (
-            <ChevronRight className="h-5 w-5 text-blue-600" />
-          ) : (
-            <>
-              <ChevronLeft className="h-5 w-5 text-blue-600" />
-              <span className="text-blue-600">Collapse</span>
-            </>
-          )}
-        </Button>
-        
         <Button 
           variant="ghost" 
           onClick={handleSignOut}

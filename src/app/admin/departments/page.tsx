@@ -115,7 +115,9 @@ export default function DepartmentsPage() {
       const response = await fetch('/api/admin/departments', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user?.id || ''}`,
+          'x-user-role': user?.role || ''
         },
         body: JSON.stringify(newDepartment)
       })
@@ -151,7 +153,9 @@ export default function DepartmentsPage() {
       const response = await fetch(`/api/admin/departments/${currentDepartment.id}`, {
         method: 'PATCH',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user?.id || ''}`,
+          'x-user-role': user?.role || ''
         },
         body: JSON.stringify({
           name: currentDepartment.name,
@@ -189,7 +193,11 @@ export default function DepartmentsPage() {
     try {
       setIsLoading(true)
       const response = await fetch(`/api/admin/departments/${currentDepartment.id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${user?.id || ''}`,
+          'x-user-role': user?.role || ''
+        }
       })
       
       if (response.ok) {
@@ -220,7 +228,11 @@ export default function DepartmentsPage() {
     try {
       setIsLoading(true)
       const response = await fetch(`/api/admin/departments/${id}/toggle`, {
-        method: 'PATCH'
+        method: 'PATCH',
+        headers: {
+          'Authorization': `Bearer ${user?.id || ''}`,
+          'x-user-role': user?.role || ''
+        }
       })
       
       if (response.ok) {

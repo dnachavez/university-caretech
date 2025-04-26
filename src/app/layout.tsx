@@ -2,6 +2,11 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import "./globals.css";
+import { prisma } from "@/lib/prisma";
+
+// Pre-warm the connection by executing a simple query
+// This will happen server-side on app initialization
+prisma.$queryRaw`SELECT 1`.catch(e => console.error('Failed to pre-warm Prisma client:', e));
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

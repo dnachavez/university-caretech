@@ -21,11 +21,11 @@ model User {
   verificationToken String?
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
-  healthForm        UserHealthForm?
-  uploadedForms     UploadedForm[]
   appointments      Appointment[]
   clearanceRequests ClearanceRequest[]
   notifications     Notification[]
+  uploadedForms     UploadedForm[]
+  healthForm        UserHealthForm?
 }
 
 model VerificationToken {
@@ -45,8 +45,8 @@ model PasswordResetToken {
 }
 
 model UserHealthForm {
-  id                   String   @id @default(cuid())
-  userId               String   @unique
+  id                   String      @id @default(cuid())
+  userId               String      @unique
   lastName             String
   firstName            String
   middleInitial        String?
@@ -67,41 +67,41 @@ model UserHealthForm {
   emergencyNumber      String
   bloodType            String?
   signaturePath        String
-  dateSigned           DateTime @default(now())
+  dateSigned           DateTime    @default(now())
   pastIllnesses        String?
   hospitalization      String?
   medications          String?
-  allergies            Boolean  @default(false)
-  immunized            Boolean  @default(false)
-  communicableDisease  Boolean  @default(false)
-  asthmatic            Boolean  @default(false)
-  chronicIllness       Boolean  @default(false)
-  hiking               Boolean  @default(false)
-  dancing              Boolean  @default(false)
-  swimming             Boolean  @default(false)
-  basketball           Boolean  @default(false)
-  ballgames            Boolean  @default(false)
-  jogging              Boolean  @default(false)
-  football             Boolean  @default(false)
-  badminton            Boolean  @default(false)
-  calisthenics         Boolean  @default(false)
-  wallclimbing         Boolean  @default(false)
+  allergies            Boolean     @default(false)
+  immunized            Boolean     @default(false)
+  communicableDisease  Boolean     @default(false)
+  asthmatic            Boolean     @default(false)
+  chronicIllness       Boolean     @default(false)
+  hiking               Boolean     @default(false)
+  dancing              Boolean     @default(false)
+  swimming             Boolean     @default(false)
+  basketball           Boolean     @default(false)
+  ballgames            Boolean     @default(false)
+  jogging              Boolean     @default(false)
+  football             Boolean     @default(false)
+  badminton            Boolean     @default(false)
+  calisthenics         Boolean     @default(false)
+  wallclimbing         Boolean     @default(false)
   notFitActivities     String?
-  medicationPermission Boolean  @default(false)
-  user                 User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  medicationPermission Boolean     @default(false)
   department           Department? @relation(fields: [departmentId], references: [id])
+  user                 User        @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model UploadedForm {
-  id          String   @id @default(cuid())
-  userId      String
-  formType    String
-  filePath    String
-  notes       String?
-  status      String   @default("PENDING")
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  user        User     @relation(fields: [userId], references: [id])
+  id        String   @id @default(cuid())
+  userId    String
+  formType  String
+  filePath  String
+  notes     String?
+  status    String   @default("PENDING")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
 }
 
 model ConsultationDate {
@@ -114,69 +114,69 @@ model ConsultationDate {
 }
 
 model TimeSlot {
-  id                String           @id @default(cuid())
-  startTime         String
-  endTime           String
-  isAvailable       Boolean          @default(true)
+  id                 String           @id @default(cuid())
+  startTime          String
+  endTime            String
+  isAvailable        Boolean          @default(true)
   consultationDateId String
-  consultationDate  ConsultationDate @relation(fields: [consultationDateId], references: [id], onDelete: Cascade)
-  appointment       Appointment?
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
+  createdAt          DateTime         @default(now())
+  updatedAt          DateTime         @updatedAt
+  appointment        Appointment?
+  consultationDate   ConsultationDate @relation(fields: [consultationDateId], references: [id], onDelete: Cascade)
 }
 
 model Appointment {
-  id             String   @id @default(cuid())
-  userId         String
-  timeSlotId     String   @unique
+  id               String   @id @default(cuid())
+  userId           String
+  timeSlotId       String   @unique
   consultationType String
-  reasonForVisit String
-  additionalNotes String?
-  status         String   @default("SCHEDULED") // SCHEDULED, COMPLETED, CANCELLED
-  user           User     @relation(fields: [userId], references: [id])
-  timeSlot       TimeSlot @relation(fields: [timeSlotId], references: [id])
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  reasonForVisit   String
+  additionalNotes  String?
+  status           String   @default("SCHEDULED")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  timeSlot         TimeSlot @relation(fields: [timeSlotId], references: [id])
+  user             User     @relation(fields: [userId], references: [id])
 }
 
 model Department {
-  id            String            @id @default(cuid())
-  name          String
-  isActive      Boolean           @default(true)
-  createdAt     DateTime          @default(now())
-  updatedAt     DateTime          @updatedAt
+  id                String             @id @default(cuid())
+  name              String
+  isActive          Boolean            @default(true)
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
   clearanceRequests ClearanceRequest[]
-  healthForms   UserHealthForm[]
+  healthForms       UserHealthForm[]
 }
 
 model ClearanceRequest {
-  id               String    @id @default(cuid())
-  userId           String
-  departmentId     String
-  reason           String
-  otherReason      String?
-  purpose          String
-  dateNeeded       DateTime
-  additionalInfo   String?
-  status           String    @default("PENDING") // PENDING, APPROVED, REJECTED
-  documentUrl      String?
-  createdAt        DateTime  @default(now())
-  updatedAt        DateTime  @updatedAt
-  user             User      @relation(fields: [userId], references: [id])
-  department       Department @relation(fields: [departmentId], references: [id])
+  id             String     @id @default(cuid())
+  userId         String
+  departmentId   String
+  reason         String
+  otherReason    String?
+  purpose        String
+  dateNeeded     DateTime
+  additionalInfo String?
+  status         String     @default("PENDING")
+  documentUrl    String?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  department     Department @relation(fields: [departmentId], references: [id])
+  user           User       @relation(fields: [userId], references: [id])
 }
 
 model Notification {
-  id           String   @id @default(cuid())
-  userId       String
-  title        String
-  description  String
-  type         String   // APPOINTMENT, FORM, ACCOUNT_APPROVAL, CLEARANCE, GENERAL
-  read         Boolean  @default(false)
-  icon         String?
-  linkTo       String?  // Path to redirect when clicked
-  relatedId    String?  // ID of related entity (appointment, form, etc.)
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  user         User     @relation(fields: [userId], references: [id])
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  description String
+  type        String
+  read        Boolean  @default(false)
+  icon        String?
+  linkTo      String?
+  relatedId   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  user        User     @relation(fields: [userId], references: [id])
 }

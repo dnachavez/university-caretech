@@ -3,8 +3,9 @@
 import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Bell, Edit, LogOut, Search, ChevronDown, FileText, Calendar, User } from "lucide-react"
+import { Bell, Edit, LogOut, Search, ChevronDown, FileText, Calendar, User, Menu } from "lucide-react"
 import { useAuthStore } from "@/store/auth-store"
+import { useSidebarStore } from "@/store/sidebar-store"
 import { Input } from "./ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import { Button } from "./ui/button"
@@ -22,6 +23,7 @@ import { formatDistanceToNow } from "date-fns"
 
 export function Header() {
   const { user, logout } = useAuthStore()
+  const { isCollapsed, toggleCollapse } = useSidebarStore()
   const router = useRouter()
   const [searchQuery, setSearchQuery] = useState("")
   const [notifications, setNotifications] = useState<Notification[]>([])
@@ -173,6 +175,15 @@ export function Header() {
   return (
     <header className="bg-white border-b border-gray-200 h-16 flex items-center px-6 sticky top-0 z-10">
       <div className="flex items-center flex-1">
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          onClick={toggleCollapse}
+          className="mr-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50"
+          aria-label="Toggle sidebar"
+        >
+          <Menu className="h-5 w-5" />
+        </Button>
         <Link href={getDashboardPath()} className="flex items-center gap-2">
           <Image 
             src="/images/university-caretech-logo.png" 

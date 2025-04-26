@@ -1779,17 +1779,17 @@ export namespace Prisma {
    */
 
   export type UserCountOutputType = {
-    uploadedForms: number
     appointments: number
     clearanceRequests: number
     notifications: number
+    uploadedForms: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    uploadedForms?: boolean | UserCountOutputTypeCountUploadedFormsArgs
     appointments?: boolean | UserCountOutputTypeCountAppointmentsArgs
     clearanceRequests?: boolean | UserCountOutputTypeCountClearanceRequestsArgs
     notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+    uploadedForms?: boolean | UserCountOutputTypeCountUploadedFormsArgs
   }
 
   // Custom InputTypes
@@ -1801,13 +1801,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the UserCountOutputType
      */
     select?: UserCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountUploadedFormsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UploadedFormWhereInput
   }
 
   /**
@@ -1829,6 +1822,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NotificationWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUploadedFormsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UploadedFormWhereInput
   }
 
 
@@ -2127,11 +2127,11 @@ export namespace Prisma {
     verificationToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    healthForm?: boolean | User$healthFormArgs<ExtArgs>
-    uploadedForms?: boolean | User$uploadedFormsArgs<ExtArgs>
     appointments?: boolean | User$appointmentsArgs<ExtArgs>
     clearanceRequests?: boolean | User$clearanceRequestsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
+    uploadedForms?: boolean | User$uploadedFormsArgs<ExtArgs>
+    healthForm?: boolean | User$healthFormArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2182,11 +2182,11 @@ export namespace Prisma {
 
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "username" | "email" | "password" | "role" | "status" | "emailVerified" | "verificationToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    healthForm?: boolean | User$healthFormArgs<ExtArgs>
-    uploadedForms?: boolean | User$uploadedFormsArgs<ExtArgs>
     appointments?: boolean | User$appointmentsArgs<ExtArgs>
     clearanceRequests?: boolean | User$clearanceRequestsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
+    uploadedForms?: boolean | User$uploadedFormsArgs<ExtArgs>
+    healthForm?: boolean | User$healthFormArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2195,11 +2195,11 @@ export namespace Prisma {
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
     objects: {
-      healthForm: Prisma.$UserHealthFormPayload<ExtArgs> | null
-      uploadedForms: Prisma.$UploadedFormPayload<ExtArgs>[]
       appointments: Prisma.$AppointmentPayload<ExtArgs>[]
       clearanceRequests: Prisma.$ClearanceRequestPayload<ExtArgs>[]
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
+      uploadedForms: Prisma.$UploadedFormPayload<ExtArgs>[]
+      healthForm: Prisma.$UserHealthFormPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2608,11 +2608,11 @@ export namespace Prisma {
    */
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    healthForm<T extends User$healthFormArgs<ExtArgs> = {}>(args?: Subset<T, User$healthFormArgs<ExtArgs>>): Prisma__UserHealthFormClient<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-    uploadedForms<T extends User$uploadedFormsArgs<ExtArgs> = {}>(args?: Subset<T, User$uploadedFormsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UploadedFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     appointments<T extends User$appointmentsArgs<ExtArgs> = {}>(args?: Subset<T, User$appointmentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     clearanceRequests<T extends User$clearanceRequestsArgs<ExtArgs> = {}>(args?: Subset<T, User$clearanceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    uploadedForms<T extends User$uploadedFormsArgs<ExtArgs> = {}>(args?: Subset<T, User$uploadedFormsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UploadedFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    healthForm<T extends User$healthFormArgs<ExtArgs> = {}>(args?: Subset<T, User$healthFormArgs<ExtArgs>>): Prisma__UserHealthFormClient<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3042,49 +3042,6 @@ export namespace Prisma {
   }
 
   /**
-   * User.healthForm
-   */
-  export type User$healthFormArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UserHealthForm
-     */
-    select?: UserHealthFormSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UserHealthForm
-     */
-    omit?: UserHealthFormOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserHealthFormInclude<ExtArgs> | null
-    where?: UserHealthFormWhereInput
-  }
-
-  /**
-   * User.uploadedForms
-   */
-  export type User$uploadedFormsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the UploadedForm
-     */
-    select?: UploadedFormSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the UploadedForm
-     */
-    omit?: UploadedFormOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UploadedFormInclude<ExtArgs> | null
-    where?: UploadedFormWhereInput
-    orderBy?: UploadedFormOrderByWithRelationInput | UploadedFormOrderByWithRelationInput[]
-    cursor?: UploadedFormWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UploadedFormScalarFieldEnum | UploadedFormScalarFieldEnum[]
-  }
-
-  /**
    * User.appointments
    */
   export type User$appointmentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -3154,6 +3111,49 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NotificationScalarFieldEnum | NotificationScalarFieldEnum[]
+  }
+
+  /**
+   * User.uploadedForms
+   */
+  export type User$uploadedFormsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UploadedForm
+     */
+    select?: UploadedFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UploadedForm
+     */
+    omit?: UploadedFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UploadedFormInclude<ExtArgs> | null
+    where?: UploadedFormWhereInput
+    orderBy?: UploadedFormOrderByWithRelationInput | UploadedFormOrderByWithRelationInput[]
+    cursor?: UploadedFormWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UploadedFormScalarFieldEnum | UploadedFormScalarFieldEnum[]
+  }
+
+  /**
+   * User.healthForm
+   */
+  export type User$healthFormArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserHealthForm
+     */
+    select?: UserHealthFormSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserHealthForm
+     */
+    omit?: UserHealthFormOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserHealthFormInclude<ExtArgs> | null
+    where?: UserHealthFormWhereInput
   }
 
   /**
@@ -5633,8 +5633,8 @@ export namespace Prisma {
     wallclimbing?: boolean
     notFitActivities?: boolean
     medicationPermission?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | UserHealthForm$departmentArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userHealthForm"]>
 
   export type UserHealthFormSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5681,8 +5681,8 @@ export namespace Prisma {
     wallclimbing?: boolean
     notFitActivities?: boolean
     medicationPermission?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | UserHealthForm$departmentArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userHealthForm"]>
 
   export type UserHealthFormSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -5729,8 +5729,8 @@ export namespace Prisma {
     wallclimbing?: boolean
     notFitActivities?: boolean
     medicationPermission?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | UserHealthForm$departmentArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["userHealthForm"]>
 
   export type UserHealthFormSelectScalar = {
@@ -5781,23 +5781,23 @@ export namespace Prisma {
 
   export type UserHealthFormOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "lastName" | "firstName" | "middleInitial" | "birthdate" | "gender" | "birthPlace" | "addressLine1" | "addressLine2" | "city" | "state" | "postalCode" | "departmentId" | "yearLevel" | "guardianName" | "guardianContact" | "emergencyContact" | "relationship" | "emergencyNumber" | "bloodType" | "signaturePath" | "dateSigned" | "pastIllnesses" | "hospitalization" | "medications" | "allergies" | "immunized" | "communicableDisease" | "asthmatic" | "chronicIllness" | "hiking" | "dancing" | "swimming" | "basketball" | "ballgames" | "jogging" | "football" | "badminton" | "calisthenics" | "wallclimbing" | "notFitActivities" | "medicationPermission", ExtArgs["result"]["userHealthForm"]>
   export type UserHealthFormInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | UserHealthForm$departmentArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type UserHealthFormIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | UserHealthForm$departmentArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type UserHealthFormIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | UserHealthForm$departmentArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $UserHealthFormPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "UserHealthForm"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       department: Prisma.$DepartmentPayload<ExtArgs> | null
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6237,8 +6237,8 @@ export namespace Prisma {
    */
   export interface Prisma__UserHealthFormClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     department<T extends UserHealthForm$departmentArgs<ExtArgs> = {}>(args?: Subset<T, UserHealthForm$departmentArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9091,8 +9091,8 @@ export namespace Prisma {
     consultationDateId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    consultationDate?: boolean | ConsultationDateDefaultArgs<ExtArgs>
     appointment?: boolean | TimeSlot$appointmentArgs<ExtArgs>
+    consultationDate?: boolean | ConsultationDateDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["timeSlot"]>
 
   export type TimeSlotSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -9129,8 +9129,8 @@ export namespace Prisma {
 
   export type TimeSlotOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "startTime" | "endTime" | "isAvailable" | "consultationDateId" | "createdAt" | "updatedAt", ExtArgs["result"]["timeSlot"]>
   export type TimeSlotInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    consultationDate?: boolean | ConsultationDateDefaultArgs<ExtArgs>
     appointment?: boolean | TimeSlot$appointmentArgs<ExtArgs>
+    consultationDate?: boolean | ConsultationDateDefaultArgs<ExtArgs>
   }
   export type TimeSlotIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     consultationDate?: boolean | ConsultationDateDefaultArgs<ExtArgs>
@@ -9142,8 +9142,8 @@ export namespace Prisma {
   export type $TimeSlotPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "TimeSlot"
     objects: {
-      consultationDate: Prisma.$ConsultationDatePayload<ExtArgs>
       appointment: Prisma.$AppointmentPayload<ExtArgs> | null
+      consultationDate: Prisma.$ConsultationDatePayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -9547,8 +9547,8 @@ export namespace Prisma {
    */
   export interface Prisma__TimeSlotClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    consultationDate<T extends ConsultationDateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ConsultationDateDefaultArgs<ExtArgs>>): Prisma__ConsultationDateClient<$Result.GetResult<Prisma.$ConsultationDatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     appointment<T extends TimeSlot$appointmentArgs<ExtArgs> = {}>(args?: Subset<T, TimeSlot$appointmentArgs<ExtArgs>>): Prisma__AppointmentClient<$Result.GetResult<Prisma.$AppointmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    consultationDate<T extends ConsultationDateDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ConsultationDateDefaultArgs<ExtArgs>>): Prisma__ConsultationDateClient<$Result.GetResult<Prisma.$ConsultationDatePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10214,8 +10214,8 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     timeSlot?: boolean | TimeSlotDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["appointment"]>
 
   export type AppointmentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10228,8 +10228,8 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     timeSlot?: boolean | TimeSlotDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["appointment"]>
 
   export type AppointmentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10242,8 +10242,8 @@ export namespace Prisma {
     status?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     timeSlot?: boolean | TimeSlotDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["appointment"]>
 
   export type AppointmentSelectScalar = {
@@ -10260,23 +10260,23 @@ export namespace Prisma {
 
   export type AppointmentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "timeSlotId" | "consultationType" | "reasonForVisit" | "additionalNotes" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["appointment"]>
   export type AppointmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     timeSlot?: boolean | TimeSlotDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type AppointmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     timeSlot?: boolean | TimeSlotDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type AppointmentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     timeSlot?: boolean | TimeSlotDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $AppointmentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Appointment"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       timeSlot: Prisma.$TimeSlotPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -10682,8 +10682,8 @@ export namespace Prisma {
    */
   export interface Prisma__AppointmentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     timeSlot<T extends TimeSlotDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TimeSlotDefaultArgs<ExtArgs>>): Prisma__TimeSlotClient<$Result.GetResult<Prisma.$TimeSlotPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12454,8 +12454,8 @@ export namespace Prisma {
     documentUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | DepartmentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["clearanceRequest"]>
 
   export type ClearanceRequestSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -12471,8 +12471,8 @@ export namespace Prisma {
     documentUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | DepartmentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["clearanceRequest"]>
 
   export type ClearanceRequestSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -12488,8 +12488,8 @@ export namespace Prisma {
     documentUrl?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | DepartmentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["clearanceRequest"]>
 
   export type ClearanceRequestSelectScalar = {
@@ -12509,23 +12509,23 @@ export namespace Prisma {
 
   export type ClearanceRequestOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "departmentId" | "reason" | "otherReason" | "purpose" | "dateNeeded" | "additionalInfo" | "status" | "documentUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["clearanceRequest"]>
   export type ClearanceRequestInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | DepartmentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ClearanceRequestIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | DepartmentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
   export type ClearanceRequestIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    user?: boolean | UserDefaultArgs<ExtArgs>
     department?: boolean | DepartmentDefaultArgs<ExtArgs>
+    user?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $ClearanceRequestPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "ClearanceRequest"
     objects: {
-      user: Prisma.$UserPayload<ExtArgs>
       department: Prisma.$DepartmentPayload<ExtArgs>
+      user: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -12934,8 +12934,8 @@ export namespace Prisma {
    */
   export interface Prisma__ClearanceRequestClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     department<T extends DepartmentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DepartmentDefaultArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -14826,11 +14826,11 @@ export namespace Prisma {
     verificationToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    healthForm?: XOR<UserHealthFormNullableScalarRelationFilter, UserHealthFormWhereInput> | null
-    uploadedForms?: UploadedFormListRelationFilter
     appointments?: AppointmentListRelationFilter
     clearanceRequests?: ClearanceRequestListRelationFilter
     notifications?: NotificationListRelationFilter
+    uploadedForms?: UploadedFormListRelationFilter
+    healthForm?: XOR<UserHealthFormNullableScalarRelationFilter, UserHealthFormWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -14846,11 +14846,11 @@ export namespace Prisma {
     verificationToken?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    healthForm?: UserHealthFormOrderByWithRelationInput
-    uploadedForms?: UploadedFormOrderByRelationAggregateInput
     appointments?: AppointmentOrderByRelationAggregateInput
     clearanceRequests?: ClearanceRequestOrderByRelationAggregateInput
     notifications?: NotificationOrderByRelationAggregateInput
+    uploadedForms?: UploadedFormOrderByRelationAggregateInput
+    healthForm?: UserHealthFormOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -14869,11 +14869,11 @@ export namespace Prisma {
     verificationToken?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    healthForm?: XOR<UserHealthFormNullableScalarRelationFilter, UserHealthFormWhereInput> | null
-    uploadedForms?: UploadedFormListRelationFilter
     appointments?: AppointmentListRelationFilter
     clearanceRequests?: ClearanceRequestListRelationFilter
     notifications?: NotificationListRelationFilter
+    uploadedForms?: UploadedFormListRelationFilter
+    healthForm?: XOR<UserHealthFormNullableScalarRelationFilter, UserHealthFormWhereInput> | null
   }, "id" | "username" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -15063,8 +15063,8 @@ export namespace Prisma {
     wallclimbing?: BoolFilter<"UserHealthForm"> | boolean
     notFitActivities?: StringNullableFilter<"UserHealthForm"> | string | null
     medicationPermission?: BoolFilter<"UserHealthForm"> | boolean
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     department?: XOR<DepartmentNullableScalarRelationFilter, DepartmentWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type UserHealthFormOrderByWithRelationInput = {
@@ -15111,8 +15111,8 @@ export namespace Prisma {
     wallclimbing?: SortOrder
     notFitActivities?: SortOrderInput | SortOrder
     medicationPermission?: SortOrder
-    user?: UserOrderByWithRelationInput
     department?: DepartmentOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type UserHealthFormWhereUniqueInput = Prisma.AtLeast<{
@@ -15162,8 +15162,8 @@ export namespace Prisma {
     wallclimbing?: BoolFilter<"UserHealthForm"> | boolean
     notFitActivities?: StringNullableFilter<"UserHealthForm"> | string | null
     medicationPermission?: BoolFilter<"UserHealthForm"> | boolean
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     department?: XOR<DepartmentNullableScalarRelationFilter, DepartmentWhereInput> | null
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
   export type UserHealthFormOrderByWithAggregationInput = {
@@ -15400,8 +15400,8 @@ export namespace Prisma {
     consultationDateId?: StringFilter<"TimeSlot"> | string
     createdAt?: DateTimeFilter<"TimeSlot"> | Date | string
     updatedAt?: DateTimeFilter<"TimeSlot"> | Date | string
-    consultationDate?: XOR<ConsultationDateScalarRelationFilter, ConsultationDateWhereInput>
     appointment?: XOR<AppointmentNullableScalarRelationFilter, AppointmentWhereInput> | null
+    consultationDate?: XOR<ConsultationDateScalarRelationFilter, ConsultationDateWhereInput>
   }
 
   export type TimeSlotOrderByWithRelationInput = {
@@ -15412,8 +15412,8 @@ export namespace Prisma {
     consultationDateId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    consultationDate?: ConsultationDateOrderByWithRelationInput
     appointment?: AppointmentOrderByWithRelationInput
+    consultationDate?: ConsultationDateOrderByWithRelationInput
   }
 
   export type TimeSlotWhereUniqueInput = Prisma.AtLeast<{
@@ -15427,8 +15427,8 @@ export namespace Prisma {
     consultationDateId?: StringFilter<"TimeSlot"> | string
     createdAt?: DateTimeFilter<"TimeSlot"> | Date | string
     updatedAt?: DateTimeFilter<"TimeSlot"> | Date | string
-    consultationDate?: XOR<ConsultationDateScalarRelationFilter, ConsultationDateWhereInput>
     appointment?: XOR<AppointmentNullableScalarRelationFilter, AppointmentWhereInput> | null
+    consultationDate?: XOR<ConsultationDateScalarRelationFilter, ConsultationDateWhereInput>
   }, "id">
 
   export type TimeSlotOrderByWithAggregationInput = {
@@ -15470,8 +15470,8 @@ export namespace Prisma {
     status?: StringFilter<"Appointment"> | string
     createdAt?: DateTimeFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeFilter<"Appointment"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     timeSlot?: XOR<TimeSlotScalarRelationFilter, TimeSlotWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type AppointmentOrderByWithRelationInput = {
@@ -15484,8 +15484,8 @@ export namespace Prisma {
     status?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     timeSlot?: TimeSlotOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type AppointmentWhereUniqueInput = Prisma.AtLeast<{
@@ -15501,8 +15501,8 @@ export namespace Prisma {
     status?: StringFilter<"Appointment"> | string
     createdAt?: DateTimeFilter<"Appointment"> | Date | string
     updatedAt?: DateTimeFilter<"Appointment"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     timeSlot?: XOR<TimeSlotScalarRelationFilter, TimeSlotWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "timeSlotId">
 
   export type AppointmentOrderByWithAggregationInput = {
@@ -15609,8 +15609,8 @@ export namespace Prisma {
     documentUrl?: StringNullableFilter<"ClearanceRequest"> | string | null
     createdAt?: DateTimeFilter<"ClearanceRequest"> | Date | string
     updatedAt?: DateTimeFilter<"ClearanceRequest"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     department?: XOR<DepartmentScalarRelationFilter, DepartmentWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type ClearanceRequestOrderByWithRelationInput = {
@@ -15626,8 +15626,8 @@ export namespace Prisma {
     documentUrl?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    user?: UserOrderByWithRelationInput
     department?: DepartmentOrderByWithRelationInput
+    user?: UserOrderByWithRelationInput
   }
 
   export type ClearanceRequestWhereUniqueInput = Prisma.AtLeast<{
@@ -15646,8 +15646,8 @@ export namespace Prisma {
     documentUrl?: StringNullableFilter<"ClearanceRequest"> | string | null
     createdAt?: DateTimeFilter<"ClearanceRequest"> | Date | string
     updatedAt?: DateTimeFilter<"ClearanceRequest"> | Date | string
-    user?: XOR<UserScalarRelationFilter, UserWhereInput>
     department?: XOR<DepartmentScalarRelationFilter, DepartmentWhereInput>
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id">
 
   export type ClearanceRequestOrderByWithAggregationInput = {
@@ -15784,11 +15784,11 @@ export namespace Prisma {
     verificationToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
-    uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
     appointments?: AppointmentCreateNestedManyWithoutUserInput
     clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
+    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -15804,11 +15804,11 @@ export namespace Prisma {
     verificationToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
-    uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
     clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
+    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -15824,11 +15824,11 @@ export namespace Prisma {
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
-    uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
     clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
+    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -15844,11 +15844,11 @@ export namespace Prisma {
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
-    uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
     clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
+    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -16050,8 +16050,8 @@ export namespace Prisma {
     wallclimbing?: boolean
     notFitActivities?: string | null
     medicationPermission?: boolean
-    user: UserCreateNestedOneWithoutHealthFormInput
     department?: DepartmentCreateNestedOneWithoutHealthFormsInput
+    user: UserCreateNestedOneWithoutHealthFormInput
   }
 
   export type UserHealthFormUncheckedCreateInput = {
@@ -16142,8 +16142,8 @@ export namespace Prisma {
     wallclimbing?: BoolFieldUpdateOperationsInput | boolean
     notFitActivities?: NullableStringFieldUpdateOperationsInput | string | null
     medicationPermission?: BoolFieldUpdateOperationsInput | boolean
-    user?: UserUpdateOneRequiredWithoutHealthFormNestedInput
     department?: DepartmentUpdateOneWithoutHealthFormsNestedInput
+    user?: UserUpdateOneRequiredWithoutHealthFormNestedInput
   }
 
   export type UserHealthFormUncheckedUpdateInput = {
@@ -16471,8 +16471,8 @@ export namespace Prisma {
     isAvailable?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
-    consultationDate: ConsultationDateCreateNestedOneWithoutTimeSlotsInput
     appointment?: AppointmentCreateNestedOneWithoutTimeSlotInput
+    consultationDate: ConsultationDateCreateNestedOneWithoutTimeSlotsInput
   }
 
   export type TimeSlotUncheckedCreateInput = {
@@ -16493,8 +16493,8 @@ export namespace Prisma {
     isAvailable?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    consultationDate?: ConsultationDateUpdateOneRequiredWithoutTimeSlotsNestedInput
     appointment?: AppointmentUpdateOneWithoutTimeSlotNestedInput
+    consultationDate?: ConsultationDateUpdateOneRequiredWithoutTimeSlotsNestedInput
   }
 
   export type TimeSlotUncheckedUpdateInput = {
@@ -16545,8 +16545,8 @@ export namespace Prisma {
     status?: string
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutAppointmentsInput
     timeSlot: TimeSlotCreateNestedOneWithoutAppointmentInput
+    user: UserCreateNestedOneWithoutAppointmentsInput
   }
 
   export type AppointmentUncheckedCreateInput = {
@@ -16569,8 +16569,8 @@ export namespace Prisma {
     status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutAppointmentsNestedInput
     timeSlot?: TimeSlotUpdateOneRequiredWithoutAppointmentNestedInput
+    user?: UserUpdateOneRequiredWithoutAppointmentsNestedInput
   }
 
   export type AppointmentUncheckedUpdateInput = {
@@ -16694,8 +16694,8 @@ export namespace Prisma {
     documentUrl?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    user: UserCreateNestedOneWithoutClearanceRequestsInput
     department: DepartmentCreateNestedOneWithoutClearanceRequestsInput
+    user: UserCreateNestedOneWithoutClearanceRequestsInput
   }
 
   export type ClearanceRequestUncheckedCreateInput = {
@@ -16724,8 +16724,8 @@ export namespace Prisma {
     documentUrl?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    user?: UserUpdateOneRequiredWithoutClearanceRequestsNestedInput
     department?: DepartmentUpdateOneRequiredWithoutClearanceRequestsNestedInput
+    user?: UserUpdateOneRequiredWithoutClearanceRequestsNestedInput
   }
 
   export type ClearanceRequestUncheckedUpdateInput = {
@@ -16929,17 +16929,6 @@ export namespace Prisma {
     not?: NestedDateTimeFilter<$PrismaModel> | Date | string
   }
 
-  export type UserHealthFormNullableScalarRelationFilter = {
-    is?: UserHealthFormWhereInput | null
-    isNot?: UserHealthFormWhereInput | null
-  }
-
-  export type UploadedFormListRelationFilter = {
-    every?: UploadedFormWhereInput
-    some?: UploadedFormWhereInput
-    none?: UploadedFormWhereInput
-  }
-
   export type AppointmentListRelationFilter = {
     every?: AppointmentWhereInput
     some?: AppointmentWhereInput
@@ -16958,13 +16947,20 @@ export namespace Prisma {
     none?: NotificationWhereInput
   }
 
+  export type UploadedFormListRelationFilter = {
+    every?: UploadedFormWhereInput
+    some?: UploadedFormWhereInput
+    none?: UploadedFormWhereInput
+  }
+
+  export type UserHealthFormNullableScalarRelationFilter = {
+    is?: UserHealthFormWhereInput | null
+    isNot?: UserHealthFormWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
-  }
-
-  export type UploadedFormOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type AppointmentOrderByRelationAggregateInput = {
@@ -16976,6 +16972,10 @@ export namespace Prisma {
   }
 
   export type NotificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UploadedFormOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17130,14 +17130,14 @@ export namespace Prisma {
     createdAt?: SortOrder
   }
 
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
-  }
-
   export type DepartmentNullableScalarRelationFilter = {
     is?: DepartmentWhereInput | null
     isNot?: DepartmentWhereInput | null
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
   }
 
   export type UserHealthFormCountOrderByAggregateInput = {
@@ -17345,14 +17345,14 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type ConsultationDateScalarRelationFilter = {
-    is?: ConsultationDateWhereInput
-    isNot?: ConsultationDateWhereInput
-  }
-
   export type AppointmentNullableScalarRelationFilter = {
     is?: AppointmentWhereInput | null
     isNot?: AppointmentWhereInput | null
+  }
+
+  export type ConsultationDateScalarRelationFilter = {
+    is?: ConsultationDateWhereInput
+    isNot?: ConsultationDateWhereInput
   }
 
   export type TimeSlotCountOrderByAggregateInput = {
@@ -17552,19 +17552,6 @@ export namespace Prisma {
     updatedAt?: SortOrder
   }
 
-  export type UserHealthFormCreateNestedOneWithoutUserInput = {
-    create?: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
-    connectOrCreate?: UserHealthFormCreateOrConnectWithoutUserInput
-    connect?: UserHealthFormWhereUniqueInput
-  }
-
-  export type UploadedFormCreateNestedManyWithoutUserInput = {
-    create?: XOR<UploadedFormCreateWithoutUserInput, UploadedFormUncheckedCreateWithoutUserInput> | UploadedFormCreateWithoutUserInput[] | UploadedFormUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UploadedFormCreateOrConnectWithoutUserInput | UploadedFormCreateOrConnectWithoutUserInput[]
-    createMany?: UploadedFormCreateManyUserInputEnvelope
-    connect?: UploadedFormWhereUniqueInput | UploadedFormWhereUniqueInput[]
-  }
-
   export type AppointmentCreateNestedManyWithoutUserInput = {
     create?: XOR<AppointmentCreateWithoutUserInput, AppointmentUncheckedCreateWithoutUserInput> | AppointmentCreateWithoutUserInput[] | AppointmentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AppointmentCreateOrConnectWithoutUserInput | AppointmentCreateOrConnectWithoutUserInput[]
@@ -17586,17 +17573,17 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
-  export type UserHealthFormUncheckedCreateNestedOneWithoutUserInput = {
-    create?: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
-    connectOrCreate?: UserHealthFormCreateOrConnectWithoutUserInput
-    connect?: UserHealthFormWhereUniqueInput
-  }
-
-  export type UploadedFormUncheckedCreateNestedManyWithoutUserInput = {
+  export type UploadedFormCreateNestedManyWithoutUserInput = {
     create?: XOR<UploadedFormCreateWithoutUserInput, UploadedFormUncheckedCreateWithoutUserInput> | UploadedFormCreateWithoutUserInput[] | UploadedFormUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UploadedFormCreateOrConnectWithoutUserInput | UploadedFormCreateOrConnectWithoutUserInput[]
     createMany?: UploadedFormCreateManyUserInputEnvelope
     connect?: UploadedFormWhereUniqueInput | UploadedFormWhereUniqueInput[]
+  }
+
+  export type UserHealthFormCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserHealthFormCreateOrConnectWithoutUserInput
+    connect?: UserHealthFormWhereUniqueInput
   }
 
   export type AppointmentUncheckedCreateNestedManyWithoutUserInput = {
@@ -17620,6 +17607,19 @@ export namespace Prisma {
     connect?: NotificationWhereUniqueInput | NotificationWhereUniqueInput[]
   }
 
+  export type UploadedFormUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UploadedFormCreateWithoutUserInput, UploadedFormUncheckedCreateWithoutUserInput> | UploadedFormCreateWithoutUserInput[] | UploadedFormUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UploadedFormCreateOrConnectWithoutUserInput | UploadedFormCreateOrConnectWithoutUserInput[]
+    createMany?: UploadedFormCreateManyUserInputEnvelope
+    connect?: UploadedFormWhereUniqueInput | UploadedFormWhereUniqueInput[]
+  }
+
+  export type UserHealthFormUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserHealthFormCreateOrConnectWithoutUserInput
+    connect?: UserHealthFormWhereUniqueInput
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -17634,30 +17634,6 @@ export namespace Prisma {
 
   export type DateTimeFieldUpdateOperationsInput = {
     set?: Date | string
-  }
-
-  export type UserHealthFormUpdateOneWithoutUserNestedInput = {
-    create?: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
-    connectOrCreate?: UserHealthFormCreateOrConnectWithoutUserInput
-    upsert?: UserHealthFormUpsertWithoutUserInput
-    disconnect?: UserHealthFormWhereInput | boolean
-    delete?: UserHealthFormWhereInput | boolean
-    connect?: UserHealthFormWhereUniqueInput
-    update?: XOR<XOR<UserHealthFormUpdateToOneWithWhereWithoutUserInput, UserHealthFormUpdateWithoutUserInput>, UserHealthFormUncheckedUpdateWithoutUserInput>
-  }
-
-  export type UploadedFormUpdateManyWithoutUserNestedInput = {
-    create?: XOR<UploadedFormCreateWithoutUserInput, UploadedFormUncheckedCreateWithoutUserInput> | UploadedFormCreateWithoutUserInput[] | UploadedFormUncheckedCreateWithoutUserInput[]
-    connectOrCreate?: UploadedFormCreateOrConnectWithoutUserInput | UploadedFormCreateOrConnectWithoutUserInput[]
-    upsert?: UploadedFormUpsertWithWhereUniqueWithoutUserInput | UploadedFormUpsertWithWhereUniqueWithoutUserInput[]
-    createMany?: UploadedFormCreateManyUserInputEnvelope
-    set?: UploadedFormWhereUniqueInput | UploadedFormWhereUniqueInput[]
-    disconnect?: UploadedFormWhereUniqueInput | UploadedFormWhereUniqueInput[]
-    delete?: UploadedFormWhereUniqueInput | UploadedFormWhereUniqueInput[]
-    connect?: UploadedFormWhereUniqueInput | UploadedFormWhereUniqueInput[]
-    update?: UploadedFormUpdateWithWhereUniqueWithoutUserInput | UploadedFormUpdateWithWhereUniqueWithoutUserInput[]
-    updateMany?: UploadedFormUpdateManyWithWhereWithoutUserInput | UploadedFormUpdateManyWithWhereWithoutUserInput[]
-    deleteMany?: UploadedFormScalarWhereInput | UploadedFormScalarWhereInput[]
   }
 
   export type AppointmentUpdateManyWithoutUserNestedInput = {
@@ -17702,17 +17678,7 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
-  export type UserHealthFormUncheckedUpdateOneWithoutUserNestedInput = {
-    create?: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
-    connectOrCreate?: UserHealthFormCreateOrConnectWithoutUserInput
-    upsert?: UserHealthFormUpsertWithoutUserInput
-    disconnect?: UserHealthFormWhereInput | boolean
-    delete?: UserHealthFormWhereInput | boolean
-    connect?: UserHealthFormWhereUniqueInput
-    update?: XOR<XOR<UserHealthFormUpdateToOneWithWhereWithoutUserInput, UserHealthFormUpdateWithoutUserInput>, UserHealthFormUncheckedUpdateWithoutUserInput>
-  }
-
-  export type UploadedFormUncheckedUpdateManyWithoutUserNestedInput = {
+  export type UploadedFormUpdateManyWithoutUserNestedInput = {
     create?: XOR<UploadedFormCreateWithoutUserInput, UploadedFormUncheckedCreateWithoutUserInput> | UploadedFormCreateWithoutUserInput[] | UploadedFormUncheckedCreateWithoutUserInput[]
     connectOrCreate?: UploadedFormCreateOrConnectWithoutUserInput | UploadedFormCreateOrConnectWithoutUserInput[]
     upsert?: UploadedFormUpsertWithWhereUniqueWithoutUserInput | UploadedFormUpsertWithWhereUniqueWithoutUserInput[]
@@ -17724,6 +17690,16 @@ export namespace Prisma {
     update?: UploadedFormUpdateWithWhereUniqueWithoutUserInput | UploadedFormUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: UploadedFormUpdateManyWithWhereWithoutUserInput | UploadedFormUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: UploadedFormScalarWhereInput | UploadedFormScalarWhereInput[]
+  }
+
+  export type UserHealthFormUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserHealthFormCreateOrConnectWithoutUserInput
+    upsert?: UserHealthFormUpsertWithoutUserInput
+    disconnect?: UserHealthFormWhereInput | boolean
+    delete?: UserHealthFormWhereInput | boolean
+    connect?: UserHealthFormWhereUniqueInput
+    update?: XOR<XOR<UserHealthFormUpdateToOneWithWhereWithoutUserInput, UserHealthFormUpdateWithoutUserInput>, UserHealthFormUncheckedUpdateWithoutUserInput>
   }
 
   export type AppointmentUncheckedUpdateManyWithoutUserNestedInput = {
@@ -17768,10 +17744,28 @@ export namespace Prisma {
     deleteMany?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutHealthFormInput = {
-    create?: XOR<UserCreateWithoutHealthFormInput, UserUncheckedCreateWithoutHealthFormInput>
-    connectOrCreate?: UserCreateOrConnectWithoutHealthFormInput
-    connect?: UserWhereUniqueInput
+  export type UploadedFormUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UploadedFormCreateWithoutUserInput, UploadedFormUncheckedCreateWithoutUserInput> | UploadedFormCreateWithoutUserInput[] | UploadedFormUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UploadedFormCreateOrConnectWithoutUserInput | UploadedFormCreateOrConnectWithoutUserInput[]
+    upsert?: UploadedFormUpsertWithWhereUniqueWithoutUserInput | UploadedFormUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UploadedFormCreateManyUserInputEnvelope
+    set?: UploadedFormWhereUniqueInput | UploadedFormWhereUniqueInput[]
+    disconnect?: UploadedFormWhereUniqueInput | UploadedFormWhereUniqueInput[]
+    delete?: UploadedFormWhereUniqueInput | UploadedFormWhereUniqueInput[]
+    connect?: UploadedFormWhereUniqueInput | UploadedFormWhereUniqueInput[]
+    update?: UploadedFormUpdateWithWhereUniqueWithoutUserInput | UploadedFormUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UploadedFormUpdateManyWithWhereWithoutUserInput | UploadedFormUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UploadedFormScalarWhereInput | UploadedFormScalarWhereInput[]
+  }
+
+  export type UserHealthFormUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
+    connectOrCreate?: UserHealthFormCreateOrConnectWithoutUserInput
+    upsert?: UserHealthFormUpsertWithoutUserInput
+    disconnect?: UserHealthFormWhereInput | boolean
+    delete?: UserHealthFormWhereInput | boolean
+    connect?: UserHealthFormWhereUniqueInput
+    update?: XOR<XOR<UserHealthFormUpdateToOneWithWhereWithoutUserInput, UserHealthFormUpdateWithoutUserInput>, UserHealthFormUncheckedUpdateWithoutUserInput>
   }
 
   export type DepartmentCreateNestedOneWithoutHealthFormsInput = {
@@ -17780,12 +17774,10 @@ export namespace Prisma {
     connect?: DepartmentWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutHealthFormNestedInput = {
+  export type UserCreateNestedOneWithoutHealthFormInput = {
     create?: XOR<UserCreateWithoutHealthFormInput, UserUncheckedCreateWithoutHealthFormInput>
     connectOrCreate?: UserCreateOrConnectWithoutHealthFormInput
-    upsert?: UserUpsertWithoutHealthFormInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutHealthFormInput, UserUpdateWithoutHealthFormInput>, UserUncheckedUpdateWithoutHealthFormInput>
   }
 
   export type DepartmentUpdateOneWithoutHealthFormsNestedInput = {
@@ -17796,6 +17788,14 @@ export namespace Prisma {
     delete?: DepartmentWhereInput | boolean
     connect?: DepartmentWhereUniqueInput
     update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutHealthFormsInput, DepartmentUpdateWithoutHealthFormsInput>, DepartmentUncheckedUpdateWithoutHealthFormsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutHealthFormNestedInput = {
+    create?: XOR<UserCreateWithoutHealthFormInput, UserUncheckedCreateWithoutHealthFormInput>
+    connectOrCreate?: UserCreateOrConnectWithoutHealthFormInput
+    upsert?: UserUpsertWithoutHealthFormInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutHealthFormInput, UserUpdateWithoutHealthFormInput>, UserUncheckedUpdateWithoutHealthFormInput>
   }
 
   export type UserCreateNestedOneWithoutUploadedFormsInput = {
@@ -17854,30 +17854,22 @@ export namespace Prisma {
     deleteMany?: TimeSlotScalarWhereInput | TimeSlotScalarWhereInput[]
   }
 
-  export type ConsultationDateCreateNestedOneWithoutTimeSlotsInput = {
-    create?: XOR<ConsultationDateCreateWithoutTimeSlotsInput, ConsultationDateUncheckedCreateWithoutTimeSlotsInput>
-    connectOrCreate?: ConsultationDateCreateOrConnectWithoutTimeSlotsInput
-    connect?: ConsultationDateWhereUniqueInput
-  }
-
   export type AppointmentCreateNestedOneWithoutTimeSlotInput = {
     create?: XOR<AppointmentCreateWithoutTimeSlotInput, AppointmentUncheckedCreateWithoutTimeSlotInput>
     connectOrCreate?: AppointmentCreateOrConnectWithoutTimeSlotInput
     connect?: AppointmentWhereUniqueInput
   }
 
+  export type ConsultationDateCreateNestedOneWithoutTimeSlotsInput = {
+    create?: XOR<ConsultationDateCreateWithoutTimeSlotsInput, ConsultationDateUncheckedCreateWithoutTimeSlotsInput>
+    connectOrCreate?: ConsultationDateCreateOrConnectWithoutTimeSlotsInput
+    connect?: ConsultationDateWhereUniqueInput
+  }
+
   export type AppointmentUncheckedCreateNestedOneWithoutTimeSlotInput = {
     create?: XOR<AppointmentCreateWithoutTimeSlotInput, AppointmentUncheckedCreateWithoutTimeSlotInput>
     connectOrCreate?: AppointmentCreateOrConnectWithoutTimeSlotInput
     connect?: AppointmentWhereUniqueInput
-  }
-
-  export type ConsultationDateUpdateOneRequiredWithoutTimeSlotsNestedInput = {
-    create?: XOR<ConsultationDateCreateWithoutTimeSlotsInput, ConsultationDateUncheckedCreateWithoutTimeSlotsInput>
-    connectOrCreate?: ConsultationDateCreateOrConnectWithoutTimeSlotsInput
-    upsert?: ConsultationDateUpsertWithoutTimeSlotsInput
-    connect?: ConsultationDateWhereUniqueInput
-    update?: XOR<XOR<ConsultationDateUpdateToOneWithWhereWithoutTimeSlotsInput, ConsultationDateUpdateWithoutTimeSlotsInput>, ConsultationDateUncheckedUpdateWithoutTimeSlotsInput>
   }
 
   export type AppointmentUpdateOneWithoutTimeSlotNestedInput = {
@@ -17890,6 +17882,14 @@ export namespace Prisma {
     update?: XOR<XOR<AppointmentUpdateToOneWithWhereWithoutTimeSlotInput, AppointmentUpdateWithoutTimeSlotInput>, AppointmentUncheckedUpdateWithoutTimeSlotInput>
   }
 
+  export type ConsultationDateUpdateOneRequiredWithoutTimeSlotsNestedInput = {
+    create?: XOR<ConsultationDateCreateWithoutTimeSlotsInput, ConsultationDateUncheckedCreateWithoutTimeSlotsInput>
+    connectOrCreate?: ConsultationDateCreateOrConnectWithoutTimeSlotsInput
+    upsert?: ConsultationDateUpsertWithoutTimeSlotsInput
+    connect?: ConsultationDateWhereUniqueInput
+    update?: XOR<XOR<ConsultationDateUpdateToOneWithWhereWithoutTimeSlotsInput, ConsultationDateUpdateWithoutTimeSlotsInput>, ConsultationDateUncheckedUpdateWithoutTimeSlotsInput>
+  }
+
   export type AppointmentUncheckedUpdateOneWithoutTimeSlotNestedInput = {
     create?: XOR<AppointmentCreateWithoutTimeSlotInput, AppointmentUncheckedCreateWithoutTimeSlotInput>
     connectOrCreate?: AppointmentCreateOrConnectWithoutTimeSlotInput
@@ -17900,24 +17900,16 @@ export namespace Prisma {
     update?: XOR<XOR<AppointmentUpdateToOneWithWhereWithoutTimeSlotInput, AppointmentUpdateWithoutTimeSlotInput>, AppointmentUncheckedUpdateWithoutTimeSlotInput>
   }
 
-  export type UserCreateNestedOneWithoutAppointmentsInput = {
-    create?: XOR<UserCreateWithoutAppointmentsInput, UserUncheckedCreateWithoutAppointmentsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutAppointmentsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type TimeSlotCreateNestedOneWithoutAppointmentInput = {
     create?: XOR<TimeSlotCreateWithoutAppointmentInput, TimeSlotUncheckedCreateWithoutAppointmentInput>
     connectOrCreate?: TimeSlotCreateOrConnectWithoutAppointmentInput
     connect?: TimeSlotWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutAppointmentsNestedInput = {
+  export type UserCreateNestedOneWithoutAppointmentsInput = {
     create?: XOR<UserCreateWithoutAppointmentsInput, UserUncheckedCreateWithoutAppointmentsInput>
     connectOrCreate?: UserCreateOrConnectWithoutAppointmentsInput
-    upsert?: UserUpsertWithoutAppointmentsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAppointmentsInput, UserUpdateWithoutAppointmentsInput>, UserUncheckedUpdateWithoutAppointmentsInput>
   }
 
   export type TimeSlotUpdateOneRequiredWithoutAppointmentNestedInput = {
@@ -17926,6 +17918,14 @@ export namespace Prisma {
     upsert?: TimeSlotUpsertWithoutAppointmentInput
     connect?: TimeSlotWhereUniqueInput
     update?: XOR<XOR<TimeSlotUpdateToOneWithWhereWithoutAppointmentInput, TimeSlotUpdateWithoutAppointmentInput>, TimeSlotUncheckedUpdateWithoutAppointmentInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutAppointmentsNestedInput = {
+    create?: XOR<UserCreateWithoutAppointmentsInput, UserUncheckedCreateWithoutAppointmentsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutAppointmentsInput
+    upsert?: UserUpsertWithoutAppointmentsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAppointmentsInput, UserUpdateWithoutAppointmentsInput>, UserUncheckedUpdateWithoutAppointmentsInput>
   }
 
   export type ClearanceRequestCreateNestedManyWithoutDepartmentInput = {
@@ -18012,24 +18012,16 @@ export namespace Prisma {
     deleteMany?: UserHealthFormScalarWhereInput | UserHealthFormScalarWhereInput[]
   }
 
-  export type UserCreateNestedOneWithoutClearanceRequestsInput = {
-    create?: XOR<UserCreateWithoutClearanceRequestsInput, UserUncheckedCreateWithoutClearanceRequestsInput>
-    connectOrCreate?: UserCreateOrConnectWithoutClearanceRequestsInput
-    connect?: UserWhereUniqueInput
-  }
-
   export type DepartmentCreateNestedOneWithoutClearanceRequestsInput = {
     create?: XOR<DepartmentCreateWithoutClearanceRequestsInput, DepartmentUncheckedCreateWithoutClearanceRequestsInput>
     connectOrCreate?: DepartmentCreateOrConnectWithoutClearanceRequestsInput
     connect?: DepartmentWhereUniqueInput
   }
 
-  export type UserUpdateOneRequiredWithoutClearanceRequestsNestedInput = {
+  export type UserCreateNestedOneWithoutClearanceRequestsInput = {
     create?: XOR<UserCreateWithoutClearanceRequestsInput, UserUncheckedCreateWithoutClearanceRequestsInput>
     connectOrCreate?: UserCreateOrConnectWithoutClearanceRequestsInput
-    upsert?: UserUpsertWithoutClearanceRequestsInput
     connect?: UserWhereUniqueInput
-    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutClearanceRequestsInput, UserUpdateWithoutClearanceRequestsInput>, UserUncheckedUpdateWithoutClearanceRequestsInput>
   }
 
   export type DepartmentUpdateOneRequiredWithoutClearanceRequestsNestedInput = {
@@ -18038,6 +18030,14 @@ export namespace Prisma {
     upsert?: DepartmentUpsertWithoutClearanceRequestsInput
     connect?: DepartmentWhereUniqueInput
     update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutClearanceRequestsInput, DepartmentUpdateWithoutClearanceRequestsInput>, DepartmentUncheckedUpdateWithoutClearanceRequestsInput>
+  }
+
+  export type UserUpdateOneRequiredWithoutClearanceRequestsNestedInput = {
+    create?: XOR<UserCreateWithoutClearanceRequestsInput, UserUncheckedCreateWithoutClearanceRequestsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutClearanceRequestsInput
+    upsert?: UserUpsertWithoutClearanceRequestsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutClearanceRequestsInput, UserUpdateWithoutClearanceRequestsInput>, UserUncheckedUpdateWithoutClearanceRequestsInput>
   }
 
   export type UserCreateNestedOneWithoutNotificationsInput = {
@@ -18176,131 +18176,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type UserHealthFormCreateWithoutUserInput = {
-    id?: string
-    lastName: string
-    firstName: string
-    middleInitial?: string | null
-    birthdate: Date | string
-    gender: string
-    birthPlace: string
-    addressLine1: string
-    addressLine2?: string | null
-    city: string
-    state: string
-    postalCode: string
-    yearLevel?: string | null
-    guardianName?: string | null
-    guardianContact?: string | null
-    emergencyContact: string
-    relationship: string
-    emergencyNumber: string
-    bloodType?: string | null
-    signaturePath: string
-    dateSigned?: Date | string
-    pastIllnesses?: string | null
-    hospitalization?: string | null
-    medications?: string | null
-    allergies?: boolean
-    immunized?: boolean
-    communicableDisease?: boolean
-    asthmatic?: boolean
-    chronicIllness?: boolean
-    hiking?: boolean
-    dancing?: boolean
-    swimming?: boolean
-    basketball?: boolean
-    ballgames?: boolean
-    jogging?: boolean
-    football?: boolean
-    badminton?: boolean
-    calisthenics?: boolean
-    wallclimbing?: boolean
-    notFitActivities?: string | null
-    medicationPermission?: boolean
-    department?: DepartmentCreateNestedOneWithoutHealthFormsInput
-  }
-
-  export type UserHealthFormUncheckedCreateWithoutUserInput = {
-    id?: string
-    lastName: string
-    firstName: string
-    middleInitial?: string | null
-    birthdate: Date | string
-    gender: string
-    birthPlace: string
-    addressLine1: string
-    addressLine2?: string | null
-    city: string
-    state: string
-    postalCode: string
-    departmentId?: string | null
-    yearLevel?: string | null
-    guardianName?: string | null
-    guardianContact?: string | null
-    emergencyContact: string
-    relationship: string
-    emergencyNumber: string
-    bloodType?: string | null
-    signaturePath: string
-    dateSigned?: Date | string
-    pastIllnesses?: string | null
-    hospitalization?: string | null
-    medications?: string | null
-    allergies?: boolean
-    immunized?: boolean
-    communicableDisease?: boolean
-    asthmatic?: boolean
-    chronicIllness?: boolean
-    hiking?: boolean
-    dancing?: boolean
-    swimming?: boolean
-    basketball?: boolean
-    ballgames?: boolean
-    jogging?: boolean
-    football?: boolean
-    badminton?: boolean
-    calisthenics?: boolean
-    wallclimbing?: boolean
-    notFitActivities?: string | null
-    medicationPermission?: boolean
-  }
-
-  export type UserHealthFormCreateOrConnectWithoutUserInput = {
-    where: UserHealthFormWhereUniqueInput
-    create: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
-  }
-
-  export type UploadedFormCreateWithoutUserInput = {
-    id?: string
-    formType: string
-    filePath: string
-    notes?: string | null
-    status?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type UploadedFormUncheckedCreateWithoutUserInput = {
-    id?: string
-    formType: string
-    filePath: string
-    notes?: string | null
-    status?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type UploadedFormCreateOrConnectWithoutUserInput = {
-    where: UploadedFormWhereUniqueInput
-    create: XOR<UploadedFormCreateWithoutUserInput, UploadedFormUncheckedCreateWithoutUserInput>
-  }
-
-  export type UploadedFormCreateManyUserInputEnvelope = {
-    data: UploadedFormCreateManyUserInput | UploadedFormCreateManyUserInput[]
-    skipDuplicates?: boolean
-  }
-
   export type AppointmentCreateWithoutUserInput = {
     id?: string
     consultationType: string
@@ -18407,6 +18282,259 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UploadedFormCreateWithoutUserInput = {
+    id?: string
+    formType: string
+    filePath: string
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UploadedFormUncheckedCreateWithoutUserInput = {
+    id?: string
+    formType: string
+    filePath: string
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UploadedFormCreateOrConnectWithoutUserInput = {
+    where: UploadedFormWhereUniqueInput
+    create: XOR<UploadedFormCreateWithoutUserInput, UploadedFormUncheckedCreateWithoutUserInput>
+  }
+
+  export type UploadedFormCreateManyUserInputEnvelope = {
+    data: UploadedFormCreateManyUserInput | UploadedFormCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type UserHealthFormCreateWithoutUserInput = {
+    id?: string
+    lastName: string
+    firstName: string
+    middleInitial?: string | null
+    birthdate: Date | string
+    gender: string
+    birthPlace: string
+    addressLine1: string
+    addressLine2?: string | null
+    city: string
+    state: string
+    postalCode: string
+    yearLevel?: string | null
+    guardianName?: string | null
+    guardianContact?: string | null
+    emergencyContact: string
+    relationship: string
+    emergencyNumber: string
+    bloodType?: string | null
+    signaturePath: string
+    dateSigned?: Date | string
+    pastIllnesses?: string | null
+    hospitalization?: string | null
+    medications?: string | null
+    allergies?: boolean
+    immunized?: boolean
+    communicableDisease?: boolean
+    asthmatic?: boolean
+    chronicIllness?: boolean
+    hiking?: boolean
+    dancing?: boolean
+    swimming?: boolean
+    basketball?: boolean
+    ballgames?: boolean
+    jogging?: boolean
+    football?: boolean
+    badminton?: boolean
+    calisthenics?: boolean
+    wallclimbing?: boolean
+    notFitActivities?: string | null
+    medicationPermission?: boolean
+    department?: DepartmentCreateNestedOneWithoutHealthFormsInput
+  }
+
+  export type UserHealthFormUncheckedCreateWithoutUserInput = {
+    id?: string
+    lastName: string
+    firstName: string
+    middleInitial?: string | null
+    birthdate: Date | string
+    gender: string
+    birthPlace: string
+    addressLine1: string
+    addressLine2?: string | null
+    city: string
+    state: string
+    postalCode: string
+    departmentId?: string | null
+    yearLevel?: string | null
+    guardianName?: string | null
+    guardianContact?: string | null
+    emergencyContact: string
+    relationship: string
+    emergencyNumber: string
+    bloodType?: string | null
+    signaturePath: string
+    dateSigned?: Date | string
+    pastIllnesses?: string | null
+    hospitalization?: string | null
+    medications?: string | null
+    allergies?: boolean
+    immunized?: boolean
+    communicableDisease?: boolean
+    asthmatic?: boolean
+    chronicIllness?: boolean
+    hiking?: boolean
+    dancing?: boolean
+    swimming?: boolean
+    basketball?: boolean
+    ballgames?: boolean
+    jogging?: boolean
+    football?: boolean
+    badminton?: boolean
+    calisthenics?: boolean
+    wallclimbing?: boolean
+    notFitActivities?: string | null
+    medicationPermission?: boolean
+  }
+
+  export type UserHealthFormCreateOrConnectWithoutUserInput = {
+    where: UserHealthFormWhereUniqueInput
+    create: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
+  }
+
+  export type AppointmentUpsertWithWhereUniqueWithoutUserInput = {
+    where: AppointmentWhereUniqueInput
+    update: XOR<AppointmentUpdateWithoutUserInput, AppointmentUncheckedUpdateWithoutUserInput>
+    create: XOR<AppointmentCreateWithoutUserInput, AppointmentUncheckedCreateWithoutUserInput>
+  }
+
+  export type AppointmentUpdateWithWhereUniqueWithoutUserInput = {
+    where: AppointmentWhereUniqueInput
+    data: XOR<AppointmentUpdateWithoutUserInput, AppointmentUncheckedUpdateWithoutUserInput>
+  }
+
+  export type AppointmentUpdateManyWithWhereWithoutUserInput = {
+    where: AppointmentScalarWhereInput
+    data: XOR<AppointmentUpdateManyMutationInput, AppointmentUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type AppointmentScalarWhereInput = {
+    AND?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
+    OR?: AppointmentScalarWhereInput[]
+    NOT?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
+    id?: StringFilter<"Appointment"> | string
+    userId?: StringFilter<"Appointment"> | string
+    timeSlotId?: StringFilter<"Appointment"> | string
+    consultationType?: StringFilter<"Appointment"> | string
+    reasonForVisit?: StringFilter<"Appointment"> | string
+    additionalNotes?: StringNullableFilter<"Appointment"> | string | null
+    status?: StringFilter<"Appointment"> | string
+    createdAt?: DateTimeFilter<"Appointment"> | Date | string
+    updatedAt?: DateTimeFilter<"Appointment"> | Date | string
+  }
+
+  export type ClearanceRequestUpsertWithWhereUniqueWithoutUserInput = {
+    where: ClearanceRequestWhereUniqueInput
+    update: XOR<ClearanceRequestUpdateWithoutUserInput, ClearanceRequestUncheckedUpdateWithoutUserInput>
+    create: XOR<ClearanceRequestCreateWithoutUserInput, ClearanceRequestUncheckedCreateWithoutUserInput>
+  }
+
+  export type ClearanceRequestUpdateWithWhereUniqueWithoutUserInput = {
+    where: ClearanceRequestWhereUniqueInput
+    data: XOR<ClearanceRequestUpdateWithoutUserInput, ClearanceRequestUncheckedUpdateWithoutUserInput>
+  }
+
+  export type ClearanceRequestUpdateManyWithWhereWithoutUserInput = {
+    where: ClearanceRequestScalarWhereInput
+    data: XOR<ClearanceRequestUpdateManyMutationInput, ClearanceRequestUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type ClearanceRequestScalarWhereInput = {
+    AND?: ClearanceRequestScalarWhereInput | ClearanceRequestScalarWhereInput[]
+    OR?: ClearanceRequestScalarWhereInput[]
+    NOT?: ClearanceRequestScalarWhereInput | ClearanceRequestScalarWhereInput[]
+    id?: StringFilter<"ClearanceRequest"> | string
+    userId?: StringFilter<"ClearanceRequest"> | string
+    departmentId?: StringFilter<"ClearanceRequest"> | string
+    reason?: StringFilter<"ClearanceRequest"> | string
+    otherReason?: StringNullableFilter<"ClearanceRequest"> | string | null
+    purpose?: StringFilter<"ClearanceRequest"> | string
+    dateNeeded?: DateTimeFilter<"ClearanceRequest"> | Date | string
+    additionalInfo?: StringNullableFilter<"ClearanceRequest"> | string | null
+    status?: StringFilter<"ClearanceRequest"> | string
+    documentUrl?: StringNullableFilter<"ClearanceRequest"> | string | null
+    createdAt?: DateTimeFilter<"ClearanceRequest"> | Date | string
+    updatedAt?: DateTimeFilter<"ClearanceRequest"> | Date | string
+  }
+
+  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
+  }
+
+  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
+    where: NotificationWhereUniqueInput
+    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
+  }
+
+  export type NotificationUpdateManyWithWhereWithoutUserInput = {
+    where: NotificationScalarWhereInput
+    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type NotificationScalarWhereInput = {
+    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    OR?: NotificationScalarWhereInput[]
+    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
+    id?: StringFilter<"Notification"> | string
+    userId?: StringFilter<"Notification"> | string
+    title?: StringFilter<"Notification"> | string
+    description?: StringFilter<"Notification"> | string
+    type?: StringFilter<"Notification"> | string
+    read?: BoolFilter<"Notification"> | boolean
+    icon?: StringNullableFilter<"Notification"> | string | null
+    linkTo?: StringNullableFilter<"Notification"> | string | null
+    relatedId?: StringNullableFilter<"Notification"> | string | null
+    createdAt?: DateTimeFilter<"Notification"> | Date | string
+    updatedAt?: DateTimeFilter<"Notification"> | Date | string
+  }
+
+  export type UploadedFormUpsertWithWhereUniqueWithoutUserInput = {
+    where: UploadedFormWhereUniqueInput
+    update: XOR<UploadedFormUpdateWithoutUserInput, UploadedFormUncheckedUpdateWithoutUserInput>
+    create: XOR<UploadedFormCreateWithoutUserInput, UploadedFormUncheckedCreateWithoutUserInput>
+  }
+
+  export type UploadedFormUpdateWithWhereUniqueWithoutUserInput = {
+    where: UploadedFormWhereUniqueInput
+    data: XOR<UploadedFormUpdateWithoutUserInput, UploadedFormUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UploadedFormUpdateManyWithWhereWithoutUserInput = {
+    where: UploadedFormScalarWhereInput
+    data: XOR<UploadedFormUpdateManyMutationInput, UploadedFormUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UploadedFormScalarWhereInput = {
+    AND?: UploadedFormScalarWhereInput | UploadedFormScalarWhereInput[]
+    OR?: UploadedFormScalarWhereInput[]
+    NOT?: UploadedFormScalarWhereInput | UploadedFormScalarWhereInput[]
+    id?: StringFilter<"UploadedForm"> | string
+    userId?: StringFilter<"UploadedForm"> | string
+    formType?: StringFilter<"UploadedForm"> | string
+    filePath?: StringFilter<"UploadedForm"> | string
+    notes?: StringNullableFilter<"UploadedForm"> | string | null
+    status?: StringFilter<"UploadedForm"> | string
+    createdAt?: DateTimeFilter<"UploadedForm"> | Date | string
+    updatedAt?: DateTimeFilter<"UploadedForm"> | Date | string
+  }
+
   export type UserHealthFormUpsertWithoutUserInput = {
     update: XOR<UserHealthFormUpdateWithoutUserInput, UserHealthFormUncheckedUpdateWithoutUserInput>
     create: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
@@ -18508,177 +18636,6 @@ export namespace Prisma {
     medicationPermission?: BoolFieldUpdateOperationsInput | boolean
   }
 
-  export type UploadedFormUpsertWithWhereUniqueWithoutUserInput = {
-    where: UploadedFormWhereUniqueInput
-    update: XOR<UploadedFormUpdateWithoutUserInput, UploadedFormUncheckedUpdateWithoutUserInput>
-    create: XOR<UploadedFormCreateWithoutUserInput, UploadedFormUncheckedCreateWithoutUserInput>
-  }
-
-  export type UploadedFormUpdateWithWhereUniqueWithoutUserInput = {
-    where: UploadedFormWhereUniqueInput
-    data: XOR<UploadedFormUpdateWithoutUserInput, UploadedFormUncheckedUpdateWithoutUserInput>
-  }
-
-  export type UploadedFormUpdateManyWithWhereWithoutUserInput = {
-    where: UploadedFormScalarWhereInput
-    data: XOR<UploadedFormUpdateManyMutationInput, UploadedFormUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type UploadedFormScalarWhereInput = {
-    AND?: UploadedFormScalarWhereInput | UploadedFormScalarWhereInput[]
-    OR?: UploadedFormScalarWhereInput[]
-    NOT?: UploadedFormScalarWhereInput | UploadedFormScalarWhereInput[]
-    id?: StringFilter<"UploadedForm"> | string
-    userId?: StringFilter<"UploadedForm"> | string
-    formType?: StringFilter<"UploadedForm"> | string
-    filePath?: StringFilter<"UploadedForm"> | string
-    notes?: StringNullableFilter<"UploadedForm"> | string | null
-    status?: StringFilter<"UploadedForm"> | string
-    createdAt?: DateTimeFilter<"UploadedForm"> | Date | string
-    updatedAt?: DateTimeFilter<"UploadedForm"> | Date | string
-  }
-
-  export type AppointmentUpsertWithWhereUniqueWithoutUserInput = {
-    where: AppointmentWhereUniqueInput
-    update: XOR<AppointmentUpdateWithoutUserInput, AppointmentUncheckedUpdateWithoutUserInput>
-    create: XOR<AppointmentCreateWithoutUserInput, AppointmentUncheckedCreateWithoutUserInput>
-  }
-
-  export type AppointmentUpdateWithWhereUniqueWithoutUserInput = {
-    where: AppointmentWhereUniqueInput
-    data: XOR<AppointmentUpdateWithoutUserInput, AppointmentUncheckedUpdateWithoutUserInput>
-  }
-
-  export type AppointmentUpdateManyWithWhereWithoutUserInput = {
-    where: AppointmentScalarWhereInput
-    data: XOR<AppointmentUpdateManyMutationInput, AppointmentUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type AppointmentScalarWhereInput = {
-    AND?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
-    OR?: AppointmentScalarWhereInput[]
-    NOT?: AppointmentScalarWhereInput | AppointmentScalarWhereInput[]
-    id?: StringFilter<"Appointment"> | string
-    userId?: StringFilter<"Appointment"> | string
-    timeSlotId?: StringFilter<"Appointment"> | string
-    consultationType?: StringFilter<"Appointment"> | string
-    reasonForVisit?: StringFilter<"Appointment"> | string
-    additionalNotes?: StringNullableFilter<"Appointment"> | string | null
-    status?: StringFilter<"Appointment"> | string
-    createdAt?: DateTimeFilter<"Appointment"> | Date | string
-    updatedAt?: DateTimeFilter<"Appointment"> | Date | string
-  }
-
-  export type ClearanceRequestUpsertWithWhereUniqueWithoutUserInput = {
-    where: ClearanceRequestWhereUniqueInput
-    update: XOR<ClearanceRequestUpdateWithoutUserInput, ClearanceRequestUncheckedUpdateWithoutUserInput>
-    create: XOR<ClearanceRequestCreateWithoutUserInput, ClearanceRequestUncheckedCreateWithoutUserInput>
-  }
-
-  export type ClearanceRequestUpdateWithWhereUniqueWithoutUserInput = {
-    where: ClearanceRequestWhereUniqueInput
-    data: XOR<ClearanceRequestUpdateWithoutUserInput, ClearanceRequestUncheckedUpdateWithoutUserInput>
-  }
-
-  export type ClearanceRequestUpdateManyWithWhereWithoutUserInput = {
-    where: ClearanceRequestScalarWhereInput
-    data: XOR<ClearanceRequestUpdateManyMutationInput, ClearanceRequestUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type ClearanceRequestScalarWhereInput = {
-    AND?: ClearanceRequestScalarWhereInput | ClearanceRequestScalarWhereInput[]
-    OR?: ClearanceRequestScalarWhereInput[]
-    NOT?: ClearanceRequestScalarWhereInput | ClearanceRequestScalarWhereInput[]
-    id?: StringFilter<"ClearanceRequest"> | string
-    userId?: StringFilter<"ClearanceRequest"> | string
-    departmentId?: StringFilter<"ClearanceRequest"> | string
-    reason?: StringFilter<"ClearanceRequest"> | string
-    otherReason?: StringNullableFilter<"ClearanceRequest"> | string | null
-    purpose?: StringFilter<"ClearanceRequest"> | string
-    dateNeeded?: DateTimeFilter<"ClearanceRequest"> | Date | string
-    additionalInfo?: StringNullableFilter<"ClearanceRequest"> | string | null
-    status?: StringFilter<"ClearanceRequest"> | string
-    documentUrl?: StringNullableFilter<"ClearanceRequest"> | string | null
-    createdAt?: DateTimeFilter<"ClearanceRequest"> | Date | string
-    updatedAt?: DateTimeFilter<"ClearanceRequest"> | Date | string
-  }
-
-  export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
-    where: NotificationWhereUniqueInput
-    update: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
-    create: XOR<NotificationCreateWithoutUserInput, NotificationUncheckedCreateWithoutUserInput>
-  }
-
-  export type NotificationUpdateWithWhereUniqueWithoutUserInput = {
-    where: NotificationWhereUniqueInput
-    data: XOR<NotificationUpdateWithoutUserInput, NotificationUncheckedUpdateWithoutUserInput>
-  }
-
-  export type NotificationUpdateManyWithWhereWithoutUserInput = {
-    where: NotificationScalarWhereInput
-    data: XOR<NotificationUpdateManyMutationInput, NotificationUncheckedUpdateManyWithoutUserInput>
-  }
-
-  export type NotificationScalarWhereInput = {
-    AND?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-    OR?: NotificationScalarWhereInput[]
-    NOT?: NotificationScalarWhereInput | NotificationScalarWhereInput[]
-    id?: StringFilter<"Notification"> | string
-    userId?: StringFilter<"Notification"> | string
-    title?: StringFilter<"Notification"> | string
-    description?: StringFilter<"Notification"> | string
-    type?: StringFilter<"Notification"> | string
-    read?: BoolFilter<"Notification"> | boolean
-    icon?: StringNullableFilter<"Notification"> | string | null
-    linkTo?: StringNullableFilter<"Notification"> | string | null
-    relatedId?: StringNullableFilter<"Notification"> | string | null
-    createdAt?: DateTimeFilter<"Notification"> | Date | string
-    updatedAt?: DateTimeFilter<"Notification"> | Date | string
-  }
-
-  export type UserCreateWithoutHealthFormInput = {
-    id?: string
-    firstName: string
-    lastName: string
-    username: string
-    email: string
-    password: string
-    role: string
-    status?: string
-    emailVerified?: boolean
-    verificationToken?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
-    appointments?: AppointmentCreateNestedManyWithoutUserInput
-    clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutHealthFormInput = {
-    id?: string
-    firstName: string
-    lastName: string
-    username: string
-    email: string
-    password: string
-    role: string
-    status?: string
-    emailVerified?: boolean
-    verificationToken?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
-    appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
-    clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutHealthFormInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutHealthFormInput, UserUncheckedCreateWithoutHealthFormInput>
-  }
-
   export type DepartmentCreateWithoutHealthFormsInput = {
     id?: string
     name: string
@@ -18702,53 +18659,47 @@ export namespace Prisma {
     create: XOR<DepartmentCreateWithoutHealthFormsInput, DepartmentUncheckedCreateWithoutHealthFormsInput>
   }
 
-  export type UserUpsertWithoutHealthFormInput = {
-    update: XOR<UserUpdateWithoutHealthFormInput, UserUncheckedUpdateWithoutHealthFormInput>
+  export type UserCreateWithoutHealthFormInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    username: string
+    email: string
+    password: string
+    role: string
+    status?: string
+    emailVerified?: boolean
+    verificationToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointments?: AppointmentCreateNestedManyWithoutUserInput
+    clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutHealthFormInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    username: string
+    email: string
+    password: string
+    role: string
+    status?: string
+    emailVerified?: boolean
+    verificationToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutHealthFormInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutHealthFormInput, UserUncheckedCreateWithoutHealthFormInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutHealthFormInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutHealthFormInput, UserUncheckedUpdateWithoutHealthFormInput>
-  }
-
-  export type UserUpdateWithoutHealthFormInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
-    appointments?: AppointmentUpdateManyWithoutUserNestedInput
-    clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutHealthFormInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
-    appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
-    clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DepartmentUpsertWithoutHealthFormsInput = {
@@ -18780,6 +18731,55 @@ export namespace Prisma {
     clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
+  export type UserUpsertWithoutHealthFormInput = {
+    update: XOR<UserUpdateWithoutHealthFormInput, UserUncheckedUpdateWithoutHealthFormInput>
+    create: XOR<UserCreateWithoutHealthFormInput, UserUncheckedCreateWithoutHealthFormInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutHealthFormInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutHealthFormInput, UserUncheckedUpdateWithoutHealthFormInput>
+  }
+
+  export type UserUpdateWithoutHealthFormInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutHealthFormInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutUploadedFormsInput = {
     id?: string
     firstName: string
@@ -18793,10 +18793,10 @@ export namespace Prisma {
     verificationToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
     appointments?: AppointmentCreateNestedManyWithoutUserInput
     clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
+    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutUploadedFormsInput = {
@@ -18812,10 +18812,10 @@ export namespace Prisma {
     verificationToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
     clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutUploadedFormsInput = {
@@ -18847,10 +18847,10 @@ export namespace Prisma {
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
     clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
+    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUploadedFormsInput = {
@@ -18866,10 +18866,10 @@ export namespace Prisma {
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
     clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type TimeSlotCreateWithoutConsultationDateInput = {
@@ -18931,27 +18931,6 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"TimeSlot"> | Date | string
   }
 
-  export type ConsultationDateCreateWithoutTimeSlotsInput = {
-    id?: string
-    date: Date | string
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ConsultationDateUncheckedCreateWithoutTimeSlotsInput = {
-    id?: string
-    date: Date | string
-    isActive?: boolean
-    createdAt?: Date | string
-    updatedAt?: Date | string
-  }
-
-  export type ConsultationDateCreateOrConnectWithoutTimeSlotsInput = {
-    where: ConsultationDateWhereUniqueInput
-    create: XOR<ConsultationDateCreateWithoutTimeSlotsInput, ConsultationDateUncheckedCreateWithoutTimeSlotsInput>
-  }
-
   export type AppointmentCreateWithoutTimeSlotInput = {
     id?: string
     consultationType: string
@@ -18979,31 +18958,25 @@ export namespace Prisma {
     create: XOR<AppointmentCreateWithoutTimeSlotInput, AppointmentUncheckedCreateWithoutTimeSlotInput>
   }
 
-  export type ConsultationDateUpsertWithoutTimeSlotsInput = {
-    update: XOR<ConsultationDateUpdateWithoutTimeSlotsInput, ConsultationDateUncheckedUpdateWithoutTimeSlotsInput>
+  export type ConsultationDateCreateWithoutTimeSlotsInput = {
+    id?: string
+    date: Date | string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConsultationDateUncheckedCreateWithoutTimeSlotsInput = {
+    id?: string
+    date: Date | string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ConsultationDateCreateOrConnectWithoutTimeSlotsInput = {
+    where: ConsultationDateWhereUniqueInput
     create: XOR<ConsultationDateCreateWithoutTimeSlotsInput, ConsultationDateUncheckedCreateWithoutTimeSlotsInput>
-    where?: ConsultationDateWhereInput
-  }
-
-  export type ConsultationDateUpdateToOneWithWhereWithoutTimeSlotsInput = {
-    where?: ConsultationDateWhereInput
-    data: XOR<ConsultationDateUpdateWithoutTimeSlotsInput, ConsultationDateUncheckedUpdateWithoutTimeSlotsInput>
-  }
-
-  export type ConsultationDateUpdateWithoutTimeSlotsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type ConsultationDateUncheckedUpdateWithoutTimeSlotsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    date?: DateTimeFieldUpdateOperationsInput | Date | string
-    isActive?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AppointmentUpsertWithoutTimeSlotInput = {
@@ -19039,47 +19012,31 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type UserCreateWithoutAppointmentsInput = {
-    id?: string
-    firstName: string
-    lastName: string
-    username: string
-    email: string
-    password: string
-    role: string
-    status?: string
-    emailVerified?: boolean
-    verificationToken?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
-    uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
-    clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
+  export type ConsultationDateUpsertWithoutTimeSlotsInput = {
+    update: XOR<ConsultationDateUpdateWithoutTimeSlotsInput, ConsultationDateUncheckedUpdateWithoutTimeSlotsInput>
+    create: XOR<ConsultationDateCreateWithoutTimeSlotsInput, ConsultationDateUncheckedCreateWithoutTimeSlotsInput>
+    where?: ConsultationDateWhereInput
   }
 
-  export type UserUncheckedCreateWithoutAppointmentsInput = {
-    id?: string
-    firstName: string
-    lastName: string
-    username: string
-    email: string
-    password: string
-    role: string
-    status?: string
-    emailVerified?: boolean
-    verificationToken?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
-    uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
-    clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+  export type ConsultationDateUpdateToOneWithWhereWithoutTimeSlotsInput = {
+    where?: ConsultationDateWhereInput
+    data: XOR<ConsultationDateUpdateWithoutTimeSlotsInput, ConsultationDateUncheckedUpdateWithoutTimeSlotsInput>
   }
 
-  export type UserCreateOrConnectWithoutAppointmentsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutAppointmentsInput, UserUncheckedCreateWithoutAppointmentsInput>
+  export type ConsultationDateUpdateWithoutTimeSlotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ConsultationDateUncheckedUpdateWithoutTimeSlotsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    date?: DateTimeFieldUpdateOperationsInput | Date | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type TimeSlotCreateWithoutAppointmentInput = {
@@ -19107,53 +19064,47 @@ export namespace Prisma {
     create: XOR<TimeSlotCreateWithoutAppointmentInput, TimeSlotUncheckedCreateWithoutAppointmentInput>
   }
 
-  export type UserUpsertWithoutAppointmentsInput = {
-    update: XOR<UserUpdateWithoutAppointmentsInput, UserUncheckedUpdateWithoutAppointmentsInput>
+  export type UserCreateWithoutAppointmentsInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    username: string
+    email: string
+    password: string
+    role: string
+    status?: string
+    emailVerified?: boolean
+    verificationToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
+    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutAppointmentsInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    username: string
+    email: string
+    password: string
+    role: string
+    status?: string
+    emailVerified?: boolean
+    verificationToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
+    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutAppointmentsInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutAppointmentsInput, UserUncheckedCreateWithoutAppointmentsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutAppointmentsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutAppointmentsInput, UserUncheckedUpdateWithoutAppointmentsInput>
-  }
-
-  export type UserUpdateWithoutAppointmentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
-    uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
-    clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutAppointmentsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
-    uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
-    clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type TimeSlotUpsertWithoutAppointmentInput = {
@@ -19185,6 +19136,55 @@ export namespace Prisma {
     consultationDateId?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserUpsertWithoutAppointmentsInput = {
+    update: XOR<UserUpdateWithoutAppointmentsInput, UserUncheckedUpdateWithoutAppointmentsInput>
+    create: XOR<UserCreateWithoutAppointmentsInput, UserUncheckedCreateWithoutAppointmentsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutAppointmentsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutAppointmentsInput, UserUncheckedUpdateWithoutAppointmentsInput>
+  }
+
+  export type UserUpdateWithoutAppointmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
+    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutAppointmentsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
+    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type ClearanceRequestCreateWithoutDepartmentInput = {
@@ -19406,49 +19406,6 @@ export namespace Prisma {
     medicationPermission?: BoolFilter<"UserHealthForm"> | boolean
   }
 
-  export type UserCreateWithoutClearanceRequestsInput = {
-    id?: string
-    firstName: string
-    lastName: string
-    username: string
-    email: string
-    password: string
-    role: string
-    status?: string
-    emailVerified?: boolean
-    verificationToken?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
-    uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
-    appointments?: AppointmentCreateNestedManyWithoutUserInput
-    notifications?: NotificationCreateNestedManyWithoutUserInput
-  }
-
-  export type UserUncheckedCreateWithoutClearanceRequestsInput = {
-    id?: string
-    firstName: string
-    lastName: string
-    username: string
-    email: string
-    password: string
-    role: string
-    status?: string
-    emailVerified?: boolean
-    verificationToken?: string | null
-    createdAt?: Date | string
-    updatedAt?: Date | string
-    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
-    uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
-    appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
-    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
-  }
-
-  export type UserCreateOrConnectWithoutClearanceRequestsInput = {
-    where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutClearanceRequestsInput, UserUncheckedCreateWithoutClearanceRequestsInput>
-  }
-
   export type DepartmentCreateWithoutClearanceRequestsInput = {
     id?: string
     name: string
@@ -19472,53 +19429,47 @@ export namespace Prisma {
     create: XOR<DepartmentCreateWithoutClearanceRequestsInput, DepartmentUncheckedCreateWithoutClearanceRequestsInput>
   }
 
-  export type UserUpsertWithoutClearanceRequestsInput = {
-    update: XOR<UserUpdateWithoutClearanceRequestsInput, UserUncheckedUpdateWithoutClearanceRequestsInput>
+  export type UserCreateWithoutClearanceRequestsInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    username: string
+    email: string
+    password: string
+    role: string
+    status?: string
+    emailVerified?: boolean
+    verificationToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointments?: AppointmentCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
+    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutClearanceRequestsInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    username: string
+    email: string
+    password: string
+    role: string
+    status?: string
+    emailVerified?: boolean
+    verificationToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
+    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutClearanceRequestsInput = {
+    where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutClearanceRequestsInput, UserUncheckedCreateWithoutClearanceRequestsInput>
-    where?: UserWhereInput
-  }
-
-  export type UserUpdateToOneWithWhereWithoutClearanceRequestsInput = {
-    where?: UserWhereInput
-    data: XOR<UserUpdateWithoutClearanceRequestsInput, UserUncheckedUpdateWithoutClearanceRequestsInput>
-  }
-
-  export type UserUpdateWithoutClearanceRequestsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
-    uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
-    appointments?: AppointmentUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUpdateManyWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutClearanceRequestsInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    lastName?: StringFieldUpdateOperationsInput | string
-    username?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    password?: StringFieldUpdateOperationsInput | string
-    role?: StringFieldUpdateOperationsInput | string
-    status?: StringFieldUpdateOperationsInput | string
-    emailVerified?: BoolFieldUpdateOperationsInput | boolean
-    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
-    uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
-    appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
-    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DepartmentUpsertWithoutClearanceRequestsInput = {
@@ -19550,6 +19501,55 @@ export namespace Prisma {
     healthForms?: UserHealthFormUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
+  export type UserUpsertWithoutClearanceRequestsInput = {
+    update: XOR<UserUpdateWithoutClearanceRequestsInput, UserUncheckedUpdateWithoutClearanceRequestsInput>
+    create: XOR<UserCreateWithoutClearanceRequestsInput, UserUncheckedCreateWithoutClearanceRequestsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutClearanceRequestsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutClearanceRequestsInput, UserUncheckedUpdateWithoutClearanceRequestsInput>
+  }
+
+  export type UserUpdateWithoutClearanceRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
+    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutClearanceRequestsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    role?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
+    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
+  }
+
   export type UserCreateWithoutNotificationsInput = {
     id?: string
     firstName: string
@@ -19563,10 +19563,10 @@ export namespace Prisma {
     verificationToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
-    uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
     appointments?: AppointmentCreateNestedManyWithoutUserInput
     clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
+    uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
+    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -19582,10 +19582,10 @@ export namespace Prisma {
     verificationToken?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
-    uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
     appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
     clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
+    uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
+    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -19617,10 +19617,10 @@ export namespace Prisma {
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
-    uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
     appointments?: AppointmentUpdateManyWithoutUserNestedInput
     clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
+    uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
+    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -19636,20 +19636,10 @@ export namespace Prisma {
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
-    uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
     appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
     clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
-  }
-
-  export type UploadedFormCreateManyUserInput = {
-    id?: string
-    formType: string
-    filePath: string
-    notes?: string | null
-    status?: string
-    createdAt?: Date | string
-    updatedAt?: Date | string
+    uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
+    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type AppointmentCreateManyUserInput = {
@@ -19690,34 +19680,14 @@ export namespace Prisma {
     updatedAt?: Date | string
   }
 
-  export type UploadedFormUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    formType?: StringFieldUpdateOperationsInput | string
-    filePath?: StringFieldUpdateOperationsInput | string
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UploadedFormUncheckedUpdateWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    formType?: StringFieldUpdateOperationsInput | string
-    filePath?: StringFieldUpdateOperationsInput | string
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type UploadedFormUncheckedUpdateManyWithoutUserInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    formType?: StringFieldUpdateOperationsInput | string
-    filePath?: StringFieldUpdateOperationsInput | string
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    status?: StringFieldUpdateOperationsInput | string
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  export type UploadedFormCreateManyUserInput = {
+    id?: string
+    formType: string
+    filePath: string
+    notes?: string | null
+    status?: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type AppointmentUpdateWithoutUserInput = {
@@ -19830,6 +19800,36 @@ export namespace Prisma {
     icon?: NullableStringFieldUpdateOperationsInput | string | null
     linkTo?: NullableStringFieldUpdateOperationsInput | string | null
     relatedId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UploadedFormUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formType?: StringFieldUpdateOperationsInput | string
+    filePath?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UploadedFormUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formType?: StringFieldUpdateOperationsInput | string
+    filePath?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UploadedFormUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    formType?: StringFieldUpdateOperationsInput | string
+    filePath?: StringFieldUpdateOperationsInput | string
+    notes?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

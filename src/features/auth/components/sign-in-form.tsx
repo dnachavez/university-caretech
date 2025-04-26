@@ -200,20 +200,6 @@ export function SignInForm({ onTabChange }: SignInFormProps) {
               "Sign In"
             )}
           </Button>
-
-          <div className="relative flex items-center justify-center mt-4">
-            <Separator className="absolute w-full" />
-            <span className="bg-[#f5f5ff] px-2 text-sm text-[#5b6779] relative">OR</span>
-          </div>
-
-          <Button
-            variant="outline"
-            type="button"
-            onClick={() => onTabChange("signup")}
-            className="w-full py-2 px-3 mt-4 bg-[#f5f5ff] text-[#5b6779] font-medium text-sm rounded-lg border border-[#dde5f0] hover:bg-[#eef2fb] transition-colors focus:outline-none focus:ring-2 focus:ring-[#d9e6fb]"
-          >
-            Don't have an account? Sign up
-          </Button>
         </div>
       </form>
     </div>
