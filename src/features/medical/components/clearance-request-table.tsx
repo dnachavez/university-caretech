@@ -5,7 +5,7 @@ import {
   TableHeader, TableRow 
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { Eye, Download } from "lucide-react"
+import { Eye, Download, Printer } from "lucide-react"
 import { formatDate } from "@/utils/date-utils"
 import { ClearanceRequest } from "@/services/clearance-service"
 
@@ -38,6 +38,18 @@ export function ClearanceRequestTable({
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+    } else {
+      alert('No document available for this request yet.');
+    }
+  };
+
+  // Function to print clearance document
+  const printClearanceDocument = (request: ClearanceRequest) => {
+    if (request.status === 'APPROVED' && request.documentUrl) {
+      const printWindow = window.open(request.documentUrl, '_blank');
+      printWindow?.addEventListener('load', () => {
+        printWindow.print();
+      });
     } else {
       alert('No document available for this request yet.');
     }
@@ -112,6 +124,18 @@ export function ClearanceRequestTable({
                   disabled={request.status !== "APPROVED" || !request.documentUrl}
                 >
                   <Download className="h-5 w-5" />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  aria-label="Print document"
+                  className={`text-slate-500 hover:text-blue-600 hover:bg-blue-50 ${
+                    request.status !== "APPROVED" || !request.documentUrl ? "opacity-50 cursor-not-allowed" : ""
+                  }`}
+                  onClick={() => printClearanceDocument(request)}
+                  disabled={request.status !== "APPROVED" || !request.documentUrl}
+                >
+                  <Printer className="h-5 w-5" />
                 </Button>
               </TableCell>
             </TableRow>

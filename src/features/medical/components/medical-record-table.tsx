@@ -5,10 +5,10 @@ import {
   TableHeader, TableRow 
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-import { Eye, Download } from "lucide-react"
+import { Eye, Download, Printer } from "lucide-react"
 import { MedicalRecord } from "../types/record-types"
 import { formatDate } from "@/utils/date-utils"
-import { viewFile, downloadFile } from "@/utils/file-utils"
+import { viewFile, downloadFile, printFile } from "@/utils/file-utils"
 
 interface MedicalRecordTableProps {
   records: MedicalRecord[]
@@ -78,6 +78,15 @@ export function MedicalRecordTable({
                   onClick={() => downloadFile(record, downloadPrefix)}
                 >
                   <Download className="h-5 w-5" />
+                </Button>
+                <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  aria-label="Print record"
+                  className="text-slate-500 hover:text-blue-600 hover:bg-blue-50"
+                  onClick={() => printFile(record)}
+                >
+                  <Printer className="h-5 w-5" />
                 </Button>
               </TableCell>
             </TableRow>

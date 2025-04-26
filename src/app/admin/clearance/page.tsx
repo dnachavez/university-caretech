@@ -6,7 +6,7 @@ import { useAuthStore } from "@/store/auth-store"
 import { 
   ChevronRight, FileText, CheckCircle2, 
   XCircle, Upload, Download, Clock, 
-  CheckCheck, AlertCircle, Eye
+  CheckCheck, AlertCircle, Eye, Printer
 } from "lucide-react"
 import Link from "next/link"
 import {
@@ -673,6 +673,19 @@ export default function ClearanceRequestsPage() {
                             >
                               <Download className="h-4 w-4 mr-1" />
                               Download
+                            </Button>
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => {
+                                const printWindow = window.open(doc, '_blank');
+                                printWindow?.addEventListener('load', () => {
+                                  printWindow.print();
+                                });
+                              }}
+                            >
+                              <Printer className="h-4 w-4 mr-1" />
+                              Print
                             </Button>
                           </div>
                         </div>

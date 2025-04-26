@@ -11,7 +11,7 @@ import {
   CardFooter
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, FileText, Activity, Clipboard, FileCheck, Calendar, Syringe, Download, Eye, Search } from "lucide-react"
+import { ArrowLeft, FileText, Activity, Clipboard, FileCheck, Calendar, Syringe, Download, Eye, Search, Printer } from "lucide-react"
 import { PageHeader } from "@/features/medical/components/page-header"
 import { useAuthStore } from "@/store/auth-store"
 import Link from "next/link"
@@ -154,10 +154,24 @@ export default function StudentRecordsDetailPage({ params }: { params: { id: str
     }
   }, [params.id, isAuthenticated])
   
+  // Download file handler
   const handleDownloadFile = (filePath: string) => {
-    // Implementation would depend on how files are stored and accessed
-    window.open(filePath, '_blank')
-  }
+    const fileName = filePath.split('/').pop() || 'medical-record.pdf';
+    const link = document.createElement('a');
+    link.href = filePath;
+    link.download = fileName;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Print file handler
+  const handlePrintFile = (filePath: string) => {
+    const printWindow = window.open(filePath, '_blank');
+    printWindow?.addEventListener('load', () => {
+      printWindow.print();
+    });
+  };
   
   // Filter medical records based on search query
   const filteredMedicalRecords = medicalRecords.filter(record => 
@@ -531,6 +545,15 @@ export default function StudentRecordsDetailPage({ params }: { params: { id: str
                               onClick={() => handleDownloadFile(record.filePath)}
                             >
                               <Download className="h-5 w-5" />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              aria-label="Print record"
+                              className="text-slate-500 hover:text-blue-600 hover:bg-blue-50"
+                              onClick={() => handlePrintFile(record.filePath)}
+                            >
+                              <Printer className="h-5 w-5" />
                             </Button>
                           </TableCell>
                         </TableRow>

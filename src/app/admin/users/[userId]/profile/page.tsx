@@ -11,7 +11,7 @@ import {
   CardFooter
 } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowLeft, FileText, User, Briefcase, GraduationCap, Building, Calendar, Download, Eye, Search } from "lucide-react"
+import { ArrowLeft, FileText, User, Briefcase, GraduationCap, Building, Calendar, Download, Eye, Search, Printer, MoreHorizontal, Settings, Mail, MapPin, Phone, School, Star, UserPlus, UserSquare } from "lucide-react"
 import { useAuthStore } from "@/store/auth-store"
 import Link from "next/link"
 import { 
@@ -178,7 +178,15 @@ export default function UserProfilePage({
   }
   
   const handleDownloadFile = (filePath: string) => {
+    // Implementation for downloading the file
     window.open(filePath, '_blank')
+  }
+  
+  const handlePrintFile = (filePath: string) => {
+    const printWindow = window.open(filePath, '_blank');
+    printWindow?.addEventListener('load', () => {
+      printWindow.print();
+    });
   }
   
   // Filter medical records based on search query
@@ -548,6 +556,24 @@ export default function UserProfilePage({
                           >
                             <Eye className="h-4 w-4 mr-1" />
                             View
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handleDownloadFile(record.filePath)}
+                            className="ml-2"
+                          >
+                            <Download className="h-4 w-4 mr-1" />
+                            Download
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => handlePrintFile(record.filePath)}
+                            className="ml-2"
+                          >
+                            <Printer className="h-4 w-4 mr-1" />
+                            Print
                           </Button>
                         </TableCell>
                       </TableRow>

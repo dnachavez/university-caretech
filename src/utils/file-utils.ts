@@ -143,4 +143,14 @@ export function downloadFile(record: MedicalRecord, prefix: string = 'Record'): 
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+}
+
+/**
+ * Prints a file using browser's print functionality
+ */
+export function printFile(record: MedicalRecord): void {
+  const printWindow = window.open(record.filePath, '_blank');
+  printWindow?.addEventListener('load', () => {
+    printWindow.print();
+  });
 } 
