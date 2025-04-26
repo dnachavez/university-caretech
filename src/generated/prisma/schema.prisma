@@ -15,6 +15,7 @@ model User {
   username          String             @unique
   email             String             @unique
   password          String
+  idNumber          String?
   role              String
   status            String             @default("UNVERIFIED")
   emailVerified     Boolean            @default(false)

@@ -60,6 +60,7 @@ export async function POST(req: NextRequest) {
       lastName,
       firstName,
       middleInitial,
+      idNumber,
       birthdate,
       gender,
       birthPlace,
@@ -183,6 +184,14 @@ export async function POST(req: NextRequest) {
           dateSigned: new Date()
         }
       })
+      
+      // If admin submitted the form and included idNumber, update the user record
+      if (idNumber && body.isAdmin) {
+        await prisma.user.update({
+          where: { id: userId },
+          data: { idNumber }
+        })
+      }
     } else {
       // Create new form
       healthForm = await prisma.userHealthForm.create({
@@ -228,6 +237,14 @@ export async function POST(req: NextRequest) {
           signaturePath: finalSignaturePath
         }
       })
+      
+      // If admin submitted the form and included idNumber, update the user record
+      if (idNumber && body.isAdmin) {
+        await prisma.user.update({
+          where: { id: userId },
+          data: { idNumber }
+        })
+      }
     }
 
     return NextResponse.json({

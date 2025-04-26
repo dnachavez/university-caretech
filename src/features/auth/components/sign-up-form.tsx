@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { ChevronDown, User, Mail, Phone, Lock, Loader2, Building, GraduationCap } from "lucide-react"
+import { ChevronDown, User, Mail, Phone, Lock, Loader2, Building, GraduationCap, CreditCard } from "lucide-react"
 import { useState, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -29,6 +29,7 @@ export function SignUpForm({ onTabChange }: SignUpFormProps) {
     username: "",
     password: "",
     confirmPassword: "",
+    idNumber: "",
     role: "",
     departmentId: "",
     yearLevel: ""
@@ -127,23 +128,13 @@ export function SignUpForm({ onTabChange }: SignUpFormProps) {
     
     if (!formData.firstName.trim()) newErrors.firstName = "First name is required"
     if (!formData.lastName.trim()) newErrors.lastName = "Last name is required"
-    
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required"
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Email is invalid"
-    }
-    
+    if (!formData.email.trim()) newErrors.email = "Email is required"
     if (!formData.username.trim()) newErrors.username = "Username is required"
+    if (!formData.idNumber.trim()) newErrors.idNumber = "ID number is required"
+    if (!formData.password) newErrors.password = "Password is required"
     
-    if (!formData.password) {
-      newErrors.password = "Password is required"
-    } else if (formData.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters"
-    }
-    
-    if (formData.password !== formData.confirmPassword) {
-      newErrors.confirmPassword = "Passwords do not match"
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone is required"
     }
     
     if (!formData.role) newErrors.role = "Please select a role"
@@ -177,6 +168,7 @@ export function SignUpForm({ onTabChange }: SignUpFormProps) {
         lastName: formData.lastName,
         email: formData.email,
         username: formData.username,
+        idNumber: formData.idNumber,
         password: formData.password,
         role: formData.role
       }
@@ -219,6 +211,7 @@ export function SignUpForm({ onTabChange }: SignUpFormProps) {
         username: "",
         password: "",
         confirmPassword: "",
+        idNumber: "",
         role: "",
         departmentId: "",
         yearLevel: ""
@@ -307,6 +300,24 @@ export function SignUpForm({ onTabChange }: SignUpFormProps) {
                 <Phone className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#5b6779] pointer-events-none" />
               </div>
             </div>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="idNumber" className="text-[#5b6779] text-sm font-medium">
+              ID Number
+            </Label>
+            <div className="relative">
+              <Input
+                type="text"
+                id="idNumber"
+                placeholder="Enter your ID number"
+                className={`w-full py-2 pl-3 pr-10 bg-[#f5f5ff] text-[#5b6779] text-sm rounded-lg border ${errors.idNumber ? 'border-red-500' : 'border-[#dde5f0]'} focus:outline-none focus:ring-1 focus:ring-[#d9e6fb]`}
+                value={formData.idNumber}
+                onChange={handleChange}
+              />
+              <CreditCard className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#5b6779] pointer-events-none" />
+            </div>
+            {errors.idNumber && <p className="text-xs text-red-500">{errors.idNumber}</p>}
           </div>
 
           <div className="space-y-2">

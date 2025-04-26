@@ -9,6 +9,7 @@ const userCreateSchema = z.object({
   email: z.string().email(),
   username: z.string().min(3),
   role: z.enum(['STUDENT', 'FACULTY', 'STAFF']),
+  idNumber: z.string().min(1),
   departmentId: z.string().optional(),
   yearLevel: z.string().optional()
 })
@@ -23,7 +24,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid input", details: validationResult.error.format() }, { status: 400 })
     }
     
-    const { firstName, lastName, email, username, role, departmentId, yearLevel } = validationResult.data
+    const { firstName, lastName, email, username, role, departmentId, yearLevel, idNumber } = validationResult.data
     
     // Check if user with email or username already exists
     const existingUser = await prisma.user.findFirst({
@@ -56,6 +57,7 @@ export async function POST(req: NextRequest) {
           email,
           password: hashedPassword,
           role: role.toUpperCase(),
+          idNumber,
           status: 'ACTIVE',
           emailVerified: true
         }

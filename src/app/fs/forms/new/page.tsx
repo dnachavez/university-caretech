@@ -26,5 +26,5 @@ export default function NewFormPage() {
     return null // Don't render anything while checking auth
   }
 
-  return <HealthForm baseUrl="/fs" userType="faculty" />
+  return <HealthForm baseUrl="/fs" userType="faculty" isAdmin={false} />
 } 

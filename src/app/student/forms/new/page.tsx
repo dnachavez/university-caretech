@@ -3,5 +3,5 @@
 import { HealthForm } from "@/features/health/components/health-form"
 
 export default function NewFormPage() {
-  return <HealthForm />
+  return <HealthForm isAdmin={false} />
 } 

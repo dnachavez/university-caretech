@@ -302,6 +302,10 @@ export default function UserProfilePage({
                 <p className="font-medium">{user.email}</p>
               </div>
               <div>
+                <span className="text-sm text-gray-500">ID Number:</span>
+                <p className="font-medium">{user.idNumber || "-"}</p>
+              </div>
+              <div>
                 <span className="text-sm text-gray-500">Role:</span>
                 <p className="font-medium">{user.role}</p>
               </div>

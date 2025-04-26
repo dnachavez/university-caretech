@@ -204,6 +204,18 @@ export default function ProfilePage() {
               </div>
             </div>
 
+            <div className="space-y-2">
+              <Label htmlFor="idNumber" className="text-[#5b6779] text-sm font-medium">
+                ID Number
+              </Label>
+              <Input
+                id="idNumber"
+                value={user?.idNumber || ""}
+                disabled
+                className={disabledInputClassName}
+              />
+            </div>
+
             {/* Personal Information */}
             <div>
               <CardTitle className="text-gray-700 mb-4">Personal Information</CardTitle>

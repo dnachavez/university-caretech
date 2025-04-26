@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { ChevronRight, Check, User, MapPin, Phone, Upload, Trash2 } from "lucide-react"
+import { ChevronRight, Check, User, MapPin, Phone, Upload, Trash2, CreditCard } from "lucide-react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -30,6 +30,7 @@ interface FormData {
   lastName: string
   firstName: string
   middleInitial: string
+  idNumber: string
   birthdate: Date | null
   gender: string
   birthplace: string
@@ -74,9 +75,10 @@ interface FormData {
 interface HealthFormProps {
   baseUrl?: string;
   userType?: string;
+  isAdmin?: boolean;
 }
 
-export function HealthForm({ baseUrl = "/student", userType = "student" }: HealthFormProps) {
+export function HealthForm({ baseUrl = "/student", userType = "student", isAdmin = false }: HealthFormProps) {
   const { user, isAuthenticated } = useAuthStore()
   const userId = user?.id
   const [currentStep, setCurrentStep] = useState(0)
@@ -84,6 +86,7 @@ export function HealthForm({ baseUrl = "/student", userType = "student" }: Healt
     lastName: "",
     firstName: "",
     middleInitial: "",
+    idNumber: "",
     birthdate: null,
     gender: "",
     birthplace: "",
@@ -191,6 +194,7 @@ export function HealthForm({ baseUrl = "/student", userType = "student" }: Healt
           lastName: formData.lastName || "",
           firstName: formData.firstName || "",
           middleInitial: formData.middleInitial || "",
+          idNumber: user?.idNumber || "",
           birthdate,
           gender: formData.gender || "",
           birthplace: formData.birthPlace || "",
@@ -335,6 +339,7 @@ export function HealthForm({ baseUrl = "/student", userType = "student" }: Healt
     if (currentStep === 0) {
       if (!formData.lastName.trim()) newErrors.lastName = "Last name is required"
       if (!formData.firstName.trim()) newErrors.firstName = "First name is required"
+      if (isAdmin && !formData.idNumber.trim()) newErrors.idNumber = "ID number is required"
       if (!formData.birthdate) newErrors.birthdate = "Birthdate is required"
       if (!formData.gender) newErrors.gender = "Gender is required"
       if (!formData.birthplace.trim()) newErrors.birthplace = "Birth place is required"
@@ -625,6 +630,23 @@ export function HealthForm({ baseUrl = "/student", userType = "student" }: Healt
                       <User className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#5b6779] pointer-events-none" />
                     </div>
                   </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="idNumber" className="text-[#5b6779] text-sm font-medium">ID Number</Label>
+                  <div className="relative">
+                    <Input 
+                      id="idNumber" 
+                      placeholder="ID Number" 
+                      required 
+                      className={`w-full py-2 pl-3 pr-10 bg-white text-[#5b6779] text-sm rounded-lg border ${errors.idNumber ? 'border-red-500' : 'border-[#dde5f0]'} focus:outline-none focus:ring-1 focus:ring-[#d9e6fb]`}
+                      value={formData.idNumber}
+                      onChange={handleChange}
+                      disabled={!isAdmin}
+                    />
+                    <CreditCard className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#5b6779] pointer-events-none" />
+                  </div>
+                  {errors.idNumber && <p className="text-xs text-red-500">{errors.idNumber}</p>}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

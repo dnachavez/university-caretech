@@ -662,6 +662,10 @@ export default function UsersPage() {
                   <p>{selectedUser.email}</p>
                 </div>
                 <div>
+                  <h3 className="text-sm font-medium text-gray-500">ID Number</h3>
+                  <p>{selectedUser.idNumber || '-'}</p>
+                </div>
+                <div>
                   <h3 className="text-sm font-medium text-gray-500">Role</h3>
                   <p>{getRoleBadge(selectedUser.role)}</p>
                 </div>
@@ -963,34 +967,34 @@ function UserTable({
         <TableHeader>
           <TableRow>
             <TableHead>Name</TableHead>
+            <TableHead>Username</TableHead>
             <TableHead>Email</TableHead>
+            <TableHead>ID Number</TableHead>
             <TableHead>Role</TableHead>
             <TableHead>Status</TableHead>
-            <TableHead>Verified</TableHead>
+            <TableHead>Registered</TableHead>
             <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {users.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={6} className="text-center text-gray-500 py-6">
+              <TableCell colSpan={8} className="text-center text-gray-500 py-6">
                 No users found
               </TableCell>
             </TableRow>
           ) : (
             users.map((user) => (
               <TableRow key={user.id}>
-                <TableCell className="font-medium">{`${user.firstName} ${user.lastName}`}</TableCell>
+                <TableCell className="font-medium whitespace-nowrap">
+                  {user.lastName}, {user.firstName}
+                </TableCell>
+                <TableCell>{user.username}</TableCell>
                 <TableCell>{user.email}</TableCell>
+                <TableCell>{user.idNumber || '-'}</TableCell>
                 <TableCell>{getRoleBadge(user.role)}</TableCell>
                 <TableCell>{getStatusBadge(user.status)}</TableCell>
-                <TableCell>
-                  {user.emailVerified ? (
-                    <CheckCircle2 className="h-4 w-4 text-green-500" />
-                  ) : (
-                    <XCircle className="h-4 w-4 text-red-500" />
-                  )}
-                </TableCell>
+                <TableCell>{new Date(user.createdAt).toLocaleDateString()}</TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end">
                     <DropdownMenu>

@@ -13,10 +13,10 @@ const handlePrismaError = (error: any) => {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { firstName, lastName, username, email, password, role, departmentId, yearLevel } = body
+    const { firstName, lastName, username, email, password, role, departmentId, yearLevel, idNumber } = body
 
     // Validate input
-    if (!firstName || !lastName || !username || !email || !password || !role) {
+    if (!firstName || !lastName || !username || !email || !password || !role || !idNumber) {
       return NextResponse.json({ error: "All fields are required" }, { status: 400 })
     }
 
@@ -77,6 +77,7 @@ export async function POST(req: NextRequest) {
             username,
             email,
             password: hashedPassword,
+            idNumber,
             role: role.toUpperCase(),
             status: 'UNVERIFIED',
             verificationToken: hashedToken

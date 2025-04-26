@@ -287,7 +287,7 @@ export function Header() {
                   {user ? `${user.firstName} ${user.lastName}` : "Besil Angeline Famat"}
                 </p>
                 <p className="text-xs text-slate-500 uppercase">
-                  {user?.role || "STUDENT"}
+                  {user?.idNumber ? `${user.idNumber} / ${user?.role || "STUDENT"}` : user?.role || "STUDENT"}
                 </p>
               </div>
               <ChevronDown className="h-4 w-4 text-slate-400 ml-1" />
