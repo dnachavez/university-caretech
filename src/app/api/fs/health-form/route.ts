@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
+// Check if we're running in production (Vercel) or development
+const isProduction = process.env.NODE_ENV === 'production'
+
 export async function GET(req: NextRequest) {
   try {
     const url = new URL(req.url)
@@ -91,12 +94,27 @@ export async function POST(req: NextRequest) {
       wallclimbing,
       notFitActivities,
       medicationPermission,
+      signature,
       signaturePath
     } = body
 
     // Validate required fields
-    if (!userId || !lastName || !firstName || !birthdate || !gender || !signaturePath) {
+    if (!userId || !lastName || !firstName || !birthdate || !gender || !signature) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
+    }
+
+    // Use the provided signature path or create a new one if not provided
+    let finalSignaturePath = signaturePath
+    if (!finalSignaturePath) {
+      const uniqueId = new Date().getTime().toString()
+      finalSignaturePath = `/signatures/faculty-${userId}-${uniqueId}.png`
+    }
+
+    // In production, you might want to store the actual signature data too 
+    // (but this would require a schema change)
+    if (isProduction) {
+      // Future feature: Store the signature data in a dedicated table
+      // For now, just using the path reference
     }
 
     // Check if user exists
@@ -161,7 +179,7 @@ export async function POST(req: NextRequest) {
           wallclimbing,
           notFitActivities,
           medicationPermission,
-          signaturePath,
+          signaturePath: finalSignaturePath,
           dateSigned: new Date()
         }
       })
@@ -207,7 +225,7 @@ export async function POST(req: NextRequest) {
           wallclimbing,
           notFitActivities,
           medicationPermission,
-          signaturePath
+          signaturePath: finalSignaturePath
         }
       })
     }

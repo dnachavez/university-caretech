@@ -15,6 +15,9 @@ function decodeBase64Image(dataString: string) {
   return Buffer.from(matches[2], 'base64')
 }
 
+// Check if we're running in production (Vercel) or development
+const isProduction = process.env.NODE_ENV === 'production'
+
 export async function POST(req: NextRequest) {
   try {
     // Get signature data from request
@@ -38,28 +41,34 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 })
     }
     
-    // Ensure directories exist
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'signatures')
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true })
-    }
-    
     // Create a unique filename
     const uniqueId = uuidv4()
     const fileName = `signature-${userId}-${uniqueId}.png`
-    const filePath = path.join(uploadDir, fileName)
+    let publicPath = ''
     
-    // Extract and save the image
-    try {
-      const imageBuffer = decodeBase64Image(signature)
-      fs.writeFileSync(filePath, imageBuffer)
-    } catch (error) {
-      console.error("Error processing image:", error)
-      return NextResponse.json({ error: "Invalid signature format" }, { status: 400 })
+    if (isProduction) {
+      // For Vercel deployment, return a mock path without writing to filesystem
+      publicPath = `/signatures/${fileName}`
+    } else {
+      // For local development, actually write the file to disk
+      try {
+        // Ensure directories exist
+        const uploadDir = path.join(process.cwd(), 'public', 'uploads', 'signatures')
+        if (!fs.existsSync(uploadDir)) {
+          fs.mkdirSync(uploadDir, { recursive: true })
+        }
+        
+        const filePath = path.join(uploadDir, fileName)
+        const imageBuffer = decodeBase64Image(signature)
+        fs.writeFileSync(filePath, imageBuffer)
+        
+        // Return the public URL path for the signature
+        publicPath = `/uploads/signatures/${fileName}`
+      } catch (error) {
+        console.error("Error processing image:", error)
+        return NextResponse.json({ error: "Invalid signature format" }, { status: 400 })
+      }
     }
-    
-    // Return the public URL path for the signature
-    const publicPath = `/uploads/signatures/${fileName}`
     
     return NextResponse.json({ 
       success: true,

@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
+// Check if we're running in production (Vercel) or development
+const isProduction = process.env.NODE_ENV === 'production'
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
@@ -44,11 +47,12 @@ export async function POST(req: NextRequest) {
       wallclimbing,
       notFitActivities,
       medicationPermission,
+      signature,
       signaturePath
     } = body
 
     // Validate required fields
-    if (!userId || !lastName || !firstName || !birthdate || !gender || !signaturePath) {
+    if (!userId || !lastName || !firstName || !birthdate || !gender || !signature) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
@@ -65,6 +69,21 @@ export async function POST(req: NextRequest) {
     const existingForm = await prisma.userHealthForm.findUnique({
       where: { userId }
     })
+
+    // Use the provided signature path or create a new one if not provided
+    let finalSignaturePath = signaturePath
+    if (!finalSignaturePath) {
+      const uniqueId = new Date().getTime().toString()
+      finalSignaturePath = `/signatures/student-${userId}-${uniqueId}.png`
+    }
+
+    // In production, you might want to store the actual signature data too 
+    // (but this would require a schema change)
+    // This is a placeholder for future enhancement
+    if (isProduction) {
+      // Future feature: Store the signature data in a dedicated table
+      // For now, just using the path reference
+    }
 
     let healthForm
     if (existingForm) {
@@ -110,8 +129,8 @@ export async function POST(req: NextRequest) {
           wallclimbing,
           notFitActivities,
           medicationPermission,
-          signaturePath,
-          dateSigned: new Date()
+          dateSigned: new Date(),
+          signaturePath: finalSignaturePath
         }
       })
     } else {
@@ -157,7 +176,8 @@ export async function POST(req: NextRequest) {
           wallclimbing,
           notFitActivities,
           medicationPermission,
-          signaturePath
+          dateSigned: new Date(),
+          signaturePath: finalSignaturePath
         }
       })
     }
