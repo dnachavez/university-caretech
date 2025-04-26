@@ -594,7 +594,19 @@ export default function AppointmentsPage() {
             onUpdate={fetchConsultationDates}
           />
           
-          <DialogFooter>
+          <DialogFooter className="flex justify-between">
+            <Button 
+              variant="secondary" 
+              onClick={() => {
+                // Reset the form state in DateConfigurationComponent before closing
+                const dateConfig = document.querySelector('button[form="create-new-date"]');
+                if (dateConfig) {
+                  (dateConfig as HTMLButtonElement).click();
+                }
+              }}
+            >
+              Add Another Date
+            </Button>
             <Button 
               variant="outline" 
               onClick={() => setDateDialogOpen(false)}
@@ -932,6 +944,7 @@ function DateConfigurationComponent({
       if (response.ok) {
         toast.success("Consultation date created successfully")
         setTimeSlots([{ startTime: "08:00 AM", endTime: "08:30 AM" }])
+        setDate(new Date())
         onUpdate()
       } else {
         const data = await response.json()
@@ -1121,6 +1134,7 @@ function DateConfigurationComponent({
             className="w-full"
             onClick={handleCreateDate}
             disabled={loading}
+            form="create-new-date"
           >
             Create Consultation Date
           </Button>
@@ -1159,6 +1173,77 @@ function DateConfigurationComponent({
                   Add Time Slots
                 </Button>
               </div>
+              
+              {selectedDateId && (
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <Label>New Time Slot</Label>
+                    <Button type="button" variant="outline" size="sm" onClick={handleAddTimeSlot}>
+                      Add Time Slot
+                    </Button>
+                  </div>
+                  
+                  {timeSlots.map((slot, index) => (
+                    <div key={index} className="flex items-center space-x-2 mb-2">
+                      <Select value={slot.startTime} onValueChange={(value) => handleTimeSlotChange(index, 'startTime', value)}>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Start Time" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="08:00 AM">08:00 AM</SelectItem>
+                          <SelectItem value="08:30 AM">08:30 AM</SelectItem>
+                          <SelectItem value="09:00 AM">09:00 AM</SelectItem>
+                          <SelectItem value="09:30 AM">09:30 AM</SelectItem>
+                          <SelectItem value="10:00 AM">10:00 AM</SelectItem>
+                          <SelectItem value="10:30 AM">10:30 AM</SelectItem>
+                          <SelectItem value="11:00 AM">11:00 AM</SelectItem>
+                          <SelectItem value="11:30 AM">11:30 AM</SelectItem>
+                          <SelectItem value="01:00 PM">01:00 PM</SelectItem>
+                          <SelectItem value="01:30 PM">01:30 PM</SelectItem>
+                          <SelectItem value="02:00 PM">02:00 PM</SelectItem>
+                          <SelectItem value="02:30 PM">02:30 PM</SelectItem>
+                          <SelectItem value="03:00 PM">03:00 PM</SelectItem>
+                          <SelectItem value="03:30 PM">03:30 PM</SelectItem>
+                          <SelectItem value="04:00 PM">04:00 PM</SelectItem>
+                          <SelectItem value="04:30 PM">04:30 PM</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <Select value={slot.endTime} onValueChange={(value) => handleTimeSlotChange(index, 'endTime', value)}>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="End Time" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="08:30 AM">08:30 AM</SelectItem>
+                          <SelectItem value="09:00 AM">09:00 AM</SelectItem>
+                          <SelectItem value="09:30 AM">09:30 AM</SelectItem>
+                          <SelectItem value="10:00 AM">10:00 AM</SelectItem>
+                          <SelectItem value="10:30 AM">10:30 AM</SelectItem>
+                          <SelectItem value="11:00 AM">11:00 AM</SelectItem>
+                          <SelectItem value="11:30 AM">11:30 AM</SelectItem>
+                          <SelectItem value="12:00 PM">12:00 PM</SelectItem>
+                          <SelectItem value="01:30 PM">01:30 PM</SelectItem>
+                          <SelectItem value="02:00 PM">02:00 PM</SelectItem>
+                          <SelectItem value="02:30 PM">02:30 PM</SelectItem>
+                          <SelectItem value="03:00 PM">03:00 PM</SelectItem>
+                          <SelectItem value="03:30 PM">03:30 PM</SelectItem>
+                          <SelectItem value="04:00 PM">04:00 PM</SelectItem>
+                          <SelectItem value="04:30 PM">04:30 PM</SelectItem>
+                          <SelectItem value="05:00 PM">05:00 PM</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <Button 
+                        type="button" 
+                        variant="ghost" 
+                        size="icon" 
+                        className="text-red-500"
+                        onClick={() => handleRemoveTimeSlot(index)}
+                      >
+                        <XCircle className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
               
               {selectedDateId && consultationDates.find(d => d.id === selectedDateId)?.timeSlots && 
                consultationDates.find(d => d.id === selectedDateId)!.timeSlots.length > 0 && (
