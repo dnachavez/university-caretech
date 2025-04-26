@@ -244,6 +244,17 @@ export function Sidebar() {
           />
         )}
         
+        {/* Admin Health Forms menu */}
+        {isAdmin && baseRoute === '/admin' && (
+          <NavItem 
+            href={`${baseRoute}/health-forms`}
+            icon={<FileText className="h-5 w-5 text-emerald-600" />} 
+            label="Health Forms" 
+            isActive={pathname.includes(`${baseRoute}/health-forms`)} 
+            isCollapsed={isCollapsed}
+          />
+        )}
+        
         {/* Student Records menu for faculty/staff only */}
         {isFacultyOrStaff && baseRoute === '/fs' && (
           <NavItem 

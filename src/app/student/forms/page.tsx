@@ -47,9 +47,9 @@ export default function FormsPage() {
       return
     }
     
-    // Verify this is a faculty or staff
-    if (user.role !== 'FACULTY' && user.role !== 'STAFF') {
-      router.push(user.role === 'ADMIN' ? '/admin/dashboard' : '/student/dashboard')
+    // Verify this is a student
+    if (user.role !== 'STUDENT') {
+      router.push(user.role === 'ADMIN' ? '/admin/dashboard' : '/fs/dashboard')
     }
   }, [isAuthenticated, user, router])
   
@@ -119,7 +119,7 @@ export default function FormsPage() {
           </p>
         </div>
         <nav className="flex items-center text-sm text-gray-500">
-          <Link href="/fs/dashboard" className="hover:text-blue-600">
+          <Link href="/student/dashboard" className="hover:text-blue-600">
             Dashboard
           </Link>
           <ChevronRight className="h-4 w-4 mx-1" />
@@ -129,13 +129,13 @@ export default function FormsPage() {
 
       {/* Action buttons */}
       <div className="flex justify-end mb-6 gap-2">
-        <Link href="/fs/forms/new">
+        <Link href="/student/forms/new">
           <Button variant="outline" className="flex items-center gap-1">
             <FileText className="h-4 w-4" />
             Fill Form
           </Button>
         </Link>
-        <Link href="/fs/forms/upload">
+        <Link href="/student/forms/upload">
           <Button className="flex items-center gap-1 bg-[#166cbb] hover:bg-[#12579a]">
             <Plus className="h-4 w-4" />
             Upload Forms
@@ -162,10 +162,10 @@ export default function FormsPage() {
               <h3 className="text-lg font-medium text-gray-700 mb-1">No forms submitted yet</h3>
               <p className="text-gray-500 mb-4">Start by filling out or uploading your health forms</p>
               <div className="flex gap-2 justify-center">
-                <Link href="/fs/forms/new">
+                <Link href="/student/forms/new">
                   <Button variant="outline" size="sm">Fill Form</Button>
                 </Link>
-                <Link href="/fs/forms/upload">
+                <Link href="/student/forms/upload">
                   <Button size="sm" className="bg-[#166cbb] hover:bg-[#12579a]">Upload Forms</Button>
                 </Link>
               </div>

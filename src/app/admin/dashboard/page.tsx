@@ -111,15 +111,15 @@ export default function AdminDashboard() {
             </Card>
           </Link>
           
-          <Link href="/admin/medical-records">
+          <Link href="/admin/health-forms">
             <Card className="bg-white shadow-sm hover:border-blue-500 transition-all cursor-pointer">
               <CardContent className="flex">
-                <div className="h-12 w-12 rounded-full bg-red-100 flex items-center justify-center mr-4">
-                  <Stethoscope className="h-6 w-6 text-red-600" />
+                <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center mr-4">
+                  <FileText className="h-6 w-6 text-emerald-600" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-lg">Medical Records</h3>
-                  <p className="text-muted-foreground">Upload and manage medical records</p>
+                  <h3 className="font-medium text-lg">Health Forms</h3>
+                  <p className="text-muted-foreground">Manage student and staff health form submissions</p>
                 </div>
               </CardContent>
             </Card>
