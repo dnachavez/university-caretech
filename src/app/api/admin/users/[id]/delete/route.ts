@@ -9,6 +9,38 @@ export async function DELETE(
   try {
     const userId = params.id;
     
+    // First delete related records with foreign key constraints
+    // Delete related notifications
+    await prisma.notification.deleteMany({
+      where: {
+        userId: userId,
+      },
+    });
+    
+    // Delete related clearance requests
+    await prisma.clearanceRequest.deleteMany({
+      where: {
+        userId: userId,
+      },
+    });
+    
+    // Delete related appointments
+    await prisma.appointment.deleteMany({
+      where: {
+        userId: userId,
+      },
+    });
+    
+    // Delete related uploaded forms
+    await prisma.uploadedForm.deleteMany({
+      where: {
+        userId: userId,
+      },
+    });
+    
+    // Health form has onDelete: Cascade so it will be automatically deleted
+    
+    // Finally delete the user
     await prisma.user.delete({
       where: {
         id: userId,
