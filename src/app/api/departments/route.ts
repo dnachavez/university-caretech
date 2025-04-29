@@ -17,9 +17,7 @@ const setCacheHeaders = (response: NextResponse) => {
 // GET /api/departments - Get all departments (public endpoint)
 export async function GET(req: NextRequest) {
   try {
-    // Add a slight delay to prevent connection flood
-    await new Promise(resolve => setTimeout(resolve, 50))
-    
+    // Fetch all departments (active ones only)
     const departments = await prisma.department.findMany({
       where: {
         isActive: true
@@ -27,12 +25,15 @@ export async function GET(req: NextRequest) {
       orderBy: {
         name: 'asc'
       }
-    });
+    })
 
-    const response = NextResponse.json({ departments }, { status: 200 });
-    return setCacheHeaders(response);
+    return NextResponse.json({ departments })
   } catch (error) {
-    return handlePrismaError(error);
+    console.error('Error fetching departments:', error)
+    return NextResponse.json(
+      { error: 'Failed to fetch departments' },
+      { status: 500 }
+    )
   }
 }
 

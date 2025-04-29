@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { toast } from "sonner"
+import { YEAR_LEVELS } from "@/lib/constants"
 
 interface Department {
   id: string
@@ -427,18 +428,19 @@ export function SignUpForm({ onTabChange }: SignUpFormProps) {
           {/* Year Level selection for students */}
           {formData.role === "student" && (
             <div className="space-y-2">
-              <Label htmlFor="yearLevel" className="text-[#5b6779] text-sm font-medium flex items-center">
-                <GraduationCap className="h-4 w-4 mr-1 text-[#5b6779]" /> Year Level
+              <Label htmlFor="yearLevel" className="text-[#5b6779] text-sm font-medium">
+                Year Level
               </Label>
               <Select value={formData.yearLevel} onValueChange={handleYearLevelChange}>
                 <SelectTrigger id="yearLevel" className={`w-full bg-[#f5f5ff] text-[#5b6779] rounded-lg border ${errors.yearLevel ? 'border-red-500' : 'border-[#dde5f0]'} focus:outline-none focus:ring-1 focus:ring-[#d9e6fb]`}>
                   <SelectValue placeholder="Select year level" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="1st Year">1st Year</SelectItem>
-                  <SelectItem value="2nd Year">2nd Year</SelectItem>
-                  <SelectItem value="3rd Year">3rd Year</SelectItem>
-                  <SelectItem value="4th Year">4th Year</SelectItem>
+                  {YEAR_LEVELS.map((yearLevel) => (
+                    <SelectItem key={yearLevel.value} value={yearLevel.value}>
+                      {yearLevel.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               {errors.yearLevel && <p className="text-xs text-red-500">{errors.yearLevel}</p>}

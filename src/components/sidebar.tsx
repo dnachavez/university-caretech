@@ -193,6 +193,15 @@ export function Sidebar() {
           isCollapsed={isCollapsed}
         />
         
+        {/* Directory Link - Visible to all users */}
+        <NavItem 
+          href="/directory"
+          icon={<Users className="h-5 w-5 text-indigo-600" />} 
+          label="Directory" 
+          isActive={pathname === "/directory"} 
+          isCollapsed={isCollapsed}
+        />
+        
         {/* Admin Users menu */}
         {isAdmin && baseRoute === '/admin' && (
           <NavItem 

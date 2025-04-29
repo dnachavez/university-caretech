@@ -1870,11 +1870,13 @@ export namespace Prisma {
   export type DepartmentCountOutputType = {
     clearanceRequests: number
     healthForms: number
+    users: number
   }
 
   export type DepartmentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clearanceRequests?: boolean | DepartmentCountOutputTypeCountClearanceRequestsArgs
     healthForms?: boolean | DepartmentCountOutputTypeCountHealthFormsArgs
+    users?: boolean | DepartmentCountOutputTypeCountUsersArgs
   }
 
   // Custom InputTypes
@@ -1902,6 +1904,13 @@ export namespace Prisma {
     where?: UserHealthFormWhereInput
   }
 
+  /**
+   * DepartmentCountOutputType without action
+   */
+  export type DepartmentCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserWhereInput
+  }
+
 
   /**
    * Models
@@ -1926,6 +1935,8 @@ export namespace Prisma {
     password: string | null
     idNumber: string | null
     role: string | null
+    departmentId: string | null
+    yearLevel: string | null
     status: string | null
     emailVerified: boolean | null
     verificationToken: string | null
@@ -1942,6 +1953,8 @@ export namespace Prisma {
     password: string | null
     idNumber: string | null
     role: string | null
+    departmentId: string | null
+    yearLevel: string | null
     status: string | null
     emailVerified: boolean | null
     verificationToken: string | null
@@ -1958,6 +1971,8 @@ export namespace Prisma {
     password: number
     idNumber: number
     role: number
+    departmentId: number
+    yearLevel: number
     status: number
     emailVerified: number
     verificationToken: number
@@ -1976,6 +1991,8 @@ export namespace Prisma {
     password?: true
     idNumber?: true
     role?: true
+    departmentId?: true
+    yearLevel?: true
     status?: true
     emailVerified?: true
     verificationToken?: true
@@ -1992,6 +2009,8 @@ export namespace Prisma {
     password?: true
     idNumber?: true
     role?: true
+    departmentId?: true
+    yearLevel?: true
     status?: true
     emailVerified?: true
     verificationToken?: true
@@ -2008,6 +2027,8 @@ export namespace Prisma {
     password?: true
     idNumber?: true
     role?: true
+    departmentId?: true
+    yearLevel?: true
     status?: true
     emailVerified?: true
     verificationToken?: true
@@ -2097,6 +2118,8 @@ export namespace Prisma {
     password: string
     idNumber: string | null
     role: string
+    departmentId: string | null
+    yearLevel: string | null
     status: string
     emailVerified: boolean
     verificationToken: string | null
@@ -2130,6 +2153,8 @@ export namespace Prisma {
     password?: boolean
     idNumber?: boolean
     role?: boolean
+    departmentId?: boolean
+    yearLevel?: boolean
     status?: boolean
     emailVerified?: boolean
     verificationToken?: boolean
@@ -2140,6 +2165,7 @@ export namespace Prisma {
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     uploadedForms?: boolean | User$uploadedFormsArgs<ExtArgs>
     healthForm?: boolean | User$healthFormArgs<ExtArgs>
+    department?: boolean | User$departmentArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -2152,11 +2178,14 @@ export namespace Prisma {
     password?: boolean
     idNumber?: boolean
     role?: boolean
+    departmentId?: boolean
+    yearLevel?: boolean
     status?: boolean
     emailVerified?: boolean
     verificationToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    department?: boolean | User$departmentArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2168,11 +2197,14 @@ export namespace Prisma {
     password?: boolean
     idNumber?: boolean
     role?: boolean
+    departmentId?: boolean
+    yearLevel?: boolean
     status?: boolean
     emailVerified?: boolean
     verificationToken?: boolean
     createdAt?: boolean
     updatedAt?: boolean
+    department?: boolean | User$departmentArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -2184,6 +2216,8 @@ export namespace Prisma {
     password?: boolean
     idNumber?: boolean
     role?: boolean
+    departmentId?: boolean
+    yearLevel?: boolean
     status?: boolean
     emailVerified?: boolean
     verificationToken?: boolean
@@ -2191,17 +2225,22 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "username" | "email" | "password" | "idNumber" | "role" | "status" | "emailVerified" | "verificationToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "firstName" | "lastName" | "username" | "email" | "password" | "idNumber" | "role" | "departmentId" | "yearLevel" | "status" | "emailVerified" | "verificationToken" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     appointments?: boolean | User$appointmentsArgs<ExtArgs>
     clearanceRequests?: boolean | User$clearanceRequestsArgs<ExtArgs>
     notifications?: boolean | User$notificationsArgs<ExtArgs>
     uploadedForms?: boolean | User$uploadedFormsArgs<ExtArgs>
     healthForm?: boolean | User$healthFormArgs<ExtArgs>
+    department?: boolean | User$departmentArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
-  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
-  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    department?: boolean | User$departmentArgs<ExtArgs>
+  }
+  export type UserIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    department?: boolean | User$departmentArgs<ExtArgs>
+  }
 
   export type $UserPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "User"
@@ -2211,6 +2250,7 @@ export namespace Prisma {
       notifications: Prisma.$NotificationPayload<ExtArgs>[]
       uploadedForms: Prisma.$UploadedFormPayload<ExtArgs>[]
       healthForm: Prisma.$UserHealthFormPayload<ExtArgs> | null
+      department: Prisma.$DepartmentPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2221,6 +2261,8 @@ export namespace Prisma {
       password: string
       idNumber: string | null
       role: string
+      departmentId: string | null
+      yearLevel: string | null
       status: string
       emailVerified: boolean
       verificationToken: string | null
@@ -2625,6 +2667,7 @@ export namespace Prisma {
     notifications<T extends User$notificationsArgs<ExtArgs> = {}>(args?: Subset<T, User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     uploadedForms<T extends User$uploadedFormsArgs<ExtArgs> = {}>(args?: Subset<T, User$uploadedFormsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UploadedFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     healthForm<T extends User$healthFormArgs<ExtArgs> = {}>(args?: Subset<T, User$healthFormArgs<ExtArgs>>): Prisma__UserHealthFormClient<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    department<T extends User$departmentArgs<ExtArgs> = {}>(args?: Subset<T, User$departmentArgs<ExtArgs>>): Prisma__DepartmentClient<$Result.GetResult<Prisma.$DepartmentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2662,6 +2705,8 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly idNumber: FieldRef<"User", 'String'>
     readonly role: FieldRef<"User", 'String'>
+    readonly departmentId: FieldRef<"User", 'String'>
+    readonly yearLevel: FieldRef<"User", 'String'>
     readonly status: FieldRef<"User", 'String'>
     readonly emailVerified: FieldRef<"User", 'Boolean'>
     readonly verificationToken: FieldRef<"User", 'String'>
@@ -2916,6 +2961,10 @@ export namespace Prisma {
      */
     data: UserCreateManyInput | UserCreateManyInput[]
     skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeCreateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -2986,6 +3035,10 @@ export namespace Prisma {
      * Limit how many Users to update.
      */
     limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserIncludeUpdateManyAndReturn<ExtArgs> | null
   }
 
   /**
@@ -3167,6 +3220,25 @@ export namespace Prisma {
      */
     include?: UserHealthFormInclude<ExtArgs> | null
     where?: UserHealthFormWhereInput
+  }
+
+  /**
+   * User.department
+   */
+  export type User$departmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Department
+     */
+    select?: DepartmentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Department
+     */
+    omit?: DepartmentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DepartmentInclude<ExtArgs> | null
+    where?: DepartmentWhereInput
   }
 
   /**
@@ -11315,6 +11387,7 @@ export namespace Prisma {
     updatedAt?: boolean
     clearanceRequests?: boolean | Department$clearanceRequestsArgs<ExtArgs>
     healthForms?: boolean | Department$healthFormsArgs<ExtArgs>
+    users?: boolean | Department$usersArgs<ExtArgs>
     _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["department"]>
 
@@ -11346,6 +11419,7 @@ export namespace Prisma {
   export type DepartmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     clearanceRequests?: boolean | Department$clearanceRequestsArgs<ExtArgs>
     healthForms?: boolean | Department$healthFormsArgs<ExtArgs>
+    users?: boolean | Department$usersArgs<ExtArgs>
     _count?: boolean | DepartmentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type DepartmentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -11356,6 +11430,7 @@ export namespace Prisma {
     objects: {
       clearanceRequests: Prisma.$ClearanceRequestPayload<ExtArgs>[]
       healthForms: Prisma.$UserHealthFormPayload<ExtArgs>[]
+      users: Prisma.$UserPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -11759,6 +11834,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     clearanceRequests<T extends Department$clearanceRequestsArgs<ExtArgs> = {}>(args?: Subset<T, Department$clearanceRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ClearanceRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     healthForms<T extends Department$healthFormsArgs<ExtArgs> = {}>(args?: Subset<T, Department$healthFormsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserHealthFormPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    users<T extends Department$usersArgs<ExtArgs> = {}>(args?: Subset<T, Department$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -12226,6 +12302,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: UserHealthFormScalarFieldEnum | UserHealthFormScalarFieldEnum[]
+  }
+
+  /**
+   * Department.users
+   */
+  export type Department$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the User
+     */
+    select?: UserSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the User
+     */
+    omit?: UserOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserInclude<ExtArgs> | null
+    where?: UserWhereInput
+    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
+    cursor?: UserWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -14563,6 +14663,8 @@ export namespace Prisma {
     password: 'password',
     idNumber: 'idNumber',
     role: 'role',
+    departmentId: 'departmentId',
+    yearLevel: 'yearLevel',
     status: 'status',
     emailVerified: 'emailVerified',
     verificationToken: 'verificationToken',
@@ -14836,6 +14938,8 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     idNumber?: StringNullableFilter<"User"> | string | null
     role?: StringFilter<"User"> | string
+    departmentId?: StringNullableFilter<"User"> | string | null
+    yearLevel?: StringNullableFilter<"User"> | string | null
     status?: StringFilter<"User"> | string
     emailVerified?: BoolFilter<"User"> | boolean
     verificationToken?: StringNullableFilter<"User"> | string | null
@@ -14846,6 +14950,7 @@ export namespace Prisma {
     notifications?: NotificationListRelationFilter
     uploadedForms?: UploadedFormListRelationFilter
     healthForm?: XOR<UserHealthFormNullableScalarRelationFilter, UserHealthFormWhereInput> | null
+    department?: XOR<DepartmentNullableScalarRelationFilter, DepartmentWhereInput> | null
   }
 
   export type UserOrderByWithRelationInput = {
@@ -14857,6 +14962,8 @@ export namespace Prisma {
     password?: SortOrder
     idNumber?: SortOrderInput | SortOrder
     role?: SortOrder
+    departmentId?: SortOrderInput | SortOrder
+    yearLevel?: SortOrderInput | SortOrder
     status?: SortOrder
     emailVerified?: SortOrder
     verificationToken?: SortOrderInput | SortOrder
@@ -14867,6 +14974,7 @@ export namespace Prisma {
     notifications?: NotificationOrderByRelationAggregateInput
     uploadedForms?: UploadedFormOrderByRelationAggregateInput
     healthForm?: UserHealthFormOrderByWithRelationInput
+    department?: DepartmentOrderByWithRelationInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -14881,6 +14989,8 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     idNumber?: StringNullableFilter<"User"> | string | null
     role?: StringFilter<"User"> | string
+    departmentId?: StringNullableFilter<"User"> | string | null
+    yearLevel?: StringNullableFilter<"User"> | string | null
     status?: StringFilter<"User"> | string
     emailVerified?: BoolFilter<"User"> | boolean
     verificationToken?: StringNullableFilter<"User"> | string | null
@@ -14891,6 +15001,7 @@ export namespace Prisma {
     notifications?: NotificationListRelationFilter
     uploadedForms?: UploadedFormListRelationFilter
     healthForm?: XOR<UserHealthFormNullableScalarRelationFilter, UserHealthFormWhereInput> | null
+    department?: XOR<DepartmentNullableScalarRelationFilter, DepartmentWhereInput> | null
   }, "id" | "username" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -14902,6 +15013,8 @@ export namespace Prisma {
     password?: SortOrder
     idNumber?: SortOrderInput | SortOrder
     role?: SortOrder
+    departmentId?: SortOrderInput | SortOrder
+    yearLevel?: SortOrderInput | SortOrder
     status?: SortOrder
     emailVerified?: SortOrder
     verificationToken?: SortOrderInput | SortOrder
@@ -14924,6 +15037,8 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     idNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
     role?: StringWithAggregatesFilter<"User"> | string
+    departmentId?: StringNullableWithAggregatesFilter<"User"> | string | null
+    yearLevel?: StringNullableWithAggregatesFilter<"User"> | string | null
     status?: StringWithAggregatesFilter<"User"> | string
     emailVerified?: BoolWithAggregatesFilter<"User"> | boolean
     verificationToken?: StringNullableWithAggregatesFilter<"User"> | string | null
@@ -15565,6 +15680,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Department"> | Date | string
     clearanceRequests?: ClearanceRequestListRelationFilter
     healthForms?: UserHealthFormListRelationFilter
+    users?: UserListRelationFilter
   }
 
   export type DepartmentOrderByWithRelationInput = {
@@ -15575,6 +15691,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     clearanceRequests?: ClearanceRequestOrderByRelationAggregateInput
     healthForms?: UserHealthFormOrderByRelationAggregateInput
+    users?: UserOrderByRelationAggregateInput
   }
 
   export type DepartmentWhereUniqueInput = Prisma.AtLeast<{
@@ -15588,6 +15705,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Department"> | Date | string
     clearanceRequests?: ClearanceRequestListRelationFilter
     healthForms?: UserHealthFormListRelationFilter
+    users?: UserListRelationFilter
   }, "id">
 
   export type DepartmentOrderByWithAggregationInput = {
@@ -15799,6 +15917,7 @@ export namespace Prisma {
     password: string
     idNumber?: string | null
     role: string
+    yearLevel?: string | null
     status?: string
     emailVerified?: boolean
     verificationToken?: string | null
@@ -15809,6 +15928,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
     healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -15820,6 +15940,8 @@ export namespace Prisma {
     password: string
     idNumber?: string | null
     role: string
+    departmentId?: string | null
+    yearLevel?: string | null
     status?: string
     emailVerified?: boolean
     verificationToken?: string | null
@@ -15841,6 +15963,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     idNumber?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15851,6 +15974,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
     healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -15862,6 +15986,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     idNumber?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15883,6 +16009,8 @@ export namespace Prisma {
     password: string
     idNumber?: string | null
     role: string
+    departmentId?: string | null
+    yearLevel?: string | null
     status?: string
     emailVerified?: boolean
     verificationToken?: string | null
@@ -15899,6 +16027,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     idNumber?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -15915,6 +16044,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     idNumber?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -16653,6 +16784,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     clearanceRequests?: ClearanceRequestCreateNestedManyWithoutDepartmentInput
     healthForms?: UserHealthFormCreateNestedManyWithoutDepartmentInput
+    users?: UserCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentUncheckedCreateInput = {
@@ -16663,6 +16795,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutDepartmentInput
     healthForms?: UserHealthFormUncheckedCreateNestedManyWithoutDepartmentInput
+    users?: UserUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentUpdateInput = {
@@ -16673,6 +16806,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clearanceRequests?: ClearanceRequestUpdateManyWithoutDepartmentNestedInput
     healthForms?: UserHealthFormUpdateManyWithoutDepartmentNestedInput
+    users?: UserUpdateManyWithoutDepartmentNestedInput
   }
 
   export type DepartmentUncheckedUpdateInput = {
@@ -16683,6 +16817,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutDepartmentNestedInput
     healthForms?: UserHealthFormUncheckedUpdateManyWithoutDepartmentNestedInput
+    users?: UserUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
   export type DepartmentCreateManyInput = {
@@ -16984,6 +17119,11 @@ export namespace Prisma {
     isNot?: UserHealthFormWhereInput | null
   }
 
+  export type DepartmentNullableScalarRelationFilter = {
+    is?: DepartmentWhereInput | null
+    isNot?: DepartmentWhereInput | null
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -17014,6 +17154,8 @@ export namespace Prisma {
     password?: SortOrder
     idNumber?: SortOrder
     role?: SortOrder
+    departmentId?: SortOrder
+    yearLevel?: SortOrder
     status?: SortOrder
     emailVerified?: SortOrder
     verificationToken?: SortOrder
@@ -17030,6 +17172,8 @@ export namespace Prisma {
     password?: SortOrder
     idNumber?: SortOrder
     role?: SortOrder
+    departmentId?: SortOrder
+    yearLevel?: SortOrder
     status?: SortOrder
     emailVerified?: SortOrder
     verificationToken?: SortOrder
@@ -17046,6 +17190,8 @@ export namespace Prisma {
     password?: SortOrder
     idNumber?: SortOrder
     role?: SortOrder
+    departmentId?: SortOrder
+    yearLevel?: SortOrder
     status?: SortOrder
     emailVerified?: SortOrder
     verificationToken?: SortOrder
@@ -17157,11 +17303,6 @@ export namespace Prisma {
     email?: SortOrder
     expires?: SortOrder
     createdAt?: SortOrder
-  }
-
-  export type DepartmentNullableScalarRelationFilter = {
-    is?: DepartmentWhereInput | null
-    isNot?: DepartmentWhereInput | null
   }
 
   export type UserScalarRelationFilter = {
@@ -17461,7 +17602,17 @@ export namespace Prisma {
     none?: UserHealthFormWhereInput
   }
 
+  export type UserListRelationFilter = {
+    every?: UserWhereInput
+    some?: UserWhereInput
+    none?: UserWhereInput
+  }
+
   export type UserHealthFormOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -17615,6 +17766,12 @@ export namespace Prisma {
     connect?: UserHealthFormWhereUniqueInput
   }
 
+  export type DepartmentCreateNestedOneWithoutUsersInput = {
+    create?: XOR<DepartmentCreateWithoutUsersInput, DepartmentUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutUsersInput
+    connect?: DepartmentWhereUniqueInput
+  }
+
   export type AppointmentUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AppointmentCreateWithoutUserInput, AppointmentUncheckedCreateWithoutUserInput> | AppointmentCreateWithoutUserInput[] | AppointmentUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AppointmentCreateOrConnectWithoutUserInput | AppointmentCreateOrConnectWithoutUserInput[]
@@ -17729,6 +17886,16 @@ export namespace Prisma {
     delete?: UserHealthFormWhereInput | boolean
     connect?: UserHealthFormWhereUniqueInput
     update?: XOR<XOR<UserHealthFormUpdateToOneWithWhereWithoutUserInput, UserHealthFormUpdateWithoutUserInput>, UserHealthFormUncheckedUpdateWithoutUserInput>
+  }
+
+  export type DepartmentUpdateOneWithoutUsersNestedInput = {
+    create?: XOR<DepartmentCreateWithoutUsersInput, DepartmentUncheckedCreateWithoutUsersInput>
+    connectOrCreate?: DepartmentCreateOrConnectWithoutUsersInput
+    upsert?: DepartmentUpsertWithoutUsersInput
+    disconnect?: DepartmentWhereInput | boolean
+    delete?: DepartmentWhereInput | boolean
+    connect?: DepartmentWhereUniqueInput
+    update?: XOR<XOR<DepartmentUpdateToOneWithWhereWithoutUsersInput, DepartmentUpdateWithoutUsersInput>, DepartmentUncheckedUpdateWithoutUsersInput>
   }
 
   export type AppointmentUncheckedUpdateManyWithoutUserNestedInput = {
@@ -17971,6 +18138,13 @@ export namespace Prisma {
     connect?: UserHealthFormWhereUniqueInput | UserHealthFormWhereUniqueInput[]
   }
 
+  export type UserCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<UserCreateWithoutDepartmentInput, UserUncheckedCreateWithoutDepartmentInput> | UserCreateWithoutDepartmentInput[] | UserUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDepartmentInput | UserCreateOrConnectWithoutDepartmentInput[]
+    createMany?: UserCreateManyDepartmentInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  }
+
   export type ClearanceRequestUncheckedCreateNestedManyWithoutDepartmentInput = {
     create?: XOR<ClearanceRequestCreateWithoutDepartmentInput, ClearanceRequestUncheckedCreateWithoutDepartmentInput> | ClearanceRequestCreateWithoutDepartmentInput[] | ClearanceRequestUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: ClearanceRequestCreateOrConnectWithoutDepartmentInput | ClearanceRequestCreateOrConnectWithoutDepartmentInput[]
@@ -17983,6 +18157,13 @@ export namespace Prisma {
     connectOrCreate?: UserHealthFormCreateOrConnectWithoutDepartmentInput | UserHealthFormCreateOrConnectWithoutDepartmentInput[]
     createMany?: UserHealthFormCreateManyDepartmentInputEnvelope
     connect?: UserHealthFormWhereUniqueInput | UserHealthFormWhereUniqueInput[]
+  }
+
+  export type UserUncheckedCreateNestedManyWithoutDepartmentInput = {
+    create?: XOR<UserCreateWithoutDepartmentInput, UserUncheckedCreateWithoutDepartmentInput> | UserCreateWithoutDepartmentInput[] | UserUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDepartmentInput | UserCreateOrConnectWithoutDepartmentInput[]
+    createMany?: UserCreateManyDepartmentInputEnvelope
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
   }
 
   export type ClearanceRequestUpdateManyWithoutDepartmentNestedInput = {
@@ -18013,6 +18194,20 @@ export namespace Prisma {
     deleteMany?: UserHealthFormScalarWhereInput | UserHealthFormScalarWhereInput[]
   }
 
+  export type UserUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<UserCreateWithoutDepartmentInput, UserUncheckedCreateWithoutDepartmentInput> | UserCreateWithoutDepartmentInput[] | UserUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDepartmentInput | UserCreateOrConnectWithoutDepartmentInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutDepartmentInput | UserUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: UserCreateManyDepartmentInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutDepartmentInput | UserUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutDepartmentInput | UserUpdateManyWithWhereWithoutDepartmentInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  }
+
   export type ClearanceRequestUncheckedUpdateManyWithoutDepartmentNestedInput = {
     create?: XOR<ClearanceRequestCreateWithoutDepartmentInput, ClearanceRequestUncheckedCreateWithoutDepartmentInput> | ClearanceRequestCreateWithoutDepartmentInput[] | ClearanceRequestUncheckedCreateWithoutDepartmentInput[]
     connectOrCreate?: ClearanceRequestCreateOrConnectWithoutDepartmentInput | ClearanceRequestCreateOrConnectWithoutDepartmentInput[]
@@ -18039,6 +18234,20 @@ export namespace Prisma {
     update?: UserHealthFormUpdateWithWhereUniqueWithoutDepartmentInput | UserHealthFormUpdateWithWhereUniqueWithoutDepartmentInput[]
     updateMany?: UserHealthFormUpdateManyWithWhereWithoutDepartmentInput | UserHealthFormUpdateManyWithWhereWithoutDepartmentInput[]
     deleteMany?: UserHealthFormScalarWhereInput | UserHealthFormScalarWhereInput[]
+  }
+
+  export type UserUncheckedUpdateManyWithoutDepartmentNestedInput = {
+    create?: XOR<UserCreateWithoutDepartmentInput, UserUncheckedCreateWithoutDepartmentInput> | UserCreateWithoutDepartmentInput[] | UserUncheckedCreateWithoutDepartmentInput[]
+    connectOrCreate?: UserCreateOrConnectWithoutDepartmentInput | UserCreateOrConnectWithoutDepartmentInput[]
+    upsert?: UserUpsertWithWhereUniqueWithoutDepartmentInput | UserUpsertWithWhereUniqueWithoutDepartmentInput[]
+    createMany?: UserCreateManyDepartmentInputEnvelope
+    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+    update?: UserUpdateWithWhereUniqueWithoutDepartmentInput | UserUpdateWithWhereUniqueWithoutDepartmentInput[]
+    updateMany?: UserUpdateManyWithWhereWithoutDepartmentInput | UserUpdateManyWithWhereWithoutDepartmentInput[]
+    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
   }
 
   export type DepartmentCreateNestedOneWithoutClearanceRequestsInput = {
@@ -18436,6 +18645,31 @@ export namespace Prisma {
     create: XOR<UserHealthFormCreateWithoutUserInput, UserHealthFormUncheckedCreateWithoutUserInput>
   }
 
+  export type DepartmentCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clearanceRequests?: ClearanceRequestCreateNestedManyWithoutDepartmentInput
+    healthForms?: UserHealthFormCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentUncheckedCreateWithoutUsersInput = {
+    id?: string
+    name: string
+    isActive?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutDepartmentInput
+    healthForms?: UserHealthFormUncheckedCreateNestedManyWithoutDepartmentInput
+  }
+
+  export type DepartmentCreateOrConnectWithoutUsersInput = {
+    where: DepartmentWhereUniqueInput
+    create: XOR<DepartmentCreateWithoutUsersInput, DepartmentUncheckedCreateWithoutUsersInput>
+  }
+
   export type AppointmentUpsertWithWhereUniqueWithoutUserInput = {
     where: AppointmentWhereUniqueInput
     update: XOR<AppointmentUpdateWithoutUserInput, AppointmentUncheckedUpdateWithoutUserInput>
@@ -18665,6 +18899,37 @@ export namespace Prisma {
     medicationPermission?: BoolFieldUpdateOperationsInput | boolean
   }
 
+  export type DepartmentUpsertWithoutUsersInput = {
+    update: XOR<DepartmentUpdateWithoutUsersInput, DepartmentUncheckedUpdateWithoutUsersInput>
+    create: XOR<DepartmentCreateWithoutUsersInput, DepartmentUncheckedCreateWithoutUsersInput>
+    where?: DepartmentWhereInput
+  }
+
+  export type DepartmentUpdateToOneWithWhereWithoutUsersInput = {
+    where?: DepartmentWhereInput
+    data: XOR<DepartmentUpdateWithoutUsersInput, DepartmentUncheckedUpdateWithoutUsersInput>
+  }
+
+  export type DepartmentUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clearanceRequests?: ClearanceRequestUpdateManyWithoutDepartmentNestedInput
+    healthForms?: UserHealthFormUpdateManyWithoutDepartmentNestedInput
+  }
+
+  export type DepartmentUncheckedUpdateWithoutUsersInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    isActive?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutDepartmentNestedInput
+    healthForms?: UserHealthFormUncheckedUpdateManyWithoutDepartmentNestedInput
+  }
+
   export type DepartmentCreateWithoutHealthFormsInput = {
     id?: string
     name: string
@@ -18672,6 +18937,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     clearanceRequests?: ClearanceRequestCreateNestedManyWithoutDepartmentInput
+    users?: UserCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentUncheckedCreateWithoutHealthFormsInput = {
@@ -18681,6 +18947,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutDepartmentInput
+    users?: UserUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentCreateOrConnectWithoutHealthFormsInput = {
@@ -18697,6 +18964,7 @@ export namespace Prisma {
     password: string
     idNumber?: string | null
     role: string
+    yearLevel?: string | null
     status?: string
     emailVerified?: boolean
     verificationToken?: string | null
@@ -18706,6 +18974,7 @@ export namespace Prisma {
     clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutHealthFormInput = {
@@ -18717,6 +18986,8 @@ export namespace Prisma {
     password: string
     idNumber?: string | null
     role: string
+    departmentId?: string | null
+    yearLevel?: string | null
     status?: string
     emailVerified?: boolean
     verificationToken?: string | null
@@ -18751,6 +19022,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clearanceRequests?: ClearanceRequestUpdateManyWithoutDepartmentNestedInput
+    users?: UserUpdateManyWithoutDepartmentNestedInput
   }
 
   export type DepartmentUncheckedUpdateWithoutHealthFormsInput = {
@@ -18760,6 +19032,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutDepartmentNestedInput
+    users?: UserUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
   export type UserUpsertWithoutHealthFormInput = {
@@ -18782,6 +19055,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     idNumber?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18791,6 +19065,7 @@ export namespace Prisma {
     clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutHealthFormInput = {
@@ -18802,6 +19077,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     idNumber?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18822,6 +19099,7 @@ export namespace Prisma {
     password: string
     idNumber?: string | null
     role: string
+    yearLevel?: string | null
     status?: string
     emailVerified?: boolean
     verificationToken?: string | null
@@ -18831,6 +19109,7 @@ export namespace Prisma {
     clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
     healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutUploadedFormsInput = {
@@ -18842,6 +19121,8 @@ export namespace Prisma {
     password: string
     idNumber?: string | null
     role: string
+    departmentId?: string | null
+    yearLevel?: string | null
     status?: string
     emailVerified?: boolean
     verificationToken?: string | null
@@ -18878,6 +19159,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     idNumber?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -18887,6 +19169,7 @@ export namespace Prisma {
     clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutUploadedFormsInput = {
@@ -18898,6 +19181,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     idNumber?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19110,6 +19395,7 @@ export namespace Prisma {
     password: string
     idNumber?: string | null
     role: string
+    yearLevel?: string | null
     status?: string
     emailVerified?: boolean
     verificationToken?: string | null
@@ -19119,6 +19405,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
     healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutAppointmentsInput = {
@@ -19130,6 +19417,8 @@ export namespace Prisma {
     password: string
     idNumber?: string | null
     role: string
+    departmentId?: string | null
+    yearLevel?: string | null
     status?: string
     emailVerified?: boolean
     verificationToken?: string | null
@@ -19197,6 +19486,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     idNumber?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19206,6 +19496,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
     healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAppointmentsInput = {
@@ -19217,6 +19508,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     idNumber?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19366,6 +19659,60 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserCreateWithoutDepartmentInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    username: string
+    email: string
+    password: string
+    idNumber?: string | null
+    role: string
+    yearLevel?: string | null
+    status?: string
+    emailVerified?: boolean
+    verificationToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointments?: AppointmentCreateNestedManyWithoutUserInput
+    clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
+    notifications?: NotificationCreateNestedManyWithoutUserInput
+    uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
+    healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutDepartmentInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    username: string
+    email: string
+    password: string
+    idNumber?: string | null
+    role: string
+    yearLevel?: string | null
+    status?: string
+    emailVerified?: boolean
+    verificationToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    appointments?: AppointmentUncheckedCreateNestedManyWithoutUserInput
+    clearanceRequests?: ClearanceRequestUncheckedCreateNestedManyWithoutUserInput
+    notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
+    uploadedForms?: UploadedFormUncheckedCreateNestedManyWithoutUserInput
+    healthForm?: UserHealthFormUncheckedCreateNestedOneWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutDepartmentInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutDepartmentInput, UserUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type UserCreateManyDepartmentInputEnvelope = {
+    data: UserCreateManyDepartmentInput | UserCreateManyDepartmentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ClearanceRequestUpsertWithWhereUniqueWithoutDepartmentInput = {
     where: ClearanceRequestWhereUniqueInput
     update: XOR<ClearanceRequestUpdateWithoutDepartmentInput, ClearanceRequestUncheckedUpdateWithoutDepartmentInput>
@@ -19447,6 +19794,43 @@ export namespace Prisma {
     medicationPermission?: BoolFilter<"UserHealthForm"> | boolean
   }
 
+  export type UserUpsertWithWhereUniqueWithoutDepartmentInput = {
+    where: UserWhereUniqueInput
+    update: XOR<UserUpdateWithoutDepartmentInput, UserUncheckedUpdateWithoutDepartmentInput>
+    create: XOR<UserCreateWithoutDepartmentInput, UserUncheckedCreateWithoutDepartmentInput>
+  }
+
+  export type UserUpdateWithWhereUniqueWithoutDepartmentInput = {
+    where: UserWhereUniqueInput
+    data: XOR<UserUpdateWithoutDepartmentInput, UserUncheckedUpdateWithoutDepartmentInput>
+  }
+
+  export type UserUpdateManyWithWhereWithoutDepartmentInput = {
+    where: UserScalarWhereInput
+    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutDepartmentInput>
+  }
+
+  export type UserScalarWhereInput = {
+    AND?: UserScalarWhereInput | UserScalarWhereInput[]
+    OR?: UserScalarWhereInput[]
+    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
+    id?: StringFilter<"User"> | string
+    firstName?: StringFilter<"User"> | string
+    lastName?: StringFilter<"User"> | string
+    username?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
+    password?: StringFilter<"User"> | string
+    idNumber?: StringNullableFilter<"User"> | string | null
+    role?: StringFilter<"User"> | string
+    departmentId?: StringNullableFilter<"User"> | string | null
+    yearLevel?: StringNullableFilter<"User"> | string | null
+    status?: StringFilter<"User"> | string
+    emailVerified?: BoolFilter<"User"> | boolean
+    verificationToken?: StringNullableFilter<"User"> | string | null
+    createdAt?: DateTimeFilter<"User"> | Date | string
+    updatedAt?: DateTimeFilter<"User"> | Date | string
+  }
+
   export type DepartmentCreateWithoutClearanceRequestsInput = {
     id?: string
     name: string
@@ -19454,6 +19838,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     healthForms?: UserHealthFormCreateNestedManyWithoutDepartmentInput
+    users?: UserCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentUncheckedCreateWithoutClearanceRequestsInput = {
@@ -19463,6 +19848,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     healthForms?: UserHealthFormUncheckedCreateNestedManyWithoutDepartmentInput
+    users?: UserUncheckedCreateNestedManyWithoutDepartmentInput
   }
 
   export type DepartmentCreateOrConnectWithoutClearanceRequestsInput = {
@@ -19479,6 +19865,7 @@ export namespace Prisma {
     password: string
     idNumber?: string | null
     role: string
+    yearLevel?: string | null
     status?: string
     emailVerified?: boolean
     verificationToken?: string | null
@@ -19488,6 +19875,7 @@ export namespace Prisma {
     notifications?: NotificationCreateNestedManyWithoutUserInput
     uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
     healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutClearanceRequestsInput = {
@@ -19499,6 +19887,8 @@ export namespace Prisma {
     password: string
     idNumber?: string | null
     role: string
+    departmentId?: string | null
+    yearLevel?: string | null
     status?: string
     emailVerified?: boolean
     verificationToken?: string | null
@@ -19533,6 +19923,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     healthForms?: UserHealthFormUpdateManyWithoutDepartmentNestedInput
+    users?: UserUpdateManyWithoutDepartmentNestedInput
   }
 
   export type DepartmentUncheckedUpdateWithoutClearanceRequestsInput = {
@@ -19542,6 +19933,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     healthForms?: UserHealthFormUncheckedUpdateManyWithoutDepartmentNestedInput
+    users?: UserUncheckedUpdateManyWithoutDepartmentNestedInput
   }
 
   export type UserUpsertWithoutClearanceRequestsInput = {
@@ -19564,6 +19956,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     idNumber?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19573,6 +19966,7 @@ export namespace Prisma {
     notifications?: NotificationUpdateManyWithoutUserNestedInput
     uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
     healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutClearanceRequestsInput = {
@@ -19584,6 +19978,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     idNumber?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19604,6 +20000,7 @@ export namespace Prisma {
     password: string
     idNumber?: string | null
     role: string
+    yearLevel?: string | null
     status?: string
     emailVerified?: boolean
     verificationToken?: string | null
@@ -19613,6 +20010,7 @@ export namespace Prisma {
     clearanceRequests?: ClearanceRequestCreateNestedManyWithoutUserInput
     uploadedForms?: UploadedFormCreateNestedManyWithoutUserInput
     healthForm?: UserHealthFormCreateNestedOneWithoutUserInput
+    department?: DepartmentCreateNestedOneWithoutUsersInput
   }
 
   export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -19624,6 +20022,8 @@ export namespace Prisma {
     password: string
     idNumber?: string | null
     role: string
+    departmentId?: string | null
+    yearLevel?: string | null
     status?: string
     emailVerified?: boolean
     verificationToken?: string | null
@@ -19660,6 +20060,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     idNumber?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19669,6 +20070,7 @@ export namespace Prisma {
     clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
     uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
     healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
+    department?: DepartmentUpdateOneWithoutUsersNestedInput
   }
 
   export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -19680,6 +20082,8 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     idNumber?: NullableStringFieldUpdateOperationsInput | string | null
     role?: StringFieldUpdateOperationsInput | string
+    departmentId?: NullableStringFieldUpdateOperationsInput | string | null
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
     status?: StringFieldUpdateOperationsInput | string
     emailVerified?: BoolFieldUpdateOperationsInput | boolean
     verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
@@ -19980,6 +20384,23 @@ export namespace Prisma {
     medicationPermission?: boolean
   }
 
+  export type UserCreateManyDepartmentInput = {
+    id?: string
+    firstName: string
+    lastName: string
+    username: string
+    email: string
+    password: string
+    idNumber?: string | null
+    role: string
+    yearLevel?: string | null
+    status?: string
+    emailVerified?: boolean
+    verificationToken?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
   export type ClearanceRequestUpdateWithoutDepartmentInput = {
     id?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
@@ -20155,6 +20576,67 @@ export namespace Prisma {
     wallclimbing?: BoolFieldUpdateOperationsInput | boolean
     notFitActivities?: NullableStringFieldUpdateOperationsInput | string | null
     medicationPermission?: BoolFieldUpdateOperationsInput | boolean
+  }
+
+  export type UserUpdateWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    idNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointments?: AppointmentUpdateManyWithoutUserNestedInput
+    clearanceRequests?: ClearanceRequestUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUpdateManyWithoutUserNestedInput
+    uploadedForms?: UploadedFormUpdateManyWithoutUserNestedInput
+    healthForm?: UserHealthFormUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    idNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    appointments?: AppointmentUncheckedUpdateManyWithoutUserNestedInput
+    clearanceRequests?: ClearanceRequestUncheckedUpdateManyWithoutUserNestedInput
+    notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
+    uploadedForms?: UploadedFormUncheckedUpdateManyWithoutUserNestedInput
+    healthForm?: UserHealthFormUncheckedUpdateOneWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateManyWithoutDepartmentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    lastName?: StringFieldUpdateOperationsInput | string
+    username?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    idNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    role?: StringFieldUpdateOperationsInput | string
+    yearLevel?: NullableStringFieldUpdateOperationsInput | string | null
+    status?: StringFieldUpdateOperationsInput | string
+    emailVerified?: BoolFieldUpdateOperationsInput | boolean
+    verificationToken?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

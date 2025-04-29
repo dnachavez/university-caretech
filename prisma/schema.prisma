@@ -17,6 +17,8 @@ model User {
   password          String
   idNumber          String?
   role              String
+  departmentId      String?
+  yearLevel         String?
   status            String             @default("UNVERIFIED")
   emailVerified     Boolean            @default(false)
   verificationToken String?
@@ -27,6 +29,7 @@ model User {
   notifications     Notification[]
   uploadedForms     UploadedForm[]
   healthForm        UserHealthForm?
+  department        Department?        @relation(fields: [departmentId], references: [id])
 }
 
 model VerificationToken {
@@ -148,6 +151,7 @@ model Department {
   updatedAt         DateTime           @updatedAt
   clearanceRequests ClearanceRequest[]
   healthForms       UserHealthForm[]
+  users             User[]
 }
 
 model ClearanceRequest {

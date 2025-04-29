@@ -1,3 +1,5 @@
-import AuthPage from "@/features/auth/pages/auth-page"
+import { redirect } from "next/navigation";
 
-export default AuthPage 
+export default function AuthPage() {
+  redirect("/auth/login");
+} 
