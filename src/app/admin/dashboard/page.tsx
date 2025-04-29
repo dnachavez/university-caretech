@@ -33,9 +33,9 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6">
       {/* Custom Dashboard Header with Breadcrumb */}
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-6">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-gray-700">Admin Dashboard</h1>
           <p className="text-gray-500">
@@ -54,14 +54,14 @@ export default function AdminDashboard() {
       {/* Quick Actions */}
       <div className="my-6">
         <h2 className="text-xl font-semibold mb-4">Quick Actions</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <Link href="/admin/users">
             <Card className="bg-white shadow-sm hover:border-blue-500 transition-all cursor-pointer">
-              <CardContent className="flex">
-                <div className="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+              <CardContent className="flex flex-col sm:flex-row items-center sm:items-start p-4 gap-3">
+                <div className="h-12 w-12 rounded-full bg-purple-100 flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
                   <Users className="h-6 w-6 text-purple-600" />
                 </div>
-                <div>
+                <div className="text-center sm:text-left">
                   <h3 className="font-medium text-lg">Manage Users</h3>
                   <p className="text-muted-foreground">View and manage user accounts</p>
                 </div>
@@ -71,11 +71,11 @@ export default function AdminDashboard() {
           
           <Link href="/admin/appointments">
             <Card className="bg-white shadow-sm hover:border-blue-500 transition-all cursor-pointer">
-              <CardContent className="flex">
-                <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+              <CardContent className="flex flex-col sm:flex-row items-center sm:items-start p-4 gap-3">
+                <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
                   <Calendar className="h-6 w-6 text-blue-600" />
                 </div>
-                <div>
+                <div className="text-center sm:text-left">
                   <h3 className="font-medium text-lg">Manage Appointments</h3>
                   <p className="text-muted-foreground">Schedule and approve consultation appointments</p>
                 </div>
@@ -85,11 +85,11 @@ export default function AdminDashboard() {
 
           <Link href="/admin/departments">
             <Card className="bg-white shadow-sm hover:border-blue-500 transition-all cursor-pointer">
-              <CardContent className="flex">
-                <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center mr-4">
+              <CardContent className="flex flex-col sm:flex-row items-center sm:items-start p-4 gap-3">
+                <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
                   <Building className="h-6 w-6 text-green-600" />
                 </div>
-                <div>
+                <div className="text-center sm:text-left">
                   <h3 className="font-medium text-lg">Manage Departments</h3>
                   <p className="text-muted-foreground">Create and update department information</p>
                 </div>
@@ -99,11 +99,11 @@ export default function AdminDashboard() {
 
           <Link href="/admin/clearance">
             <Card className="bg-white shadow-sm hover:border-blue-500 transition-all cursor-pointer">
-              <CardContent className="flex">
-                <div className="h-12 w-12 rounded-full bg-amber-100 flex items-center justify-center mr-4">
+              <CardContent className="flex flex-col sm:flex-row items-center sm:items-start p-4 gap-3">
+                <div className="h-12 w-12 rounded-full bg-amber-100 flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
                   <FileText className="h-6 w-6 text-amber-600" />
                 </div>
-                <div>
+                <div className="text-center sm:text-left">
                   <h3 className="font-medium text-lg">Clearance Requests</h3>
                   <p className="text-muted-foreground">Process medical clearance applications</p>
                 </div>
@@ -113,11 +113,11 @@ export default function AdminDashboard() {
           
           <Link href="/admin/health-forms">
             <Card className="bg-white shadow-sm hover:border-blue-500 transition-all cursor-pointer">
-              <CardContent className="flex">
-                <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center mr-4">
+              <CardContent className="flex flex-col sm:flex-row items-center sm:items-start p-4 gap-3">
+                <div className="h-12 w-12 rounded-full bg-emerald-100 flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
                   <FileText className="h-6 w-6 text-emerald-600" />
                 </div>
-                <div>
+                <div className="text-center sm:text-left">
                   <h3 className="font-medium text-lg">Health Forms</h3>
                   <p className="text-muted-foreground">Manage student and staff health form submissions</p>
                 </div>

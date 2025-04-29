@@ -29,9 +29,9 @@ export default function StudentDashboard() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6">
       {/* Custom Dashboard Header with Breadcrumb */}
-      <div className="flex items-start justify-between mb-6">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-6">
         <div>
           <h1 className="text-2xl font-bold tracking-tight text-gray-700">Dashboard</h1>
           <p className="text-gray-500">
@@ -53,11 +53,11 @@ export default function StudentDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Link href="/student/medical/consultation">
             <Card className="bg-white shadow-sm hover:border-blue-500 transition-all cursor-pointer">
-              <CardContent className="flex">
-                <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+              <CardContent className="flex flex-col sm:flex-row items-center sm:items-start p-4 gap-3">
+                <div className="h-12 w-12 rounded-full bg-blue-100 flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
                   <Calendar className="h-6 w-6 text-blue-600" />
                 </div>
-                <div>
+                <div className="text-center sm:text-left">
                   <h3 className="font-medium text-lg">Schedule a Consultation</h3>
                   <p className="text-muted-foreground">Book an appointment with a healthcare provider</p>
                 </div>
@@ -67,11 +67,11 @@ export default function StudentDashboard() {
           
           <Link href="/student/medical/clearance">
             <Card className="bg-white shadow-sm hover:border-blue-500 transition-all cursor-pointer">
-              <CardContent className="flex">
-                <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center mr-4">
+              <CardContent className="flex flex-col sm:flex-row items-center sm:items-start p-4 gap-3">
+                <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center mb-2 sm:mb-0 sm:mr-4">
                   <FileText className="h-6 w-6 text-green-600" />
                 </div>
-                <div>
+                <div className="text-center sm:text-left">
                   <h3 className="font-medium text-lg">Request Medical Clearance</h3>
                   <p className="text-muted-foreground">Apply for your medical clearance documents</p>
                 </div>
