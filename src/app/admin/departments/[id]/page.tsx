@@ -77,6 +77,21 @@ export default function DepartmentDetailPage({ params }: { params: { id: string 
     role: 'STUDENT',
     yearLevel: '1st Year'
   })
+  // Collapsible state for year sections
+  const [yearSectionState, setYearSectionState] = useState({
+    'first': true,
+    'second': true,
+    'third': true,
+    'fourth': true
+  })
+  // Pagination state for year sections
+  const [paginationState, setPaginationState] = useState({
+    'first': 1,
+    'second': 1,
+    'third': 1,
+    'fourth': 1
+  })
+  const studentsPerPage = 20
   
   // Protect this route
   useEffect(() => {
@@ -169,13 +184,20 @@ export default function DepartmentDetailPage({ params }: { params: { id: string 
      user.email.toLowerCase().includes(studentSearchTerm.toLowerCase()))
   )
   
-  // Get faculty and staff with search filter
-  const facultyStaff = filteredUsers.filter(user => 
-    (user.role === 'FACULTY' || user.role === 'STAFF') &&
-    (user.firstName.toLowerCase().includes(facultySearchTerm.toLowerCase()) ||
-     user.lastName.toLowerCase().includes(facultySearchTerm.toLowerCase()) ||
-     user.email.toLowerCase().includes(facultySearchTerm.toLowerCase()))
-  )
+  // Get faculty and staff with search filter, sorted alphabetically by last name, then first name
+  const facultyStaff = filteredUsers
+    .filter(user => 
+      (user.role === 'FACULTY' || user.role === 'STAFF') &&
+      (user.firstName.toLowerCase().includes(facultySearchTerm.toLowerCase()) ||
+      user.lastName.toLowerCase().includes(facultySearchTerm.toLowerCase()) ||
+      user.email.toLowerCase().includes(facultySearchTerm.toLowerCase()))
+    )
+    .sort((a, b) => {
+      // Sort alphabetically by last name, then first name
+      const lastNameCompare = a.lastName.localeCompare(b.lastName);
+      if (lastNameCompare !== 0) return lastNameCompare;
+      return a.firstName.localeCompare(b.firstName);
+    });
   
   const handleAddMember = async () => {
     try {
@@ -228,6 +250,30 @@ export default function DepartmentDetailPage({ params }: { params: { id: string 
       console.error("Error adding user to department:", error)
       toast.error("Failed to add user")
     }
+  }
+  
+  // Helper function to toggle year section collapse state
+  const toggleYearSection = (year: 'first' | 'second' | 'third' | 'fourth') => {
+    setYearSectionState(prev => ({
+      ...prev,
+      [year]: !prev[year]
+    }))
+  }
+
+  // Helper function to paginate student data
+  const getPaginatedStudents = (students: User[], year: 'first' | 'second' | 'third' | 'fourth') => {
+    const currentPage = paginationState[year]
+    const startIndex = (currentPage - 1) * studentsPerPage
+    const endIndex = startIndex + studentsPerPage
+    return students.slice(startIndex, endIndex)
+  }
+
+  // Helper function to handle page changes
+  const handlePageChange = (year: 'first' | 'second' | 'third' | 'fourth', page: number) => {
+    setPaginationState(prev => ({
+      ...prev,
+      [year]: page
+    }))
   }
   
   if (!isAuthenticated || !currentUser) {
@@ -338,166 +384,343 @@ export default function DepartmentDetailPage({ params }: { params: { id: string 
               </div>
             </CardHeader>
             <CardContent>
-              <Tabs defaultValue="first-year" className="w-full">
-                <TabsList className="mb-4">
-                  <TabsTrigger value="first-year">1st Year</TabsTrigger>
-                  <TabsTrigger value="second-year">2nd Year</TabsTrigger>
-                  <TabsTrigger value="third-year">3rd Year</TabsTrigger>
-                  <TabsTrigger value="fourth-year">4th Year</TabsTrigger>
-                </TabsList>
-                
-                {/* 1st Year Students */}
-                <TabsContent value="first-year">
-                  {isLoading ? (
-                    <div className="text-center py-4">Loading...</div>
-                  ) : firstYearStudents.length > 0 ? (
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Name</TableHead>
-                          <TableHead>Email</TableHead>
-                          <TableHead className="text-right">Actions</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {firstYearStudents.map((student) => (
-                          <TableRow key={student.id}>
-                            <TableCell className="font-medium">
-                              {student.firstName} {student.lastName}
-                            </TableCell>
-                            <TableCell>{student.email}</TableCell>
-                            <TableCell className="text-right">
-                              <Button variant="outline" size="sm" asChild>
-                                <Link href={`/admin/departments/${params.id}/members/${student.id}`}>
-                                  View Profile
-                                </Link>
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  ) : (
-                    <div className="text-center py-4 text-gray-500">
-                      No 1st year students found in this department
+              {isLoading ? (
+                <div className="text-center py-4">Loading students...</div>
+              ) : (
+                <div className="space-y-6">
+                  {/* 1st Year Students */}
+                  <div className="border rounded-md overflow-hidden">
+                    <div 
+                      className="bg-gray-50 p-3 flex items-center justify-between cursor-pointer hover:bg-gray-100"
+                      onClick={() => toggleYearSection('first')}
+                    >
+                      <h3 className="text-lg font-medium text-blue-700 flex items-center">
+                        <GraduationCap className="h-5 w-5 mr-2" />
+                        1st Year Students
+                        <Badge className="ml-2 bg-blue-100 text-blue-800">
+                          {firstYearStudents.length}
+                        </Badge>
+                      </h3>
+                      <ChevronRight 
+                        className={`h-5 w-5 text-gray-400 transition-transform duration-200 ${yearSectionState.first ? 'rotate-90' : ''}`} 
+                      />
                     </div>
-                  )}
-                </TabsContent>
-                
-                {/* 2nd Year Students */}
-                <TabsContent value="second-year">
-                  {isLoading ? (
-                    <div className="text-center py-4">Loading...</div>
-                  ) : secondYearStudents.length > 0 ? (
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Name</TableHead>
-                          <TableHead>Email</TableHead>
-                          <TableHead className="text-right">Actions</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {secondYearStudents.map((student) => (
-                          <TableRow key={student.id}>
-                            <TableCell className="font-medium">
-                              {student.firstName} {student.lastName}
-                            </TableCell>
-                            <TableCell>{student.email}</TableCell>
-                            <TableCell className="text-right">
-                              <Button variant="outline" size="sm" asChild>
-                                <Link href={`/admin/departments/${params.id}/members/${student.id}`}>
-                                  View Profile
-                                </Link>
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  ) : (
-                    <div className="text-center py-4 text-gray-500">
-                      No 2nd year students found in this department
+                    
+                    {yearSectionState.first && (
+                      <div className="p-2">
+                        {firstYearStudents.length > 0 ? (
+                          <>
+                            <Table>
+                              <TableHeader>
+                                <TableRow>
+                                  <TableHead>Name</TableHead>
+                                  <TableHead>Email</TableHead>
+                                  <TableHead className="text-right">Actions</TableHead>
+                                </TableRow>
+                              </TableHeader>
+                              <TableBody>
+                                {getPaginatedStudents(firstYearStudents, 'first').map((student) => (
+                                  <TableRow key={student.id}>
+                                    <TableCell className="font-medium">
+                                      {student.firstName} {student.lastName}
+                                    </TableCell>
+                                    <TableCell>{student.email}</TableCell>
+                                    <TableCell className="text-right">
+                                      <Button variant="outline" size="sm" asChild>
+                                        <Link href={`/admin/departments/${params.id}/members/${student.id}`}>
+                                          View Profile
+                                        </Link>
+                                      </Button>
+                                    </TableCell>
+                                  </TableRow>
+                                ))}
+                              </TableBody>
+                            </Table>
+                            
+                            {/* Pagination for 1st year */}
+                            {firstYearStudents.length > studentsPerPage && (
+                              <div className="flex justify-center items-center space-x-2 mt-4">
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  onClick={() => handlePageChange('first', paginationState.first - 1)}
+                                  disabled={paginationState.first === 1}
+                                >
+                                  Previous
+                                </Button>
+                                <span className="text-sm text-gray-600">
+                                  Page {paginationState.first} of {Math.ceil(firstYearStudents.length / studentsPerPage)}
+                                </span>
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  onClick={() => handlePageChange('first', paginationState.first + 1)}
+                                  disabled={paginationState.first >= Math.ceil(firstYearStudents.length / studentsPerPage)}
+                                >
+                                  Next
+                                </Button>
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          <div className="text-center py-4 text-gray-500 bg-gray-50 rounded-md">
+                            No 1st year students found in this department
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 2nd Year Students */}
+                  <div className="border rounded-md overflow-hidden">
+                    <div 
+                      className="bg-gray-50 p-3 flex items-center justify-between cursor-pointer hover:bg-gray-100"
+                      onClick={() => toggleYearSection('second')}
+                    >
+                      <h3 className="text-lg font-medium text-blue-700 flex items-center">
+                        <GraduationCap className="h-5 w-5 mr-2" />
+                        2nd Year Students
+                        <Badge className="ml-2 bg-blue-100 text-blue-800">
+                          {secondYearStudents.length}
+                        </Badge>
+                      </h3>
+                      <ChevronRight 
+                        className={`h-5 w-5 text-gray-400 transition-transform duration-200 ${yearSectionState.second ? 'rotate-90' : ''}`} 
+                      />
                     </div>
-                  )}
-                </TabsContent>
-                
-                {/* 3rd Year Students */}
-                <TabsContent value="third-year">
-                  {isLoading ? (
-                    <div className="text-center py-4">Loading...</div>
-                  ) : thirdYearStudents.length > 0 ? (
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Name</TableHead>
-                          <TableHead>Email</TableHead>
-                          <TableHead className="text-right">Actions</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {thirdYearStudents.map((student) => (
-                          <TableRow key={student.id}>
-                            <TableCell className="font-medium">
-                              {student.firstName} {student.lastName}
-                            </TableCell>
-                            <TableCell>{student.email}</TableCell>
-                            <TableCell className="text-right">
-                              <Button variant="outline" size="sm" asChild>
-                                <Link href={`/admin/departments/${params.id}/members/${student.id}`}>
-                                  View Profile
-                                </Link>
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  ) : (
-                    <div className="text-center py-4 text-gray-500">
-                      No 3rd year students found in this department
+                    
+                    {yearSectionState.second && (
+                      <div className="p-2">
+                        {secondYearStudents.length > 0 ? (
+                          <>
+                            <Table>
+                              <TableHeader>
+                                <TableRow>
+                                  <TableHead>Name</TableHead>
+                                  <TableHead>Email</TableHead>
+                                  <TableHead className="text-right">Actions</TableHead>
+                                </TableRow>
+                              </TableHeader>
+                              <TableBody>
+                                {getPaginatedStudents(secondYearStudents, 'second').map((student) => (
+                                  <TableRow key={student.id}>
+                                    <TableCell className="font-medium">
+                                      {student.firstName} {student.lastName}
+                                    </TableCell>
+                                    <TableCell>{student.email}</TableCell>
+                                    <TableCell className="text-right">
+                                      <Button variant="outline" size="sm" asChild>
+                                        <Link href={`/admin/departments/${params.id}/members/${student.id}`}>
+                                          View Profile
+                                        </Link>
+                                      </Button>
+                                    </TableCell>
+                                  </TableRow>
+                                ))}
+                              </TableBody>
+                            </Table>
+                            
+                            {/* Pagination for 2nd year */}
+                            {secondYearStudents.length > studentsPerPage && (
+                              <div className="flex justify-center items-center space-x-2 mt-4">
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  onClick={() => handlePageChange('second', paginationState.second - 1)}
+                                  disabled={paginationState.second === 1}
+                                >
+                                  Previous
+                                </Button>
+                                <span className="text-sm text-gray-600">
+                                  Page {paginationState.second} of {Math.ceil(secondYearStudents.length / studentsPerPage)}
+                                </span>
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  onClick={() => handlePageChange('second', paginationState.second + 1)}
+                                  disabled={paginationState.second >= Math.ceil(secondYearStudents.length / studentsPerPage)}
+                                >
+                                  Next
+                                </Button>
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          <div className="text-center py-4 text-gray-500 bg-gray-50 rounded-md">
+                            No 2nd year students found in this department
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 3rd Year Students */}
+                  <div className="border rounded-md overflow-hidden">
+                    <div 
+                      className="bg-gray-50 p-3 flex items-center justify-between cursor-pointer hover:bg-gray-100"
+                      onClick={() => toggleYearSection('third')}
+                    >
+                      <h3 className="text-lg font-medium text-blue-700 flex items-center">
+                        <GraduationCap className="h-5 w-5 mr-2" />
+                        3rd Year Students
+                        <Badge className="ml-2 bg-blue-100 text-blue-800">
+                          {thirdYearStudents.length}
+                        </Badge>
+                      </h3>
+                      <ChevronRight 
+                        className={`h-5 w-5 text-gray-400 transition-transform duration-200 ${yearSectionState.third ? 'rotate-90' : ''}`} 
+                      />
                     </div>
-                  )}
-                </TabsContent>
-                
-                {/* 4th Year Students */}
-                <TabsContent value="fourth-year">
-                  {isLoading ? (
-                    <div className="text-center py-4">Loading...</div>
-                  ) : fourthYearStudents.length > 0 ? (
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead>Name</TableHead>
-                          <TableHead>Email</TableHead>
-                          <TableHead className="text-right">Actions</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {fourthYearStudents.map((student) => (
-                          <TableRow key={student.id}>
-                            <TableCell className="font-medium">
-                              {student.firstName} {student.lastName}
-                            </TableCell>
-                            <TableCell>{student.email}</TableCell>
-                            <TableCell className="text-right">
-                              <Button variant="outline" size="sm" asChild>
-                                <Link href={`/admin/departments/${params.id}/members/${student.id}`}>
-                                  View Profile
-                                </Link>
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  ) : (
-                    <div className="text-center py-4 text-gray-500">
-                      No 4th year students found in this department
+                    
+                    {yearSectionState.third && (
+                      <div className="p-2">
+                        {thirdYearStudents.length > 0 ? (
+                          <>
+                            <Table>
+                              <TableHeader>
+                                <TableRow>
+                                  <TableHead>Name</TableHead>
+                                  <TableHead>Email</TableHead>
+                                  <TableHead className="text-right">Actions</TableHead>
+                                </TableRow>
+                              </TableHeader>
+                              <TableBody>
+                                {getPaginatedStudents(thirdYearStudents, 'third').map((student) => (
+                                  <TableRow key={student.id}>
+                                    <TableCell className="font-medium">
+                                      {student.firstName} {student.lastName}
+                                    </TableCell>
+                                    <TableCell>{student.email}</TableCell>
+                                    <TableCell className="text-right">
+                                      <Button variant="outline" size="sm" asChild>
+                                        <Link href={`/admin/departments/${params.id}/members/${student.id}`}>
+                                          View Profile
+                                        </Link>
+                                      </Button>
+                                    </TableCell>
+                                  </TableRow>
+                                ))}
+                              </TableBody>
+                            </Table>
+                            
+                            {/* Pagination for 3rd year */}
+                            {thirdYearStudents.length > studentsPerPage && (
+                              <div className="flex justify-center items-center space-x-2 mt-4">
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  onClick={() => handlePageChange('third', paginationState.third - 1)}
+                                  disabled={paginationState.third === 1}
+                                >
+                                  Previous
+                                </Button>
+                                <span className="text-sm text-gray-600">
+                                  Page {paginationState.third} of {Math.ceil(thirdYearStudents.length / studentsPerPage)}
+                                </span>
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  onClick={() => handlePageChange('third', paginationState.third + 1)}
+                                  disabled={paginationState.third >= Math.ceil(thirdYearStudents.length / studentsPerPage)}
+                                >
+                                  Next
+                                </Button>
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          <div className="text-center py-4 text-gray-500 bg-gray-50 rounded-md">
+                            No 3rd year students found in this department
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* 4th Year Students */}
+                  <div className="border rounded-md overflow-hidden">
+                    <div 
+                      className="bg-gray-50 p-3 flex items-center justify-between cursor-pointer hover:bg-gray-100"
+                      onClick={() => toggleYearSection('fourth')}
+                    >
+                      <h3 className="text-lg font-medium text-blue-700 flex items-center">
+                        <GraduationCap className="h-5 w-5 mr-2" />
+                        4th Year Students
+                        <Badge className="ml-2 bg-blue-100 text-blue-800">
+                          {fourthYearStudents.length}
+                        </Badge>
+                      </h3>
+                      <ChevronRight 
+                        className={`h-5 w-5 text-gray-400 transition-transform duration-200 ${yearSectionState.fourth ? 'rotate-90' : ''}`} 
+                      />
                     </div>
-                  )}
-                </TabsContent>
-              </Tabs>
+                    
+                    {yearSectionState.fourth && (
+                      <div className="p-2">
+                        {fourthYearStudents.length > 0 ? (
+                          <>
+                            <Table>
+                              <TableHeader>
+                                <TableRow>
+                                  <TableHead>Name</TableHead>
+                                  <TableHead>Email</TableHead>
+                                  <TableHead className="text-right">Actions</TableHead>
+                                </TableRow>
+                              </TableHeader>
+                              <TableBody>
+                                {getPaginatedStudents(fourthYearStudents, 'fourth').map((student) => (
+                                  <TableRow key={student.id}>
+                                    <TableCell className="font-medium">
+                                      {student.firstName} {student.lastName}
+                                    </TableCell>
+                                    <TableCell>{student.email}</TableCell>
+                                    <TableCell className="text-right">
+                                      <Button variant="outline" size="sm" asChild>
+                                        <Link href={`/admin/departments/${params.id}/members/${student.id}`}>
+                                          View Profile
+                                        </Link>
+                                      </Button>
+                                    </TableCell>
+                                  </TableRow>
+                                ))}
+                              </TableBody>
+                            </Table>
+                            
+                            {/* Pagination for 4th year */}
+                            {fourthYearStudents.length > studentsPerPage && (
+                              <div className="flex justify-center items-center space-x-2 mt-4">
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  onClick={() => handlePageChange('fourth', paginationState.fourth - 1)}
+                                  disabled={paginationState.fourth === 1}
+                                >
+                                  Previous
+                                </Button>
+                                <span className="text-sm text-gray-600">
+                                  Page {paginationState.fourth} of {Math.ceil(fourthYearStudents.length / studentsPerPage)}
+                                </span>
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  onClick={() => handlePageChange('fourth', paginationState.fourth + 1)}
+                                  disabled={paginationState.fourth >= Math.ceil(fourthYearStudents.length / studentsPerPage)}
+                                >
+                                  Next
+                                </Button>
+                              </div>
+                            )}
+                          </>
+                        ) : (
+                          <div className="text-center py-4 text-gray-500 bg-gray-50 rounded-md">
+                            No 4th year students found in this department
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
