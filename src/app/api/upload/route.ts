@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import { mkdir, writeFile } from 'fs/promises';
 import { existsSync } from 'fs';
 import path from 'path';
+import { put } from '@vercel/blob';
 
-// Declare the global in-memory storage
+// Declare the global in-memory storage (we'll still use this for development)
 declare global {
   var inMemoryFileStorage: Map<string, Buffer>;
 }
@@ -62,10 +63,22 @@ export async function POST(request: NextRequest) {
     let fileUrl = '';
     
     if (isProduction) {
-      // In production, store in memory
-      console.log("Using in-memory storage (production environment)");
-      global.inMemoryFileStorage.set(fileName, buffer);
-      fileUrl = `/api/files/${fileName}`;
+      // In production, use Vercel Blob Storage
+      console.log("Using Vercel Blob Storage (production environment)");
+      try {
+        const blob = await put(fileName, buffer, {
+          contentType: file.type,
+          access: 'public',
+        });
+        fileUrl = blob.url;
+        console.log("File uploaded to Vercel Blob:", fileUrl);
+      } catch (blobError) {
+        console.error("Error uploading to Vercel Blob:", blobError);
+        return NextResponse.json(
+          { success: false, message: 'Error uploading file to storage' },
+          { status: 500 }
+        );
+      }
     } else {
       // In development, store on filesystem
       console.log("Using filesystem storage (development environment)");

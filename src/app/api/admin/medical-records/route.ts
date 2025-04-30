@@ -65,15 +65,9 @@ export async function POST(request: NextRequest) {
         throw new Error("Invalid record data: missing file path or form type");
       }
       
-      // If the file path doesn't contain "records" directory, we need to move it
-      let filePath = file.filePath;
-      if (!filePath.includes('/uploads/records/')) {
-        // File is in a different directory, copy it to records
-        // For now we'll just update the path in the database
-        // In a real application, you would copy the file
-        const fileName = filePath.split('/').pop();
-        filePath = `/uploads/records/${fileName}`;
-      }
+      // Use the original filePath as is - no need to modify for Vercel Blob URLs
+      // Vercel Blob URLs are already properly formatted for direct access
+      const filePath = file.filePath;
       
       const savedRecord = await prisma.uploadedForm.create({
         data: {

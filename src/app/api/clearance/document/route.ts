@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import path from 'path';
+import { put } from '@vercel/blob';
 
 // Declare the global in-memory storage
 declare global {
@@ -69,9 +70,21 @@ export async function POST(req: NextRequest) {
     let publicUrl = '';
     
     if (isProduction) {
-      // In production, store in memory
-      global.inMemoryFileStorage.set(fileName, buffer);
-      publicUrl = `/api/files/${fileName}`;
+      // In production, use Vercel Blob Storage
+      try {
+        const blob = await put(fileName, buffer, {
+          contentType: file.type,
+          access: 'public',
+        });
+        publicUrl = blob.url;
+        console.log("File uploaded to Vercel Blob:", publicUrl);
+      } catch (blobError) {
+        console.error("Error uploading to Vercel Blob:", blobError);
+        return NextResponse.json(
+          { error: 'Error uploading file to storage' },
+          { status: 500 }
+        );
+      }
     } else {
       // In development, use filesystem approach
       publicUrl = `/uploads/clearance/${fileName}`;

@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import path from 'path';
+import { put } from '@vercel/blob';
 
-// Declare the global in-memory storage (same as used in api/upload/route.ts)
+// Declare the global in-memory storage (for development environment only)
 declare global {
   var inMemoryFileStorage: Map<string, Buffer>;
 }
@@ -70,7 +71,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'No files provided' }, { status: 400 });
     }
     
-    // Process files using in-memory approach for Vercel compatibility
+    // Process files
     const fileUrls: string[] = [];
     const isProduction = process.env.VERCEL === '1' || process.env.NODE_ENV === 'production';
     
@@ -86,9 +87,21 @@ export async function POST(req: NextRequest) {
       let fileUrl = '';
       
       if (isProduction) {
-        // In production (Vercel), store in memory
-        global.inMemoryFileStorage.set(fileName, buffer);
-        fileUrl = `/api/files/${fileName}`;
+        // In production, use Vercel Blob Storage
+        try {
+          const blob = await put(fileName, buffer, {
+            contentType: file.type,
+            access: 'public',
+          });
+          fileUrl = blob.url;
+          console.log("File uploaded to Vercel Blob:", fileUrl);
+        } catch (blobError) {
+          console.error("Error uploading to Vercel Blob:", blobError);
+          return NextResponse.json(
+            { error: 'Error uploading file to storage' },
+            { status: 500 }
+          );
+        }
       } else {
         // In development, use the filesystem approach (keep this for local dev)
         fileUrl = `/uploads/clearances/${fileName}`;
@@ -99,38 +112,29 @@ export async function POST(req: NextRequest) {
       fileUrls.push(fileUrl);
     }
     
-    // Create a comma-separated string of document URLs or append to existing
-    let documentUrl = clearanceRequest.documentUrl || '';
-    
-    if (documentUrl && fileUrls.length > 0) {
-      documentUrl += ',' + fileUrls.join(',');
-    } else if (fileUrls.length > 0) {
-      documentUrl = fileUrls.join(',');
-    }
-    
-    // Update the clearance request with document URLs and status
-    const updatedRequest = await prisma.clearanceRequest.update({
+    // Update the clearance request with new document URLs and additional info
+    const updatedClearanceRequest = await prisma.clearanceRequest.update({
       where: { id: requestId },
       data: {
-        documentUrl: documentUrl,
-        status: 'APPROVED', // Automatically set to approved upon document upload
-        additionalInfo: additionalInfo || undefined,
+        documentUrl: fileUrls.join(','), // Store multiple file URLs as comma-separated string
+        additionalInfo,
         updatedAt: new Date()
       }
     });
     
     return NextResponse.json({
       success: true,
-      clearanceRequest: updatedRequest,
-      uploadedFiles: fileUrls,
-      fileDetails: fileInfos
-    }, { status: 200 });
+      message: `Successfully uploaded ${files.length} files`,
+      clearanceRequest: updatedClearanceRequest,
+      fileInfos,
+      fileUrls
+    });
     
   } catch (error) {
-    console.error('Error processing clearance documents:', error);
-    return NextResponse.json({ 
-      error: 'Internal server error',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    }, { status: 500 });
+    console.error("Error uploading clearance files:", error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Unknown error occurred' },
+      { status: 500 }
+    );
   }
 } 

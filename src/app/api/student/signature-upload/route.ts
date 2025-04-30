@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { v4 as uuidv4 } from 'uuid'
 import path from 'path'
 import { prisma } from '@/lib/prisma'
+import { put } from '@vercel/blob'
 
 // Declare the global in-memory storage
 declare global {
@@ -50,9 +51,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 })
     }
     
+    // Check if the user is a student
+    if (user.role !== 'STUDENT') {
+      return NextResponse.json({ error: "User is not a student" }, { status: 403 })
+    }
+    
     // Create a unique filename
     const uniqueId = uuidv4()
-    const fileName = `signature-${userId}-${uniqueId}.png`
+    const fileName = `signature-student-${userId}-${uniqueId}.png`
     let publicPath = ''
     
     try {
@@ -60,9 +66,21 @@ export async function POST(req: NextRequest) {
       const imageBuffer = decodeBase64Image(signature)
       
       if (isProduction) {
-        // In production (Vercel), store in memory
-        global.inMemoryFileStorage.set(fileName, imageBuffer)
-        publicPath = `/api/files/${fileName}`
+        // In production, use Vercel Blob Storage
+        try {
+          const blob = await put(fileName, imageBuffer, {
+            contentType: 'image/png',
+            access: 'public',
+          });
+          publicPath = blob.url;
+          console.log("Student signature uploaded to Vercel Blob:", publicPath);
+        } catch (blobError) {
+          console.error("Error uploading to Vercel Blob:", blobError);
+          return NextResponse.json(
+            { error: 'Error uploading signature to storage' },
+            { status: 500 }
+          );
+        }
       } else {
         // For development, still use the in-memory approach for consistency
         global.inMemoryFileStorage.set(fileName, imageBuffer)
