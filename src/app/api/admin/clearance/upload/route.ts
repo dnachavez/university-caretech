@@ -112,19 +112,20 @@ export async function POST(req: NextRequest) {
       fileUrls.push(fileUrl);
     }
     
-    // Update the clearance request with new document URLs and additional info
+    // Update the clearance request with new document URLs, additional info, and set status to APPROVED
     const updatedClearanceRequest = await prisma.clearanceRequest.update({
       where: { id: requestId },
       data: {
         documentUrl: fileUrls.join(','), // Store multiple file URLs as comma-separated string
         additionalInfo,
+        status: 'APPROVED', // Set status to APPROVED when documents are uploaded
         updatedAt: new Date()
       }
     });
     
     return NextResponse.json({
       success: true,
-      message: `Successfully uploaded ${files.length} files`,
+      message: `Successfully uploaded ${files.length} files and approved clearance request`,
       clearanceRequest: updatedClearanceRequest,
       fileInfos,
       fileUrls
